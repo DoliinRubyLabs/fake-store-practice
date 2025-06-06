@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+
 import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
@@ -21,14 +22,7 @@ const nextConfig: NextConfig = {
     clientRouterFilterRedirects: true,
     optimizeServerReact: true,
 
-    optimizePackageImports: [
-      '@heroui/react',
-      'framer-motion',
-      'luxon',
-      'react-hook-form',
-      'usehooks-ts',
-      'zustand',
-    ],
+    optimizePackageImports: ['@heroui/react', 'framer-motion', 'luxon', 'react-hook-form', 'usehooks-ts', 'zustand'],
   },
 
   turbopack: {
