@@ -5,12 +5,12 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
-import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Users } from './collections/Users'
+import { Media } from './collection/Media'
+import { Pages } from './collection/Pages'
+import { Users } from './collection/Users'
+import { plugins } from './plugin'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -42,5 +42,5 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [payloadCloudPlugin()],
+  plugins,
 })

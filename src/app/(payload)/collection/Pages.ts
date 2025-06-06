@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
-import { seoField } from '../fields/seo'
-import { slugField } from '../fields/slug'
-import { versionsField } from '../fields/versions'
+import { seoField } from '../field/seo'
+import { slugField } from '../field/slug'
+import { versionsField } from '../field/versions'
 import { authenticated, authenticatedOrPublished } from '../service/access.service'
 
 // pages
