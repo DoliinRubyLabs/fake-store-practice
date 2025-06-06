@@ -12,7 +12,7 @@ export const Users: CollectionConfig = {
     delete: superAdmin,
   },
   admin: {
-    defaultColumns: ['email', 'name', 'role'],
+    defaultColumns: ['email', 'name', 'role', 'createdAt'],
     useAsTitle: 'name',
   },
   auth: true,
