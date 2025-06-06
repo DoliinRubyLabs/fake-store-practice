@@ -22,7 +22,7 @@ const makeQueryClient = () => {
 }
 
 // query client
-export const queryClient = () => {
+export const getQueryClient = () => {
   if (isServer) {
     return makeQueryClient()
   } else {
