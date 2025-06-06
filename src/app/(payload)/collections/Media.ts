@@ -17,7 +17,7 @@ export const Media: CollectionConfig = {
   },
   labels: {
     singular: 'Media',
-    plural: 'Media Storage',
+    plural: 'Medias',
   },
   fields: [
     {
