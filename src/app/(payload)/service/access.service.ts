@@ -4,10 +4,10 @@ import type { Access } from 'payload'
 export const anyone: Access = () => true
 
 // authenticated
-export const authenticated: Access = ({ req: { user } }) => Boolean(user)
+export const authenticated: Access = ({ req: { user } }) => Boolean(user?.role === 'admin' || user?.role === 'root')
 
 // super admin
-export const superAdmin: Access = ({ req: { user } }) => Boolean(user)
+export const superAdmin: Access = ({ req: { user } }) => Boolean(user?.role === 'root')
 
 // authenticated or published
 export const authenticatedOrPublished: Access = ({ req: { user } }) => {

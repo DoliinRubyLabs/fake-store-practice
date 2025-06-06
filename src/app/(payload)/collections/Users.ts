@@ -17,8 +17,8 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   labels: {
-    singular: 'User',
-    plural: 'Users',
+    singular: 'Admin',
+    plural: 'Admins',
   },
   fields: [
     {
