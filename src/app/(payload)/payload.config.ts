@@ -10,6 +10,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { Media } from './collection/Media'
 import { Pages } from './collection/Pages'
 import { Users } from './collection/Users'
+import { locales } from './constant/locale.constant'
 import { plugins } from './plugin'
 
 const filename = fileURLToPath(import.meta.url)
@@ -43,4 +44,5 @@ export default buildConfig({
   }),
   sharp,
   plugins,
+  localization: locales,
 })

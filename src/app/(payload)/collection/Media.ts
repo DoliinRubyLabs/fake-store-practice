@@ -23,7 +23,8 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      defaultValue: 'Image',
+      defaultValue: 'image',
+      localized: true,
     },
   ],
   upload: true,

@@ -15,7 +15,7 @@ export const Pages: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    defaultColumns: ['name', 'slug', 'status', 'createdAt'],
+    defaultColumns: ['name', 'slug', '_status', 'createdAt'],
     useAsTitle: 'name',
     group: 'Content',
   },
@@ -29,22 +29,26 @@ export const Pages: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Name',
+      localized: true,
     },
     {
       name: 'title',
       type: 'text',
       label: 'Title',
+      localized: true,
     },
     {
       name: 'subTitle',
       type: 'text',
       label: 'Sub Title',
+      localized: true,
     },
     {
       name: 'mainImage',
       type: 'upload',
       relationTo: 'media',
       label: 'Main Image',
+      localized: true,
     },
     {
       type: 'tabs',
