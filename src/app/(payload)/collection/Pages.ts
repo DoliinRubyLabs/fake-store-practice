@@ -59,7 +59,7 @@ export const Pages: CollectionConfig = {
             {
               name: 'sections',
               type: 'array',
-              fields: [{ name: 'section', type: 'relationship', relationTo: 'sections' }],
+              fields: [{ name: 'section', type: 'relationship', relationTo: 'sections', maxDepth: 2 }],
             },
           ],
         },

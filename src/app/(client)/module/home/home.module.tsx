@@ -1,9 +1,6 @@
-import Link from 'next/link'
-
-import { Button } from '@heroui/button'
+import Image from 'next/image'
 
 import { ContainerComponent } from '@/app/(client)/shared/component/container'
-import { LogoComponent } from '@/app/(client)/shared/component/logo'
 
 import { getHomeService } from './home.service'
 
@@ -16,16 +13,34 @@ const HomeModule: React.FC<IProps> = async () => {
 
   // return
   return (
-    <ContainerComponent className={'items-center justify-center'}>
-      <LogoComponent w={100} h={100} />
+    <ContainerComponent>
+      <div className={'mt-8 w-full'}>
+        <div className={'grid gap-2'}>
+          <h1 className={'text-center text-3xl font-bold'}>{thisService.data?.title}</h1>
 
-      {!thisService.user && <h1>Welcome to your new project.</h1>}
+          <p className={'text-center text-xl'}>{thisService.data?.subTitle}</p>
+        </div>
 
-      {thisService.user && <h1>Welcome back, {thisService.user.email}</h1>}
+        <div className={'relative mt-4 h-[400px] w-full overflow-hidden rounded-large'}>
+          <Image
+            src={thisService.data?.mainImage?.url || ''}
+            alt={thisService.data?.mainImage?.alt || 'image'}
+            fill
+            className={'object-cover'}
+            quality={100}
+            priority
+          />
+        </div>
+      </div>
 
-      <Button as={Link} href={thisService.payloadConfig.routes.admin} rel={'noopener noreferrer'} target={'_blank'}>
-        Go to admin panel
-      </Button>
+      <div className={'mt-8 w-full'}>
+        {thisService.data?.sections?.map(({ section }) => (
+          <div key={section?.id || ''} className={'grid gap-2'}>
+            <h2 className={'text-2xl font-bold'}>{section?.title || ''}</h2>
+            <p className={'text-xl'}>{section?.subTitle || ''}</p>
+          </div>
+        ))}
+      </div>
     </ContainerComponent>
   )
 }
