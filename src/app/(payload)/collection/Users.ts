@@ -15,6 +15,7 @@ export const Users: CollectionConfig = {
     defaultColumns: ['email', 'name', 'role', 'createdAt'],
     useAsTitle: 'name',
     group: 'System',
+    hideAPIURL: true,
   },
   auth: true,
   labels: {
@@ -25,6 +26,9 @@ export const Users: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'role',
@@ -34,6 +38,9 @@ export const Users: CollectionConfig = {
         { label: 'Super Admin', value: 'root' },
       ],
       defaultValue: 'admin',
+      admin: {
+        position: 'sidebar',
+      },
     },
   ],
 }
