@@ -35,5 +35,4 @@ export const Users: CollectionConfig = {
       defaultValue: 'admin',
     },
   ],
-  timestamps: true,
 }
