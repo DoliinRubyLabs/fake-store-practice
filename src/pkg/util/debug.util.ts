@@ -1,0 +1,15 @@
+// interface
+interface IDebugUtil {
+  text: string
+  value: unknown
+  isActiveOnProd?: boolean
+}
+
+// debug
+export const debugUtil = (props: IDebugUtil) => {
+  const { text, value, isActiveOnProd = false } = props
+
+  if (process.env.NODE_ENV !== 'production' || isActiveOnProd) {
+    console.log(`Debug [${text}]: ${JSON.stringify(value, null, 2)}`)
+  }
+}

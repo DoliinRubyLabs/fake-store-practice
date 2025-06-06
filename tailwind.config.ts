@@ -13,7 +13,7 @@ const config: Config = {
       layout: {
         dividerWeight: '1px',
         disabledOpacity: 0.55,
-        borderWidth: { small: '1px', medium: '1px', large: '3px' },
+        borderWidth: { small: '1px', medium: '1px', large: '2px' },
       },
     }),
   ],
