@@ -20,6 +20,20 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    routes: {
+      createFirstUser: '/create-root-user',
+    },
+    meta: {
+      title: 'Admin Panel',
+      description: 'RLabs Admin Panel',
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/png',
+          url: '/favicon.png',
+        },
+      ],
+    },
   },
   collections: [Users, Media],
   editor: lexicalEditor(),
@@ -33,8 +47,5 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [
-    payloadCloudPlugin(),
-    // storage-adapter-placeholder
-  ],
+  plugins: [payloadCloudPlugin()],
 })

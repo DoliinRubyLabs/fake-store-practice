@@ -1,7 +1,7 @@
 import { headers as getHeaders } from 'next/headers.js'
 import { getPayload } from 'payload'
 
-import config from '@/payload.config'
+import config from '@/app/(payload)/payload.config'
 
 // service
 export const getHomeService = async () => {
