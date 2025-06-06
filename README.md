@@ -5,6 +5,7 @@
 ### Host Machine Requirements:
 - NodeJS 22.x
 - Yarn 1.22.22
+- Docker
 
 ### Quick commands
 #### Quick Start
