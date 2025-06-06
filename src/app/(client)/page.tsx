@@ -1,17 +1,21 @@
 import { headers as getHeaders } from 'next/headers.js'
 import Image from 'next/image'
 import { getPayload } from 'payload'
+import { FC } from 'react'
 
 import config from '@/payload.config'
 
-import './styles.css'
+// interface
+interface IProps {}
 
-export default async function HomePage() {
+// component
+const Page: FC<Readonly<IProps>> = async () => {
   const headers = await getHeaders()
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
 
+  // return
   return (
     <div className='home'>
       <div className='content'>
@@ -38,3 +42,5 @@ export default async function HomePage() {
     </div>
   )
 }
+
+export default Page
