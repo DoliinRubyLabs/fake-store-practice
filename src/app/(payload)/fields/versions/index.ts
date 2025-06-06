@@ -7,7 +7,6 @@ export const versionsField = (): boolean | IncomingCollectionVersions => {
       autosave: {
         interval: 100,
       },
-      schedulePublish: true,
     },
     maxPerDoc: 50,
   }

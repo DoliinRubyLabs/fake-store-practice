@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload'
 
-import { publishedField } from '../fields/published'
 import { seoField } from '../fields/seo'
 import { slugField } from '../fields/slug'
 import { versionsField } from '../fields/versions'
@@ -16,13 +15,9 @@ export const Pages: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'status', 'createdAt'],
-    useAsTitle: 'title',
+    defaultColumns: ['name', 'slug', 'status', 'createdAt'],
+    useAsTitle: 'name',
     group: 'Content',
-  },
-  defaultPopulate: {
-    title: true,
-    slug: true,
   },
   labels: {
     singular: 'Page',
@@ -30,17 +25,30 @@ export const Pages: CollectionConfig = {
   },
   fields: [
     {
-      name: 'title',
+      name: 'name',
       type: 'text',
       required: true,
+      label: 'Name',
+    },
+    {
+      name: 'title',
+      type: 'text',
+      label: 'Title',
+    },
+    {
+      name: 'subTitle',
+      type: 'text',
+      label: 'Sub Title',
+    },
+    {
+      name: 'mainImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Main Image',
     },
     {
       type: 'tabs',
       tabs: [
-        {
-          label: 'Hero',
-          fields: [],
-        },
         {
           label: 'Content',
           fields: [],
@@ -52,7 +60,6 @@ export const Pages: CollectionConfig = {
         },
       ],
     },
-    publishedField(),
     ...slugField(),
   ],
   versions: versionsField(),
