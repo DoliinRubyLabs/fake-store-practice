@@ -14,6 +14,7 @@ export const Users: CollectionConfig = {
   admin: {
     defaultColumns: ['email', 'name', 'role', 'createdAt'],
     useAsTitle: 'name',
+    group: 'System',
   },
   auth: true,
   labels: {

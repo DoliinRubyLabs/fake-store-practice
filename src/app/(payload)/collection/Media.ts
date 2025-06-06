@@ -14,6 +14,7 @@ export const Media: CollectionConfig = {
   admin: {
     defaultColumns: ['filename', 'mimeType', 'createdAt'],
     useAsTitle: 'filename',
+    group: 'Storage',
   },
   labels: {
     singular: 'Media',

@@ -1,13 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
-import { seoField } from '../field/seo'
-import { slugField } from '../field/slug'
 import { versionsField } from '../field/versions'
 import { authenticated, authenticatedOrPublished } from '../service/access.service'
 
-// pages
-export const Pages: CollectionConfig = {
-  slug: 'pages',
+// sections
+export const Sections: CollectionConfig = {
+  slug: 'sections',
   access: {
     create: authenticated,
     read: authenticatedOrPublished,
@@ -15,13 +13,13 @@ export const Pages: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    defaultColumns: ['name', 'slug', '_status', 'createdAt'],
+    defaultColumns: ['name', '_status', 'createdAt'],
     useAsTitle: 'name',
     group: 'Content',
   },
   labels: {
-    singular: 'Page',
-    plural: 'Pages',
+    singular: 'Section',
+    plural: 'Sections',
   },
   fields: [
     {
@@ -50,27 +48,6 @@ export const Pages: CollectionConfig = {
       label: 'Main Image',
       localized: true,
     },
-    {
-      type: 'tabs',
-      tabs: [
-        {
-          label: 'Content',
-          fields: [
-            {
-              name: 'sections',
-              type: 'array',
-              fields: [{ name: 'section', type: 'relationship', relationTo: 'sections' }],
-            },
-          ],
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: seoField(),
-        },
-      ],
-    },
-    ...slugField(),
   ],
   versions: versionsField(),
 }
