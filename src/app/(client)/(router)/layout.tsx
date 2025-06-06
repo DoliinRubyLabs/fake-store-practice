@@ -1,5 +1,11 @@
 import { FC, ReactNode } from 'react'
 
+import { LayoutModule } from '@/app/(client)/module/layout'
+import { mainFont } from '@/pkg/font'
+import { RestApiProvider } from '@/pkg/library/rest-api'
+import { ScanComponent } from '@/pkg/library/scan'
+import { UiProvider } from '@/pkg/library/ui'
+
 import '@/pkg/style/globals.css'
 
 export const metadata = {
@@ -19,8 +25,14 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
   // return
   return (
     <html lang={'en'}>
-      <body>
-        <main>{children}</main>
+      <ScanComponent />
+
+      <body className={`${mainFont.className} antialiased`} suppressHydrationWarning>
+        <UiProvider locale={'en'}>
+          <RestApiProvider>
+            <LayoutModule>{children}</LayoutModule>
+          </RestApiProvider>
+        </UiProvider>
       </body>
     </html>
   )

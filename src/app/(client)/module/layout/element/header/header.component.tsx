@@ -7,9 +7,8 @@ import { Button } from '@heroui/button'
 import { Navbar, NavbarContent, NavbarItem, NavbarMenuToggle } from '@heroui/navbar'
 import { cn } from '@heroui/react'
 
-import { SelectThemeComponent } from '@/app/shared/component/select/theme'
-import { ESiteRoute } from '@/app/shared/routes'
-import { deLocalizeHref } from '@/pkg/library/i18n/paraglide/runtime'
+import { SelectThemeComponent } from '@/app/(client)/shared/component/select/theme'
+import { ESiteRoute } from '@/app/(client)/shared/routes/route.interface'
 
 import { BreadcrumbsComponent } from './element/breadcrumbs'
 import { useHeaderService } from './header.service'
@@ -55,7 +54,7 @@ const HeaderComponent: FC<Readonly<IProps>> = () => {
         />
 
         <NavbarItem className={'hidden sm:block'}>
-          {deLocalizeHref(thisService.pathname) !== ESiteRoute.DASHBOARD && <BreadcrumbsComponent />}
+          {thisService.pathname !== ESiteRoute.BASE && <BreadcrumbsComponent />}
         </NavbarItem>
       </NavbarContent>
 

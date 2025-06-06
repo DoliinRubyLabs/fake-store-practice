@@ -1,8 +1,8 @@
 import { usePathname } from 'next/navigation'
 
-import { useConfigQuery } from '@/app/shared/rest-api/api/config'
-import { useConfigMutation } from '@/app/shared/rest-api/api/config'
-import { useGlobalStore } from '@/app/shared/store/global.store'
+import { useConfigQuery } from '@/app/(client)/shared/rest-api/api/config'
+import { useConfigMutation } from '@/app/(client)/shared/rest-api/api/config'
+import { useGlobalStore } from '@/app/(client)/shared/store/global.store'
 import { useScroll } from '@/pkg/hook'
 
 // service
