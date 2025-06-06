@@ -1,6 +1,6 @@
 // storage-adapter-import-placeholder
 import path from 'path'
-import { buildConfig } from 'payload'
+import { buildConfig, PayloadRequest } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
