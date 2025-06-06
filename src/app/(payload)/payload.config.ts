@@ -26,13 +26,6 @@ export default buildConfig({
     meta: {
       title: 'Admin Panel',
       description: 'RLabs Admin Panel',
-      icons: [
-        {
-          rel: 'icon',
-          type: 'image/png',
-          url: '/favicon.png',
-        },
-      ],
     },
   },
   collections: [Users, Media],
