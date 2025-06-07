@@ -5,7 +5,7 @@ import { QueryFunctionContext } from '@tanstack/react-query'
 
 import { cmsApiFetcher } from '@/pkg/library/rest-api'
 
-import { EPageApi } from '../../interface/page.interface'
+import { EPageApi, IHomePageRes } from '../../interface/page.interface'
 
 // api
 export const pagesQueryApi = async (opt: QueryFunctionContext) => {
@@ -16,7 +16,7 @@ export const pagesQueryApi = async (opt: QueryFunctionContext) => {
   const stringifiedQuery = stringify(
     {
       where: query,
-      depth: 2,
+      depth: 1,
       draft: false,
       locale: 'en',
     },
@@ -24,7 +24,7 @@ export const pagesQueryApi = async (opt: QueryFunctionContext) => {
   )
 
   const res = await cmsApiFetcher
-    .get<{ docs: any[] }>(`${EPageApi.API_PAGES}${stringifiedQuery}`, {
+    .get<IHomePageRes>(`${EPageApi.API_PAGES}${stringifiedQuery}`, {
       signal: opt.signal,
       cache: 'force-cache',
       next: { revalidate: 60 },

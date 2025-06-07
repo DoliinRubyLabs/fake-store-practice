@@ -36,8 +36,8 @@ const HomeModule: React.FC<IProps> = () => {
       </div>
 
       <div className={'mt-8 w-full'}>
-        {thisService.data?.sections?.map((data: any) => (
-          <div key={data?.section?.id || ''} className={'grid gap-2'}>
+        {thisService.data?.sections?.map((data, index) => (
+          <div key={`${data?.section?.title}-${index}`} className={'grid gap-2'}>
             <h2 className={'text-2xl font-bold'}>{data?.section?.title || ''}</h2>
             <p className={'text-xl'}>{data?.section?.subTitle || ''}</p>
           </div>

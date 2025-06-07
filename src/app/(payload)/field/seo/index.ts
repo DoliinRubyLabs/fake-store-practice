@@ -1,10 +1,4 @@
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields'
+import { MetaDescriptionField, MetaImageField, MetaTitleField, OverviewField } from '@payloadcms/plugin-seo/fields'
 
 // seo field
 export const seoField = () => {
@@ -17,14 +11,9 @@ export const seoField = () => {
     MetaTitleField({
       hasGenerateFn: true,
     }),
+    MetaDescriptionField({}),
     MetaImageField({
       relationTo: 'media',
-    }),
-    MetaDescriptionField({}),
-    PreviewField({
-      hasGenerateFn: true,
-      titlePath: 'meta.title',
-      descriptionPath: 'meta.description',
     }),
   ]
 }

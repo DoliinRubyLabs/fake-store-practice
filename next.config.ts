@@ -3,7 +3,7 @@ import type { NextConfig } from 'next'
 import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
-  // output: process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development' ? 'standalone' : undefined,
+  output: process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development' ? 'standalone' : undefined,
 
   images: {
     deviceSizes: [460, 1024, 1920, 3840],
