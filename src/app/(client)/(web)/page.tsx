@@ -1,14 +1,26 @@
 import { FC } from 'react'
 
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+
 import { HomeModule } from '@/app/(client)/module/home'
+import { pagesQueryOptions } from '@/app/(client)/shared/rest-api/api/page'
+import { getQueryClient } from '@/pkg/library/rest-api'
 
 // interface
 interface IProps {}
 
 // component
 const Page: FC<Readonly<IProps>> = async () => {
+  const clientQuery = getQueryClient()
+
+  await clientQuery.prefetchQuery(pagesQueryOptions())
+
   // return
-  return <HomeModule />
+  return (
+    <HydrationBoundary state={dehydrate(clientQuery)}>
+      <HomeModule />
+    </HydrationBoundary>
+  )
 }
 
 export default Page

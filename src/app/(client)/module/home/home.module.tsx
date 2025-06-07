@@ -1,15 +1,17 @@
+'use client'
+
 import Image from 'next/image'
 
 import { ContainerComponent } from '@/app/(client)/shared/component/container'
 
-import { getHomeService } from './home.service'
+import { useHomeService } from './home.service'
 
 // interface
 interface IProps {}
 
 // component
-const HomeModule: React.FC<IProps> = async () => {
-  const thisService = await getHomeService()
+const HomeModule: React.FC<IProps> = () => {
+  const thisService = useHomeService()
 
   // return
   return (
@@ -34,10 +36,10 @@ const HomeModule: React.FC<IProps> = async () => {
       </div>
 
       <div className={'mt-8 w-full'}>
-        {thisService.data?.sections?.map(({ section }) => (
-          <div key={section?.id || ''} className={'grid gap-2'}>
-            <h2 className={'text-2xl font-bold'}>{section?.title || ''}</h2>
-            <p className={'text-xl'}>{section?.subTitle || ''}</p>
+        {thisService.data?.sections?.map((data: any) => (
+          <div key={data?.section?.id || ''} className={'grid gap-2'}>
+            <h2 className={'text-2xl font-bold'}>{data?.section?.title || ''}</h2>
+            <p className={'text-xl'}>{data?.section?.subTitle || ''}</p>
           </div>
         ))}
       </div>
