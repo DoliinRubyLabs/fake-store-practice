@@ -5,9 +5,8 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { HomeModule } from '@/app/(client)/module/home'
 import { pagesQueryOptions } from '@/app/(client)/shared/rest-api/api/page'
+import { IHomePage } from '@/app/(client)/shared/rest-api/interface'
 import { getQueryClient } from '@/pkg/library/rest-api'
-
-import { IHomePage } from '../shared/rest-api/interface/page.interface'
 
 // interface
 interface IProps {}

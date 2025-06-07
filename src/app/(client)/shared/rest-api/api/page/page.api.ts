@@ -16,7 +16,7 @@ export const pagesQueryApi = async (opt: QueryFunctionContext) => {
   const stringifiedQuery = stringify(
     {
       where: query,
-      depth: 1,
+      depth: 2,
       draft: false,
       locale: 'en',
     },

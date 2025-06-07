@@ -8,7 +8,7 @@ export enum EPageApi {
 
 interface ISection {
   id: string
-  section: { id: string; title: string; subTitle: string }
+  section: { id: string; title: string; subTitle: string; mainImage?: { url: string; alt?: string } }
 }
 
 interface IMeta {
