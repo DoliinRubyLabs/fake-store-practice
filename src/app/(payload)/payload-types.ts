@@ -176,28 +176,6 @@ export interface Template {
   blocks?:
     | (
         | {
-            title?: string | null;
-            content: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            alignment?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'textContent';
-          }
-        | {
             image?: (number | null) | Media;
             caption?: string | null;
             alt?: string | null;
@@ -453,15 +431,6 @@ export interface TemplatesSelect<T extends boolean = true> {
   blocks?:
     | T
     | {
-        textContent?:
-          | T
-          | {
-              title?: T;
-              content?: T;
-              alignment?: T;
-              id?: T;
-              blockName?: T;
-            };
         imageBlock?:
           | T
           | {

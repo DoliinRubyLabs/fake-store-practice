@@ -1,4 +1,3 @@
-// locale constant
 export const locales = {
   locales: [
     { label: 'English', code: 'en' },

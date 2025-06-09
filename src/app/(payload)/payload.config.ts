@@ -12,7 +12,7 @@ import { Pages } from './collection/Pages'
 import { Sections } from './collection/Sections'
 import { Users } from './collection/Users'
 import { plugins } from './plugin'
-import { locales } from './shared/constant/locale.constant'
+import { locales } from './shared/constant'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
