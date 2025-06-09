@@ -48,6 +48,12 @@ export const Sections: CollectionConfig = {
       label: 'Main Image',
       localized: true,
     },
+    {
+      name: 'content',
+      type: 'richText',
+      label: 'Content',
+      localized: true,
+    },
   ],
   versions: versionsField(),
 }

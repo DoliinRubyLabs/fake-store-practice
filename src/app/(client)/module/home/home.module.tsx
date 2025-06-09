@@ -3,6 +3,7 @@
 import Image from 'next/image'
 
 import { Card, CardBody, Skeleton } from '@heroui/react'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import { ContainerComponent } from '@/app/(client)/shared/component/container'
 
@@ -60,7 +61,6 @@ const HomeModule: React.FC<IProps> = () => {
                   priority
                 />
 
-                {/* Floating gradient overlay */}
                 <div
                   className={
                     'absolute -right-24 -top-24 h-48 w-48 rounded-full bg-gradient-to-br ' +
@@ -98,7 +98,6 @@ const HomeModule: React.FC<IProps> = () => {
             >
               <CardBody className={'relative p-8 md:p-12'}>
                 <div className={'grid gap-8 md:grid-cols-2 md:items-center'}>
-                  {/* Content Section */}
                   <div className={`${index % 2 === 0 ? 'order-1' : 'order-2'} space-y-6`}>
                     <div className={'flex items-center gap-4'}>
                       <div
@@ -127,9 +126,17 @@ const HomeModule: React.FC<IProps> = () => {
                     >
                       {data?.section?.subTitle || ''}
                     </p>
+
+                    <RichText
+                      data={data?.section?.content || ''}
+                      className={
+                        'text-base leading-relaxed text-default-600 ' +
+                        'transition-colors duration-300 group-hover:text-default-700' +
+                        'md:text-lg lg:text-xl'
+                      }
+                    />
                   </div>
 
-                  {/* Image Section */}
                   {data?.section?.mainImage?.url && (
                     <div className={`${index % 2 === 0 ? 'order-2' : 'order-1'}`}>
                       <div
@@ -148,13 +155,12 @@ const HomeModule: React.FC<IProps> = () => {
 
                         <Image
                           src={data?.section?.mainImage?.url || ''}
-                          alt={data?.section?.mainImage?.alt || data?.section?.title || 'section image'}
+                          alt={data?.section?.mainImage?.alt || 'section image'}
                           fill
                           className={
                             'object-cover transition-all duration-700 ' +
                             'group-hover/image:scale-105 group-hover/image:brightness-110'
                           }
-                          quality={85}
                           sizes='(max-width: 768px) 100vw, 50vw'
                         />
 

@@ -176,6 +176,21 @@ export interface Section {
   title?: string | null;
   subTitle?: string | null;
   mainImage?: (number | null) | Media;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -301,6 +316,7 @@ export interface SectionsSelect<T extends boolean = true> {
   title?: T;
   subTitle?: T;
   mainImage?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
