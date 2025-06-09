@@ -68,7 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     pages: Page;
-    sections: Section;
+    templates: Template;
     media: Media;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
@@ -78,7 +78,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
-    sections: SectionsSelect<false> | SectionsSelect<true>;
+    templates: TemplatesSelect<false> | TemplatesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -129,7 +129,7 @@ export interface Page {
   mainImage?: (number | null) | Media;
   sections?:
     | {
-        section?: (number | null) | Section;
+        section?: (number | null) | Template;
         id?: string | null;
       }[]
     | null;
@@ -168,9 +168,9 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sections".
+ * via the `definition` "templates".
  */
-export interface Section {
+export interface Template {
   id: number;
   name: string;
   title?: string | null;
@@ -251,6 +251,34 @@ export interface Section {
             blockName?: string | null;
             blockType: 'formBuilder';
           }
+        | {
+            title?: string | null;
+            videoType: 'youtube' | 'vimeo' | 'upload' | 'url';
+            videoUrl?: string | null;
+            videoFile?: (number | null) | Media;
+            thumbnail?: (number | null) | Media;
+            autoplay?: boolean | null;
+            controls?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'videoBlock';
+          }
+        | {
+            title?: string | null;
+            description?: string | null;
+            buttons: {
+              text: string;
+              url: string;
+              style?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
+              size?: ('small' | 'medium' | 'large') | null;
+              newWindow?: boolean | null;
+              id?: string | null;
+            }[];
+            alignment?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'buttonBlock';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -288,8 +316,8 @@ export interface PayloadLockedDocument {
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'sections';
-        value: number | Section;
+        relationTo: 'templates';
+        value: number | Template;
       } | null)
     | ({
         relationTo: 'media';
@@ -371,9 +399,9 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sections_select".
+ * via the `definition` "templates_select".
  */
-export interface SectionsSelect<T extends boolean = true> {
+export interface TemplatesSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   subTitle?: T;
@@ -447,6 +475,38 @@ export interface SectionsSelect<T extends boolean = true> {
                     recipient?: T;
                     subject?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        videoBlock?:
+          | T
+          | {
+              title?: T;
+              videoType?: T;
+              videoUrl?: T;
+              videoFile?: T;
+              thumbnail?: T;
+              autoplay?: T;
+              controls?: T;
+              id?: T;
+              blockName?: T;
+            };
+        buttonBlock?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              buttons?:
+                | T
+                | {
+                    text?: T;
+                    url?: T;
+                    style?: T;
+                    size?: T;
+                    newWindow?: T;
+                    id?: T;
+                  };
+              alignment?: T;
               id?: T;
               blockName?: T;
             };

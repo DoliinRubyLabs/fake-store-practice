@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload'
 
-import { seoField } from '../field/seo'
-import { slugField } from '../field/slug'
-import { versionsField } from '../field/versions'
-import { authenticated, authenticatedOrPublished } from '../service/access.service'
+import { seoField } from '../shared/field/seo'
+import { slugField } from '../shared/field/slug'
+import { versionsField } from '../shared/field/versions'
+import { authenticated, authenticatedOrPublished } from '../shared/service/access.service'
 
 // pages
 export const Pages: CollectionConfig = {
@@ -58,7 +58,7 @@ export const Pages: CollectionConfig = {
             {
               name: 'sections',
               type: 'array',
-              fields: [{ name: 'section', type: 'relationship', relationTo: 'sections', maxDepth: 2 }],
+              fields: [{ name: 'section', type: 'relationship', relationTo: 'templates', maxDepth: 2 }],
             },
           ],
         },

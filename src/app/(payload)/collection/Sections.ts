@@ -1,11 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
-import { versionsField } from '../field/versions'
-import { authenticated, authenticatedOrPublished } from '../service/access.service'
+import { versionsField } from '../shared/field/versions'
+import { authenticated, authenticatedOrPublished } from '../shared/service/access.service'
 
 // sections
 export const Sections: CollectionConfig = {
-  slug: 'sections',
+  slug: 'templates',
   access: {
     create: authenticated,
     read: authenticatedOrPublished,
@@ -18,8 +18,8 @@ export const Sections: CollectionConfig = {
     group: 'Content',
   },
   labels: {
-    singular: 'Section',
-    plural: 'Sections',
+    singular: 'Template',
+    plural: 'Templates',
   },
   fields: [
     {
@@ -328,6 +328,156 @@ export const Sections: CollectionConfig = {
                   },
                 },
               ],
+            },
+          ],
+        },
+        {
+          slug: 'videoBlock',
+          labels: {
+            singular: 'Video Block',
+            plural: 'Video Blocks',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              label: 'Video Title',
+              localized: true,
+            },
+            {
+              name: 'videoType',
+              type: 'select',
+              label: 'Video Type',
+              required: true,
+              options: [
+                { label: 'YouTube', value: 'youtube' },
+                { label: 'Vimeo', value: 'vimeo' },
+                { label: 'Upload', value: 'upload' },
+                { label: 'URL', value: 'url' },
+              ],
+              defaultValue: 'youtube',
+            },
+            {
+              name: 'videoUrl',
+              type: 'text',
+              label: 'Video URL',
+              admin: {
+                condition: (data, siblingData) =>
+                  siblingData.videoType === 'youtube' ||
+                  siblingData.videoType === 'vimeo' ||
+                  siblingData.videoType === 'url',
+              },
+            },
+            {
+              name: 'videoFile',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Video File',
+              admin: {
+                condition: (data, siblingData) => siblingData.videoType === 'upload',
+              },
+            },
+            {
+              name: 'thumbnail',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Video Thumbnail',
+            },
+            {
+              name: 'autoplay',
+              type: 'checkbox',
+              label: 'Autoplay',
+              defaultValue: false,
+            },
+            {
+              name: 'controls',
+              type: 'checkbox',
+              label: 'Show Controls',
+              defaultValue: true,
+            },
+          ],
+        },
+        {
+          slug: 'buttonBlock',
+          labels: {
+            singular: 'Button Block',
+            plural: 'Button Blocks',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              label: 'Section Title',
+              localized: true,
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              label: 'Description',
+              localized: true,
+            },
+            {
+              name: 'buttons',
+              type: 'array',
+              label: 'Buttons',
+              required: true,
+              minRows: 1,
+              maxRows: 3,
+              fields: [
+                {
+                  name: 'text',
+                  type: 'text',
+                  label: 'Button Text',
+                  required: true,
+                  localized: true,
+                },
+                {
+                  name: 'url',
+                  type: 'text',
+                  label: 'Button URL',
+                  required: true,
+                },
+                {
+                  name: 'style',
+                  type: 'select',
+                  label: 'Button Style',
+                  options: [
+                    { label: 'Primary', value: 'primary' },
+                    { label: 'Secondary', value: 'secondary' },
+                    { label: 'Outline', value: 'outline' },
+                    { label: 'Ghost', value: 'ghost' },
+                  ],
+                  defaultValue: 'primary',
+                },
+                {
+                  name: 'size',
+                  type: 'select',
+                  label: 'Button Size',
+                  options: [
+                    { label: 'Small', value: 'small' },
+                    { label: 'Medium', value: 'medium' },
+                    { label: 'Large', value: 'large' },
+                  ],
+                  defaultValue: 'medium',
+                },
+                {
+                  name: 'newWindow',
+                  type: 'checkbox',
+                  label: 'Open in New Window',
+                  defaultValue: false,
+                },
+              ],
+            },
+            {
+              name: 'alignment',
+              type: 'select',
+              label: 'Alignment',
+              options: [
+                { label: 'Left', value: 'left' },
+                { label: 'Center', value: 'center' },
+                { label: 'Right', value: 'right' },
+              ],
+              defaultValue: 'center',
             },
           ],
         },

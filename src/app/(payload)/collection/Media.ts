@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone, authenticated } from '../service/access.service'
+import { anyone, authenticated } from '../shared/service/access.service'
 
 // media
 export const Media: CollectionConfig = {

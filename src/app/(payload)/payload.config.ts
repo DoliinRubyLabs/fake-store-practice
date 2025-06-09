@@ -11,8 +11,8 @@ import { Media } from './collection/Media'
 import { Pages } from './collection/Pages'
 import { Sections } from './collection/Sections'
 import { Users } from './collection/Users'
-import { locales } from './constant/locale.constant'
 import { plugins } from './plugin'
+import { locales } from './shared/constant/locale.constant'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
