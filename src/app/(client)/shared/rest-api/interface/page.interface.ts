@@ -6,9 +6,16 @@ export enum EPageApi {
   API_PAGES = 'pages',
 }
 
+// block interface
 export interface IBlock {
-  id: string
-  image: {
+  id?: string
+  blockType?: string
+  title?: string
+  content?: any
+  description?: any
+  alignment?: 'left' | 'center' | 'right'
+  layout?: 'image-left' | 'image-right' | 'image-top' | 'image-bottom'
+  image?: {
     id: number
     alt: string
     updatedAt: string
@@ -23,14 +30,9 @@ export interface IBlock {
     focalX: number
     focalY: number
   }
-  layout: string
-  alignment: string
-  blockName: string | null
-  blockType: string
-  title: string
-  description: any
-  imageAlt: string
-  imageCaption: string
+  blockName?: string | null
+  imageAlt?: string
+  imageCaption?: string
 }
 
 interface ISection {
