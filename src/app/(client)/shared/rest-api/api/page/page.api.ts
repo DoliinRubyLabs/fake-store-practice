@@ -3,7 +3,7 @@ import { stringify } from 'qs-esm'
 
 import { QueryFunctionContext } from '@tanstack/react-query'
 
-import { cmsApiFetcher, restApiFetcher } from '@/pkg/library/rest-api'
+import { restApiFetcher } from '@/pkg/library/rest-api'
 
 import { EPageApi, IHomePageRes } from '../../interface/page.interface'
 
