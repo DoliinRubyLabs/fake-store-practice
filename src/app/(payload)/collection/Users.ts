@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated, superAdmin } from '../shared/service/access.service'
+import { authenticated, superAdmin } from '../shared/service'
 
 // users
 export const Users: CollectionConfig = {

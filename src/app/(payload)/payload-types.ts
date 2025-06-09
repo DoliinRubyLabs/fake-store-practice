@@ -299,6 +299,30 @@ export interface Template {
             blockType: 'cardsBlock';
           }
         | {
+            title: string;
+            description: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            image?: (number | null) | Media;
+            layout?: ('image-left' | 'image-right' | 'image-top' | 'image-bottom') | null;
+            alignment?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'titleDescriptionImage';
+          }
+        | {
             title?: string | null;
             subtitle?: string | null;
             description?: string | null;
@@ -576,6 +600,17 @@ export interface TemplatesSelect<T extends boolean = true> {
                     newWindow?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        titleDescriptionImage?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              layout?: T;
+              alignment?: T;
               id?: T;
               blockName?: T;
             };

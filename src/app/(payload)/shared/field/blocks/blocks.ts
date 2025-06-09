@@ -626,3 +626,57 @@ export const faqBlock: Block = {
     },
   ],
 }
+
+// title description image block
+export const titleDescriptionImageBlock: Block = {
+  slug: 'titleDescriptionImage',
+  labels: {
+    singular: 'Title Description Image',
+    plural: 'Title Description Images',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      label: 'Title',
+      required: true,
+      localized: true,
+    },
+    {
+      name: 'description',
+      type: 'richText',
+      label: 'Description',
+      required: true,
+      localized: true,
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Image',
+    },
+    {
+      name: 'layout',
+      type: 'select',
+      label: 'Layout',
+      options: [
+        { label: 'Image Left - Content Right', value: 'image-left' },
+        { label: 'Image Right - Content Left', value: 'image-right' },
+        { label: 'Image Top - Content Bottom', value: 'image-top' },
+        { label: 'Image Bottom - Content Top', value: 'image-bottom' },
+      ],
+      defaultValue: 'image-left',
+    },
+    {
+      name: 'alignment',
+      type: 'select',
+      label: 'Content Alignment',
+      options: [
+        { label: 'Left', value: 'left' },
+        { label: 'Center', value: 'center' },
+        { label: 'Right', value: 'right' },
+      ],
+      defaultValue: 'left',
+    },
+  ],
+}

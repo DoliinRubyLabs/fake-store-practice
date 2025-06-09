@@ -6,5 +6,6 @@ export {
   imageBlock,
   imageGalleryBlock,
   textContentBlock,
+  titleDescriptionImageBlock,
   videoBlock,
 } from './blocks'

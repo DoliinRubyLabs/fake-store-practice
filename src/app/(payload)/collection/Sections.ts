@@ -8,10 +8,11 @@ import {
   imageBlock,
   imageGalleryBlock,
   textContentBlock,
+  titleDescriptionImageBlock,
   videoBlock,
 } from '../shared/field/blocks'
 import { versionsField } from '../shared/field/versions'
-import { authenticated, authenticatedOrPublished } from '../shared/service/access.service'
+import { authenticated, authenticatedOrPublished } from '../shared/service'
 
 // sections
 export const Sections: CollectionConfig = {
@@ -51,6 +52,7 @@ export const Sections: CollectionConfig = {
         videoBlock,
         buttonBlock,
         cardsBlock,
+        titleDescriptionImageBlock,
         faqBlock,
       ],
     },

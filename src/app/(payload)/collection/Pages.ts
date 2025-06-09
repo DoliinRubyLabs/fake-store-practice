@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { seoField } from '../shared/field/seo'
 import { slugField } from '../shared/field/slug'
 import { versionsField } from '../shared/field/versions'
-import { authenticated, authenticatedOrPublished } from '../shared/service/access.service'
+import { authenticated, authenticatedOrPublished } from '../shared/service'
 
 // pages
 export const Pages: CollectionConfig = {
