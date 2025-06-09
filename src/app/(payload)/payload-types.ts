@@ -175,22 +175,84 @@ export interface Section {
   name: string;
   title?: string | null;
   subTitle?: string | null;
-  mainImage?: (number | null) | Media;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  blocks?:
+    | (
+        | {
+            title?: string | null;
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            alignment?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textContent';
+          }
+        | {
+            image?: (number | null) | Media;
+            caption?: string | null;
+            alt?: string | null;
+            size?: ('small' | 'medium' | 'large' | 'full') | null;
+            alignment?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageBlock';
+          }
+        | {
+            title?: string | null;
+            images: {
+              image: number | Media;
+              caption?: string | null;
+              alt?: string | null;
+              id?: string | null;
+            }[];
+            layout?: ('grid' | 'masonry' | 'carousel') | null;
+            columns?: ('2' | '3' | '4') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageGallery';
+          }
+        | {
+            title: string;
+            description?: string | null;
+            fields: {
+              fieldType: 'text' | 'email' | 'phone' | 'textarea' | 'select' | 'checkbox' | 'radio';
+              label: string;
+              placeholder?: string | null;
+              required?: boolean | null;
+              options?:
+                | {
+                    label: string;
+                    value: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[];
+            submitButtonText?: string | null;
+            successMessage?: string | null;
+            emailNotification?: {
+              enabled?: boolean | null;
+              recipient?: string | null;
+              subject?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'formBuilder';
+          }
+      )[]
+    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -315,8 +377,80 @@ export interface SectionsSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   subTitle?: T;
-  mainImage?: T;
-  content?: T;
+  blocks?:
+    | T
+    | {
+        textContent?:
+          | T
+          | {
+              title?: T;
+              content?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        imageBlock?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              alt?: T;
+              size?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        imageGallery?:
+          | T
+          | {
+              title?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    alt?: T;
+                    id?: T;
+                  };
+              layout?: T;
+              columns?: T;
+              id?: T;
+              blockName?: T;
+            };
+        formBuilder?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              fields?:
+                | T
+                | {
+                    fieldType?: T;
+                    label?: T;
+                    placeholder?: T;
+                    required?: T;
+                    options?:
+                      | T
+                      | {
+                          label?: T;
+                          value?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              submitButtonText?: T;
+              successMessage?: T;
+              emailNotification?:
+                | T
+                | {
+                    enabled?: T;
+                    recipient?: T;
+                    subject?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

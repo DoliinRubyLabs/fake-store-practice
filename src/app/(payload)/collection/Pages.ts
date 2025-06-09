@@ -48,7 +48,6 @@ export const Pages: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       label: 'Main Image',
-      localized: true,
     },
     {
       type: 'tabs',
