@@ -3,7 +3,7 @@ import { stringify } from 'qs-esm'
 
 import { QueryFunctionContext } from '@tanstack/react-query'
 
-import { cmsApiFetcher } from '@/pkg/library/rest-api'
+import { cmsApiFetcher, restApiFetcher } from '@/pkg/library/rest-api'
 
 import { EPageApi, IHomePageRes } from '../../interface/page.interface'
 
@@ -23,7 +23,7 @@ export const pagesQueryApi = async (opt: QueryFunctionContext) => {
     { addQueryPrefix: true },
   )
 
-  const res = await cmsApiFetcher
+  const res = await restApiFetcher
     .get<IHomePageRes>(`${EPageApi.API_PAGES}${stringifiedQuery}`, {
       signal: opt.signal,
       cache: 'force-cache',

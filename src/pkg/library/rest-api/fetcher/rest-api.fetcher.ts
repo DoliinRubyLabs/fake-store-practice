@@ -6,9 +6,3 @@ export const restApiFetcher: KyInstance = ky.create({
   credentials: 'include',
   throwHttpErrors: false,
 })
-
-export const cmsApiFetcher: KyInstance = ky.create({
-  prefixUrl: `${process.env.NEXT_PUBLIC_CMS_API_URL}`,
-  credentials: 'include',
-  throwHttpErrors: false,
-})
