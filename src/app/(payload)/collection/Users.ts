@@ -41,6 +41,12 @@ export const Users: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
+      dbName: 'role',
+      custom: {
+        postgres: {
+          type: 'text',
+        },
+      },
     },
   ],
 }
