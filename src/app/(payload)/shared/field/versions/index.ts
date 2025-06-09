@@ -5,9 +5,9 @@ export const versionsField = (): boolean | IncomingCollectionVersions => {
   return {
     drafts: {
       autosave: {
-        interval: 100,
+        interval: 5000,
       },
     },
-    maxPerDoc: 50,
+    maxPerDoc: 15,
   }
 }
