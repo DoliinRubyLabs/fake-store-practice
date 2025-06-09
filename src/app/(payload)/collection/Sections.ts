@@ -30,18 +30,6 @@ export const Sections: CollectionConfig = {
       localized: true,
     },
     {
-      name: 'title',
-      type: 'text',
-      label: 'Title',
-      localized: true,
-    },
-    {
-      name: 'subTitle',
-      type: 'text',
-      label: 'Sub Title',
-      localized: true,
-    },
-    {
       name: 'blocks',
       type: 'blocks',
       label: 'Content Blocks',
@@ -478,6 +466,184 @@ export const Sections: CollectionConfig = {
                 { label: 'Right', value: 'right' },
               ],
               defaultValue: 'center',
+            },
+          ],
+        },
+        {
+          slug: 'cardsBlock',
+          labels: {
+            singular: 'Cards Block',
+            plural: 'Cards Blocks',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              label: 'Section Title',
+              localized: true,
+            },
+            {
+              name: 'subtitle',
+              type: 'text',
+              label: 'Section Subtitle',
+              localized: true,
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              label: 'Section Description',
+              localized: true,
+            },
+            {
+              name: 'alignment',
+              type: 'select',
+              label: 'Content Alignment',
+              options: [
+                { label: 'Left', value: 'left' },
+                { label: 'Center', value: 'center' },
+                { label: 'Right', value: 'right' },
+              ],
+              defaultValue: 'center',
+            },
+            {
+              name: 'cards',
+              type: 'array',
+              label: 'Cards',
+              required: true,
+              minRows: 1,
+              maxRows: 6,
+              fields: [
+                {
+                  name: 'icon',
+                  type: 'upload',
+                  relationTo: 'media',
+                  label: 'Card Icon',
+                  required: true,
+                },
+                {
+                  name: 'iconAlt',
+                  type: 'text',
+                  label: 'Icon Alt Text',
+                  localized: true,
+                },
+                {
+                  name: 'title',
+                  type: 'text',
+                  label: 'Card Title',
+                  required: true,
+                  localized: true,
+                },
+                {
+                  name: 'description',
+                  type: 'textarea',
+                  label: 'Card Description',
+                  required: true,
+                  localized: true,
+                },
+                {
+                  name: 'hasButton',
+                  type: 'checkbox',
+                  label: 'Add Button',
+                  defaultValue: false,
+                },
+                {
+                  name: 'buttonText',
+                  type: 'text',
+                  label: 'Button Text',
+                  localized: true,
+                  admin: {
+                    condition: (data, siblingData) => siblingData.hasButton,
+                  },
+                },
+                {
+                  name: 'buttonUrl',
+                  type: 'text',
+                  label: 'Button URL',
+                  admin: {
+                    condition: (data, siblingData) => siblingData.hasButton,
+                  },
+                },
+                {
+                  name: 'buttonStyle',
+                  type: 'select',
+                  label: 'Button Style',
+                  options: [
+                    { label: 'Primary', value: 'primary' },
+                    { label: 'Secondary', value: 'secondary' },
+                    { label: 'Outline', value: 'outline' },
+                    { label: 'Ghost', value: 'ghost' },
+                  ],
+                  defaultValue: 'primary',
+                  admin: {
+                    condition: (data, siblingData) => siblingData.hasButton,
+                  },
+                },
+                {
+                  name: 'newWindow',
+                  type: 'checkbox',
+                  label: 'Open in New Window',
+                  defaultValue: false,
+                  admin: {
+                    condition: (data, siblingData) => siblingData.hasButton,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          slug: 'faqBlock',
+          labels: {
+            singular: 'FAQ Block',
+            plural: 'FAQ Blocks',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              label: 'Section Title',
+              localized: true,
+            },
+            {
+              name: 'subtitle',
+              type: 'text',
+              label: 'Section Subtitle',
+              localized: true,
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              label: 'Section Description',
+              localized: true,
+            },
+            {
+              name: 'faqs',
+              type: 'array',
+              label: 'FAQ Items',
+              required: true,
+              minRows: 1,
+              fields: [
+                {
+                  name: 'question',
+                  type: 'text',
+                  label: 'Question',
+                  required: true,
+                  localized: true,
+                },
+                {
+                  name: 'answer',
+                  type: 'richText',
+                  label: 'Answer',
+                  required: true,
+                  localized: true,
+                },
+                {
+                  name: 'isExpanded',
+                  type: 'checkbox',
+                  label: 'Expanded by Default',
+                  defaultValue: false,
+                },
+              ],
             },
           ],
         },

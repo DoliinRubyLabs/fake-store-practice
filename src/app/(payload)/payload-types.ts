@@ -173,8 +173,6 @@ export interface Media {
 export interface Template {
   id: number;
   name: string;
-  title?: string | null;
-  subTitle?: string | null;
   blocks?:
     | (
         | {
@@ -278,6 +276,55 @@ export interface Template {
             id?: string | null;
             blockName?: string | null;
             blockType: 'buttonBlock';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            description?: string | null;
+            alignment?: ('left' | 'center' | 'right') | null;
+            cards: {
+              icon: number | Media;
+              iconAlt?: string | null;
+              title: string;
+              description: string;
+              hasButton?: boolean | null;
+              buttonText?: string | null;
+              buttonUrl?: string | null;
+              buttonStyle?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
+              newWindow?: boolean | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cardsBlock';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            description?: string | null;
+            faqs: {
+              question: string;
+              answer: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              };
+              isExpanded?: boolean | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faqBlock';
           }
       )[]
     | null;
@@ -403,8 +450,6 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface TemplatesSelect<T extends boolean = true> {
   name?: T;
-  title?: T;
-  subTitle?: T;
   blocks?:
     | T
     | {
@@ -507,6 +552,47 @@ export interface TemplatesSelect<T extends boolean = true> {
                     id?: T;
                   };
               alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        cardsBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              description?: T;
+              alignment?: T;
+              cards?:
+                | T
+                | {
+                    icon?: T;
+                    iconAlt?: T;
+                    title?: T;
+                    description?: T;
+                    hasButton?: T;
+                    buttonText?: T;
+                    buttonUrl?: T;
+                    buttonStyle?: T;
+                    newWindow?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faqBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              description?: T;
+              faqs?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    isExpanded?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
