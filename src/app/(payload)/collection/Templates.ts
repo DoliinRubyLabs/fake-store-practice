@@ -14,8 +14,8 @@ import {
 import { versionsField } from '../shared/field/versions'
 import { authenticated, authenticatedOrPublished } from '../shared/service'
 
-// sections
-export const Sections: CollectionConfig = {
+// templates
+export const Templates: CollectionConfig = {
   slug: 'templates',
   access: {
     create: authenticated,

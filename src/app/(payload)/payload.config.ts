@@ -9,7 +9,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { Media } from './collection/Media'
 import { Pages } from './collection/Pages'
-import { Sections } from './collection/Sections'
+import { Templates } from './collection/Templates'
 import { Users } from './collection/Users'
 import { plugins } from './plugin'
 import { locales } from './shared/constant'
@@ -32,7 +32,7 @@ export default buildConfig({
       description: 'RLabs Admin Panel',
     },
   },
-  collections: [Pages, Sections, Media, Users],
+  collections: [Pages, Templates, Media, Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
