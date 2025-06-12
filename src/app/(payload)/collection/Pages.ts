@@ -1,5 +1,16 @@
 import type { CollectionConfig } from 'payload'
 
+import {
+  buttonBlock,
+  cardsBlock,
+  faqBlock,
+  formBuilderBlock,
+  imageBlock,
+  imageGalleryBlock,
+  textContentBlock,
+  titleDescriptionImageBlock,
+  videoBlock,
+} from '../shared/field/blocks'
 import { seoField } from '../shared/field/seo'
 import { slugField } from '../shared/field/slug'
 import { versionsField } from '../shared/field/versions'
@@ -29,7 +40,6 @@ export const Pages: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Name',
-      localized: true,
     },
     {
       name: 'title',
@@ -44,12 +54,6 @@ export const Pages: CollectionConfig = {
       localized: true,
     },
     {
-      name: 'mainImage',
-      type: 'upload',
-      relationTo: 'media',
-      label: 'Main Image',
-    },
-    {
       type: 'tabs',
       tabs: [
         {
@@ -57,8 +61,18 @@ export const Pages: CollectionConfig = {
           fields: [
             {
               name: 'sections',
-              type: 'array',
-              fields: [{ name: 'section', type: 'relationship', relationTo: 'templates', maxDepth: 2 }],
+              type: 'blocks',
+              blocks: [
+                textContentBlock,
+                imageBlock,
+                imageGalleryBlock,
+                formBuilderBlock,
+                videoBlock,
+                buttonBlock,
+                cardsBlock,
+                titleDescriptionImageBlock,
+                faqBlock,
+              ],
             },
           ],
         },

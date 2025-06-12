@@ -59,658 +59,652 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | 'Pacific/Fiji'
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
-  };
-  blocks: {};
+    users: UserAuthOperations
+  }
+  blocks: {}
   collections: {
-    pages: Page;
-    templates: Template;
-    media: Media;
-    users: User;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {};
+    pages: Page
+    media: Media
+    users: User
+    'payload-locked-documents': PayloadLockedDocument
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
   collectionsSelect: {
-    pages: PagesSelect<false> | PagesSelect<true>;
-    templates: TemplatesSelect<false> | TemplatesSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    users: UsersSelect<false> | UsersSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
+    pages: PagesSelect<false> | PagesSelect<true>
+    media: MediaSelect<false> | MediaSelect<true>
+    users: UsersSelect<false> | UsersSelect<true>
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
   db: {
-    defaultIDType: number;
-  };
-  globals: {};
-  globalsSelect: {};
-  locale: 'en' | 'de' | 'ar';
+    defaultIDType: number
+  }
+  globals: {}
+  globalsSelect: {}
+  locale:
+    | 'en'
+    | 'fr'
+    | 'de'
+    | 'no'
+    | 'es'
+    | 'pt'
+    | 'pl'
+    | 'da-DK'
+    | 'cs'
+    | 'it'
+    | 'ro'
+    | 'sv'
+    | 'el'
+    | 'nl'
+    | 'hr'
+    | 'et-EE'
+    | 'hu'
+    | 'lv'
+    | 'sl'
+    | 'lt'
+    | 'mt-MT'
+    | 'sk'
+    | 'fi'
+    | 'bg'
+    | 'pt-BR'
+    | 'ga-IE'
+    | 'es-MX'
+    | 'tr'
+    | 'ar'
+    | 'fa-IR'
+    | 'ku'
+    | 'ru'
+    | 'ko'
+    | 'ja'
+    | 'th'
+    | 'zh'
   user: User & {
-    collection: 'users';
-  };
+    collection: 'users'
+  }
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+    tasks: unknown
+    workflows: unknown
+  }
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
-  id: number;
-  name: string;
-  title?: string | null;
-  subTitle?: string | null;
-  mainImage?: (number | null) | Media;
+  id: number
+  name: string
+  title?: string | null
+  subTitle?: string | null
   sections?:
-    | {
-        section?: (number | null) | Template;
-        id?: string | null;
-      }[]
-    | null;
+    | (
+        | {
+            title?: string | null
+            content: {
+              root: {
+                type: string
+                children: {
+                  type: string
+                  version: number
+                  [k: string]: unknown
+                }[]
+                direction: ('ltr' | 'rtl') | null
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                indent: number
+                version: number
+              }
+              [k: string]: unknown
+            }
+            alignment?: ('left' | 'center' | 'right') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'textContent'
+          }
+        | {
+            image?: (number | null) | Media
+            caption?: string | null
+            alt?: string | null
+            size?: ('small' | 'medium' | 'large' | 'full') | null
+            alignment?: ('left' | 'center' | 'right') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'imageBlock'
+          }
+        | {
+            title?: string | null
+            images: {
+              image: number | Media
+              caption?: string | null
+              alt?: string | null
+              id?: string | null
+            }[]
+            layout?: ('grid' | 'masonry' | 'carousel') | null
+            columns?: ('2' | '3' | '4') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'imageGallery'
+          }
+        | {
+            title: string
+            description?: string | null
+            fields: {
+              fieldType: 'text' | 'email' | 'phone' | 'textarea' | 'select' | 'checkbox' | 'radio'
+              label: string
+              placeholder?: string | null
+              required?: boolean | null
+              options?:
+                | {
+                    label: string
+                    value: string
+                    id?: string | null
+                  }[]
+                | null
+              id?: string | null
+            }[]
+            submitButtonText?: string | null
+            successMessage?: string | null
+            emailNotification?: {
+              enabled?: boolean | null
+              recipient?: string | null
+              subject?: string | null
+            }
+            id?: string | null
+            blockName?: string | null
+            blockType: 'formBuilder'
+          }
+        | {
+            title?: string | null
+            videoType: 'youtube' | 'vimeo' | 'upload' | 'url'
+            videoUrl?: string | null
+            videoFile?: (number | null) | Media
+            thumbnail?: (number | null) | Media
+            autoplay?: boolean | null
+            controls?: boolean | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'videoBlock'
+          }
+        | {
+            title?: string | null
+            description?: string | null
+            buttons: {
+              text: string
+              url: string
+              style?: ('primary' | 'secondary' | 'outline' | 'ghost') | null
+              size?: ('small' | 'medium' | 'large') | null
+              newWindow?: boolean | null
+              id?: string | null
+            }[]
+            alignment?: ('left' | 'center' | 'right') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'buttonBlock'
+          }
+        | {
+            title?: string | null
+            subtitle?: string | null
+            description?: string | null
+            alignment?: ('left' | 'center' | 'right') | null
+            cards: {
+              icon: number | Media
+              iconAlt?: string | null
+              title: string
+              description: string
+              hasButton?: boolean | null
+              buttonText?: string | null
+              buttonUrl?: string | null
+              buttonStyle?: ('primary' | 'secondary' | 'outline' | 'ghost') | null
+              newWindow?: boolean | null
+              id?: string | null
+            }[]
+            id?: string | null
+            blockName?: string | null
+            blockType: 'cardsBlock'
+          }
+        | {
+            title: string
+            description: {
+              root: {
+                type: string
+                children: {
+                  type: string
+                  version: number
+                  [k: string]: unknown
+                }[]
+                direction: ('ltr' | 'rtl') | null
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                indent: number
+                version: number
+              }
+              [k: string]: unknown
+            }
+            image?: (number | null) | Media
+            layout?: ('image-left' | 'image-right' | 'image-top' | 'image-bottom') | null
+            alignment?: ('left' | 'center' | 'right') | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'titleDescriptionImage'
+          }
+        | {
+            title?: string | null
+            subtitle?: string | null
+            description?: string | null
+            faqs: {
+              question: string
+              answer: {
+                root: {
+                  type: string
+                  children: {
+                    type: string
+                    version: number
+                    [k: string]: unknown
+                  }[]
+                  direction: ('ltr' | 'rtl') | null
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                  indent: number
+                  version: number
+                }
+                [k: string]: unknown
+              }
+              isExpanded?: boolean | null
+              id?: string | null
+            }[]
+            id?: string | null
+            blockName?: string | null
+            blockType: 'faqBlock'
+          }
+      )[]
+    | null
   meta?: {
-    title?: string | null;
-    description?: string | null;
+    title?: string | null
+    description?: string | null
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (number | null) | Media;
-  };
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+    image?: (number | null) | Media
+  }
+  slug?: string | null
+  slugLock?: boolean | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templates".
- */
-export interface Template {
-  id: number;
-  name: string;
-  blocks?:
-    | (
-        | {
-            title?: string | null;
-            content: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            alignment?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'textContent';
-          }
-        | {
-            image?: (number | null) | Media;
-            caption?: string | null;
-            alt?: string | null;
-            size?: ('small' | 'medium' | 'large' | 'full') | null;
-            alignment?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'imageBlock';
-          }
-        | {
-            title?: string | null;
-            images: {
-              image: number | Media;
-              caption?: string | null;
-              alt?: string | null;
-              id?: string | null;
-            }[];
-            layout?: ('grid' | 'masonry' | 'carousel') | null;
-            columns?: ('2' | '3' | '4') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'imageGallery';
-          }
-        | {
-            title: string;
-            description?: string | null;
-            fields: {
-              fieldType: 'text' | 'email' | 'phone' | 'textarea' | 'select' | 'checkbox' | 'radio';
-              label: string;
-              placeholder?: string | null;
-              required?: boolean | null;
-              options?:
-                | {
-                    label: string;
-                    value: string;
-                    id?: string | null;
-                  }[]
-                | null;
-              id?: string | null;
-            }[];
-            submitButtonText?: string | null;
-            successMessage?: string | null;
-            emailNotification?: {
-              enabled?: boolean | null;
-              recipient?: string | null;
-              subject?: string | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'formBuilder';
-          }
-        | {
-            title?: string | null;
-            videoType: 'youtube' | 'vimeo' | 'upload' | 'url';
-            videoUrl?: string | null;
-            videoFile?: (number | null) | Media;
-            thumbnail?: (number | null) | Media;
-            autoplay?: boolean | null;
-            controls?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'videoBlock';
-          }
-        | {
-            title?: string | null;
-            description?: string | null;
-            buttons: {
-              text: string;
-              url: string;
-              style?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
-              size?: ('small' | 'medium' | 'large') | null;
-              newWindow?: boolean | null;
-              id?: string | null;
-            }[];
-            alignment?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'buttonBlock';
-          }
-        | {
-            title?: string | null;
-            subtitle?: string | null;
-            description?: string | null;
-            alignment?: ('left' | 'center' | 'right') | null;
-            cards: {
-              icon: number | Media;
-              iconAlt?: string | null;
-              title: string;
-              description: string;
-              hasButton?: boolean | null;
-              buttonText?: string | null;
-              buttonUrl?: string | null;
-              buttonStyle?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
-              newWindow?: boolean | null;
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cardsBlock';
-          }
-        | {
-            title: string;
-            description: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            image?: (number | null) | Media;
-            layout?: ('image-left' | 'image-right' | 'image-top' | 'image-bottom') | null;
-            alignment?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'titleDescriptionImage';
-          }
-        | {
-            title?: string | null;
-            subtitle?: string | null;
-            description?: string | null;
-            faqs: {
-              question: string;
-              answer: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              };
-              isExpanded?: boolean | null;
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faqBlock';
-          }
-      )[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  id: number
+  alt?: string | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
-  name?: string | null;
-  role?: ('admin' | 'root') | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
+  id: number
+  name?: string | null
+  role?: ('admin' | 'root') | null
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
+  password?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: number
   document?:
     | ({
-        relationTo: 'pages';
-        value: number | Page;
+        relationTo: 'pages'
+        value: number | Page
       } | null)
     | ({
-        relationTo: 'templates';
-        value: number | Template;
+        relationTo: 'media'
+        value: number | Media
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'users'
+        value: number | User
       } | null)
-    | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null);
-  globalSlug?: string | null;
+  globalSlug?: string | null
   user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  updatedAt: string;
-  createdAt: string;
+    relationTo: 'users'
+    value: number | User
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: number
   user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  key?: string | null;
+    relationTo: 'users'
+    value: number | User
+  }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  name?: T;
-  title?: T;
-  subTitle?: T;
-  mainImage?: T;
+  name?: T
+  title?: T
+  subTitle?: T
   sections?:
-    | T
-    | {
-        section?: T;
-        id?: T;
-      };
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  slug?: T;
-  slugLock?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templates_select".
- */
-export interface TemplatesSelect<T extends boolean = true> {
-  name?: T;
-  blocks?:
     | T
     | {
         textContent?:
           | T
           | {
-              title?: T;
-              content?: T;
-              alignment?: T;
-              id?: T;
-              blockName?: T;
-            };
+              title?: T
+              content?: T
+              alignment?: T
+              id?: T
+              blockName?: T
+            }
         imageBlock?:
           | T
           | {
-              image?: T;
-              caption?: T;
-              alt?: T;
-              size?: T;
-              alignment?: T;
-              id?: T;
-              blockName?: T;
-            };
+              image?: T
+              caption?: T
+              alt?: T
+              size?: T
+              alignment?: T
+              id?: T
+              blockName?: T
+            }
         imageGallery?:
           | T
           | {
-              title?: T;
+              title?: T
               images?:
                 | T
                 | {
-                    image?: T;
-                    caption?: T;
-                    alt?: T;
-                    id?: T;
-                  };
-              layout?: T;
-              columns?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    image?: T
+                    caption?: T
+                    alt?: T
+                    id?: T
+                  }
+              layout?: T
+              columns?: T
+              id?: T
+              blockName?: T
+            }
         formBuilder?:
           | T
           | {
-              title?: T;
-              description?: T;
+              title?: T
+              description?: T
               fields?:
                 | T
                 | {
-                    fieldType?: T;
-                    label?: T;
-                    placeholder?: T;
-                    required?: T;
+                    fieldType?: T
+                    label?: T
+                    placeholder?: T
+                    required?: T
                     options?:
                       | T
                       | {
-                          label?: T;
-                          value?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              submitButtonText?: T;
-              successMessage?: T;
+                          label?: T
+                          value?: T
+                          id?: T
+                        }
+                    id?: T
+                  }
+              submitButtonText?: T
+              successMessage?: T
               emailNotification?:
                 | T
                 | {
-                    enabled?: T;
-                    recipient?: T;
-                    subject?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+                    enabled?: T
+                    recipient?: T
+                    subject?: T
+                  }
+              id?: T
+              blockName?: T
+            }
         videoBlock?:
           | T
           | {
-              title?: T;
-              videoType?: T;
-              videoUrl?: T;
-              videoFile?: T;
-              thumbnail?: T;
-              autoplay?: T;
-              controls?: T;
-              id?: T;
-              blockName?: T;
-            };
+              title?: T
+              videoType?: T
+              videoUrl?: T
+              videoFile?: T
+              thumbnail?: T
+              autoplay?: T
+              controls?: T
+              id?: T
+              blockName?: T
+            }
         buttonBlock?:
           | T
           | {
-              title?: T;
-              description?: T;
+              title?: T
+              description?: T
               buttons?:
                 | T
                 | {
-                    text?: T;
-                    url?: T;
-                    style?: T;
-                    size?: T;
-                    newWindow?: T;
-                    id?: T;
-                  };
-              alignment?: T;
-              id?: T;
-              blockName?: T;
-            };
+                    text?: T
+                    url?: T
+                    style?: T
+                    size?: T
+                    newWindow?: T
+                    id?: T
+                  }
+              alignment?: T
+              id?: T
+              blockName?: T
+            }
         cardsBlock?:
           | T
           | {
-              title?: T;
-              subtitle?: T;
-              description?: T;
-              alignment?: T;
+              title?: T
+              subtitle?: T
+              description?: T
+              alignment?: T
               cards?:
                 | T
                 | {
-                    icon?: T;
-                    iconAlt?: T;
-                    title?: T;
-                    description?: T;
-                    hasButton?: T;
-                    buttonText?: T;
-                    buttonUrl?: T;
-                    buttonStyle?: T;
-                    newWindow?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+                    icon?: T
+                    iconAlt?: T
+                    title?: T
+                    description?: T
+                    hasButton?: T
+                    buttonText?: T
+                    buttonUrl?: T
+                    buttonStyle?: T
+                    newWindow?: T
+                    id?: T
+                  }
+              id?: T
+              blockName?: T
+            }
         titleDescriptionImage?:
           | T
           | {
-              title?: T;
-              description?: T;
-              image?: T;
-              layout?: T;
-              alignment?: T;
-              id?: T;
-              blockName?: T;
-            };
+              title?: T
+              description?: T
+              image?: T
+              layout?: T
+              alignment?: T
+              id?: T
+              blockName?: T
+            }
         faqBlock?:
           | T
           | {
-              title?: T;
-              subtitle?: T;
-              description?: T;
+              title?: T
+              subtitle?: T
+              description?: T
               faqs?:
                 | T
                 | {
-                    question?: T;
-                    answer?: T;
-                    isExpanded?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
+                    question?: T
+                    answer?: T
+                    isExpanded?: T
+                    id?: T
+                  }
+              id?: T
+              blockName?: T
+            }
+      }
+  meta?:
+    | T
+    | {
+        title?: T
+        description?: T
+        image?: T
+      }
+  slug?: T
+  slugLock?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
+  alt?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  name?: T;
-  role?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  name?: T
+  role?: T
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [k: string]: unknown
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}
