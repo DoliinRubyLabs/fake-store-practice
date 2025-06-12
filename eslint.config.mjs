@@ -44,7 +44,6 @@ const eslintConfig = [
       ],
       'no-console': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
       'react-hooks/exhaustive-deps': 'off',
       'simple-import-sort/exports': 'warn',
@@ -52,6 +51,7 @@ const eslintConfig = [
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': 'error',
       '@typescript-eslint/ban-ts-comment': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
@@ -67,7 +67,12 @@ const eslintConfig = [
     },
   },
   {
-    ignores: ['.next/', '**/src/pkg/library/i18n/paraglide/**'],
+    ignores: [
+      '.next/',
+      './src/core/lib/locale/paraglide/**',
+      './src/app/(payload)/admin/**',
+      './src/app/(payload)/payload-types.ts',
+    ],
   },
 ]
 
