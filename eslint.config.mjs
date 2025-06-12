@@ -52,7 +52,6 @@ const eslintConfig = [
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': 'error',
       '@typescript-eslint/ban-ts-comment': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
