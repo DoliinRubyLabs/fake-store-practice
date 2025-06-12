@@ -22,14 +22,19 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+      importMapFile: path.resolve(dirname, '(web)/admin/importMap.js'),
     },
     routes: {
       createFirstUser: '/create-root-user',
     },
     meta: {
-      title: 'Admin Panel',
-      description: 'RLabs Admin Panel',
+      title: 'Admin Panel - manage your content',
+      description: 'Admin Panel - manage your content',
     },
+  },
+  routes: {
+    admin: '/admin',
+    api: '/api',
   },
   collections: [Pages, Media, Users],
   editor: lexicalEditor(),

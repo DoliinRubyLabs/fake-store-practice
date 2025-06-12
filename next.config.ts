@@ -6,21 +6,15 @@ const nextConfig: NextConfig = {
   output: process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development' ? 'standalone' : undefined,
 
   images: {
-    deviceSizes: [460, 1024, 1920, 3840],
-    imageSizes: [16, 64, 128, 384],
+    deviceSizes: [768, 1024, 1920],
+    imageSizes: [32, 128, 384],
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
+    minimumCacheTTL: 3600,
+    formats: ['image/webp', 'image/avif'],
   },
 
   experimental: {
     reactCompiler: true,
-
-    optimisticClientCache: true,
-
-    webpackMemoryOptimizations: true,
-
-    clientRouterFilter: true,
-    clientRouterFilterRedirects: true,
-    optimizeServerReact: true,
 
     optimizePackageImports: ['@heroui/react', 'framer-motion', 'luxon', 'react-hook-form', 'usehooks-ts', 'zustand'],
   },

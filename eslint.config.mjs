@@ -68,9 +68,10 @@ const eslintConfig = [
   },
   {
     ignores: [
+      'node_modules/',
       '.next/',
       './src/core/lib/locale/paraglide/**',
-      './src/app/(payload)/admin/**',
+      './src/app/(payload)/(web)/admin/**',
       './src/app/(payload)/payload-types.ts',
     ],
   },
