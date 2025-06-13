@@ -42,18 +42,6 @@ export const Pages: CollectionConfig = {
       label: 'Name',
     },
     {
-      name: 'title',
-      type: 'text',
-      label: 'Title',
-      localized: true,
-    },
-    {
-      name: 'subTitle',
-      type: 'text',
-      label: 'Sub Title',
-      localized: true,
-    },
-    {
       type: 'tabs',
       tabs: [
         {

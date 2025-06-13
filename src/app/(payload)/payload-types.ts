@@ -158,8 +158,6 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   name: string;
-  title?: string | null;
-  subTitle?: string | null;
   sections?:
     | (
         | {
@@ -458,8 +456,6 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   name?: T;
-  title?: T;
-  subTitle?: T;
   sections?:
     | T
     | {

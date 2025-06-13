@@ -1,4 +1,4 @@
-import type { Access } from 'payload'
+import type { Access, ClientUser } from 'payload'
 
 // anyone
 export const anyone: Access = () => true
@@ -8,6 +8,7 @@ export const authenticated: Access = ({ req: { user } }) => Boolean(user?.role =
 
 // super admin
 export const superAdmin: Access = ({ req: { user } }) => Boolean(user?.role === 'root')
+export const notSuperAdmin: (args: { user: ClientUser }) => boolean = ({ user }) => Boolean(user?.role !== 'root')
 
 // authenticated or published
 export const authenticatedOrPublished: Access = ({ req: { user } }) => {
