@@ -42,6 +42,4 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-VOLUME ["/app/.next/cache"]
-
 CMD HOSTNAME="0.0.0.0" NODE_OPTIONS='--no-warnings' node server.js
