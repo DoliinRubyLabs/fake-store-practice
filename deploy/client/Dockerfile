@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-RUN --mount=type=cache,id=yarn-cache,target=/usr/local/share/.cache/yarn/v6 yarn install --check-cache
+RUN yarn install --frozen-lockfile
 
 
 # Stage 2: Build the application
@@ -28,18 +28,14 @@ RUN --mount=type=cache,id=next-build-cache,target=/app/.next/cache yarn build
 FROM base AS runner
 WORKDIR /app
 
-ENV NEXT_TELEMETRY_DISABLED=1
-
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-
-RUN mkdir -p /app/.next/cache && chown nextjs:nodejs /app/.next/cache
+USER nextjs
 
 COPY --from=builder /app/public ./public
-
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-USER nextjs
+ENV NEXT_TELEMETRY_DISABLED=1
 
-CMD HOSTNAME="0.0.0.0" NODE_OPTIONS='--no-warnings' node server.js
+CMD HOSTNAME="0.0.0.0" node server.js

@@ -28,7 +28,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@heroui/react', 'framer-motion', 'luxon', 'react-hook-form', 'usehooks-ts', 'zustand'],
 
     optimizeServerReact: true,
-    serverMinification: true,
   },
 
   turbopack: {
