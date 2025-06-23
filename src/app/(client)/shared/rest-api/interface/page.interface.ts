@@ -1,46 +1,19 @@
-export enum EPageKey {
-  PAGES_QUERY = 'pages_query',
-}
+import { IImage } from './common.interface'
 
-export enum EPageApi {
-  API_PAGES = 'pages',
-}
-
-// block interface
-export interface IBlock {
-  id?: string
-  blockType?: string
-  title?: string
+export interface ITitleDescriptionImageSection {
+  id: string
+  blockType: 'titleDescriptionImage'
+  title: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   description?: any
   alignment?: 'left' | 'center' | 'right'
   layout?: 'image-left' | 'image-right' | 'image-top' | 'image-bottom'
-  image?: {
-    id: number
-    alt: string
-    updatedAt: string
-    createdAt: string
-    url: string
-    thumbnailURL: string | null
-    filename: string
-    mimeType: string
-    filesize: number
-    width: number
-    height: number
-    focalX: number
-    focalY: number
-  }
+  image?: IImage
   blockName?: string | null
   imageAlt?: string
   imageCaption?: string
-}
-
-interface ISection {
-  id: string
-  section: {
-    id: string
-    blocks: IBlock[]
-  }
 }
 
 interface IMeta {
@@ -50,10 +23,11 @@ interface IMeta {
 }
 
 export interface IHomePage {
+  id: string
   title: string
   subTitle: string
   mainImage: { url: string; alt?: string }
-  sections: ISection[]
+  sections: ITitleDescriptionImageSection[]
   meta: IMeta
 }
 

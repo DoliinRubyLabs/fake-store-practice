@@ -67,6 +67,7 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    layout: Layout;
     pages: Page;
     media: Media;
     users: User;
@@ -76,6 +77,7 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    layout: LayoutSelect<false> | LayoutSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -153,6 +155,79 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layout".
+ */
+export interface Layout {
+  id: number;
+  name: string;
+  sections?:
+    | (
+        | {
+            logo?: (number | null) | Media;
+            menu: {
+              label?: string | null;
+              url?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'header';
+          }
+        | {
+            logo?: (number | null) | Media;
+            menuColumns: {
+              columnTitle: string;
+              links: {
+                label: string;
+                url: string;
+                openInNewTab?: boolean | null;
+                id?: string | null;
+              }[];
+              id?: string | null;
+            }[];
+            copyright?: string | null;
+            alignment?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'footer';
+          }
+      )[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -181,6 +256,30 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'textContent';
+          }
+        | {
+            title: string;
+            description: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            image?: (number | null) | Media;
+            layout?: ('image-left' | 'image-right' | 'image-top' | 'image-bottom') | null;
+            alignment?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'titleDescriptionImage';
           }
         | {
             image?: (number | null) | Media;
@@ -234,107 +333,6 @@ export interface Page {
             blockName?: string | null;
             blockType: 'formBuilder';
           }
-        | {
-            title?: string | null;
-            videoType: 'youtube' | 'vimeo' | 'upload' | 'url';
-            videoUrl?: string | null;
-            videoFile?: (number | null) | Media;
-            thumbnail?: (number | null) | Media;
-            autoplay?: boolean | null;
-            controls?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'videoBlock';
-          }
-        | {
-            title?: string | null;
-            description?: string | null;
-            buttons: {
-              text: string;
-              url: string;
-              style?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
-              size?: ('small' | 'medium' | 'large') | null;
-              newWindow?: boolean | null;
-              id?: string | null;
-            }[];
-            alignment?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'buttonBlock';
-          }
-        | {
-            title?: string | null;
-            subtitle?: string | null;
-            description?: string | null;
-            alignment?: ('left' | 'center' | 'right') | null;
-            cards: {
-              icon: number | Media;
-              iconAlt?: string | null;
-              title: string;
-              description: string;
-              hasButton?: boolean | null;
-              buttonText?: string | null;
-              buttonUrl?: string | null;
-              buttonStyle?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
-              newWindow?: boolean | null;
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cardsBlock';
-          }
-        | {
-            title: string;
-            description: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            image?: (number | null) | Media;
-            layout?: ('image-left' | 'image-right' | 'image-top' | 'image-bottom') | null;
-            alignment?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'titleDescriptionImage';
-          }
-        | {
-            title?: string | null;
-            subtitle?: string | null;
-            description?: string | null;
-            faqs: {
-              question: string;
-              answer: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              };
-              isExpanded?: boolean | null;
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'faqBlock';
-          }
       )[]
     | null;
   meta?: {
@@ -350,25 +348,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -396,6 +375,10 @@ export interface User {
 export interface PayloadLockedDocument {
   id: number;
   document?:
+    | ({
+        relationTo: 'layout';
+        value: number | Layout;
+      } | null)
     | ({
         relationTo: 'pages';
         value: number | Page;
@@ -452,6 +435,66 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "layout_select".
+ */
+export interface LayoutSelect<T extends boolean = true> {
+  name?: T;
+  sections?:
+    | T
+    | {
+        header?:
+          | T
+          | {
+              logo?: T;
+              menu?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        footer?:
+          | T
+          | {
+              logo?: T;
+              menuColumns?:
+                | T
+                | {
+                    columnTitle?: T;
+                    links?:
+                      | T
+                      | {
+                          label?: T;
+                          url?: T;
+                          openInNewTab?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              copyright?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
@@ -464,6 +507,17 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               content?: T;
+              alignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        titleDescriptionImage?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              layout?: T;
               alignment?: T;
               id?: T;
               blockName?: T;
@@ -525,90 +579,6 @@ export interface PagesSelect<T extends boolean = true> {
                     enabled?: T;
                     recipient?: T;
                     subject?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        videoBlock?:
-          | T
-          | {
-              title?: T;
-              videoType?: T;
-              videoUrl?: T;
-              videoFile?: T;
-              thumbnail?: T;
-              autoplay?: T;
-              controls?: T;
-              id?: T;
-              blockName?: T;
-            };
-        buttonBlock?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              buttons?:
-                | T
-                | {
-                    text?: T;
-                    url?: T;
-                    style?: T;
-                    size?: T;
-                    newWindow?: T;
-                    id?: T;
-                  };
-              alignment?: T;
-              id?: T;
-              blockName?: T;
-            };
-        cardsBlock?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              description?: T;
-              alignment?: T;
-              cards?:
-                | T
-                | {
-                    icon?: T;
-                    iconAlt?: T;
-                    title?: T;
-                    description?: T;
-                    hasButton?: T;
-                    buttonText?: T;
-                    buttonUrl?: T;
-                    buttonStyle?: T;
-                    newWindow?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        titleDescriptionImage?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              image?: T;
-              layout?: T;
-              alignment?: T;
-              id?: T;
-              blockName?: T;
-            };
-        faqBlock?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              description?: T;
-              faqs?:
-                | T
-                | {
-                    question?: T;
-                    answer?: T;
-                    isExpanded?: T;
-                    id?: T;
                   };
               id?: T;
               blockName?: T;

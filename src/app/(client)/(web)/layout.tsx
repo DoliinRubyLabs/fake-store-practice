@@ -16,18 +16,18 @@ export const generateMetadata = async (): Promise<Metadata> => {
   return {
     metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT_WEB_URL}`),
     title: {
-      default: 'RubyLabs CMS Template',
-      template: `RubyLabs CMS Template | %s`,
+      default: 'CMS Template',
+      template: `CMS Template | %s`,
     },
-    description: 'RubyLabs CMS Template',
-    applicationName: 'RubyLabs CMS Template',
+    description: 'CMS Template',
+    applicationName: 'CMS Template',
     openGraph: {
       title: {
-        default: 'RubyLabs CMS Template',
-        template: `RubyLabs CMS Template | %s`,
+        default: 'CMS Template',
+        template: `CMS Template | %s`,
       },
-      description: 'RubyLabs CMS Template',
-      siteName: 'RubyLabs CMS Template',
+      description: 'CMS Template',
+      siteName: 'CMS Template',
       type: 'website',
       url: `${process.env.NEXT_PUBLIC_CLIENT_WEB_URL}`,
       images: [
@@ -35,14 +35,14 @@ export const generateMetadata = async (): Promise<Metadata> => {
           url: EAssetImage.OG_IMAGE,
           width: 1200,
           height: 630,
-          alt: 'RubyLabs CMS Template',
+          alt: 'CMS Template',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'RubyLabs CMS Template',
-      description: 'RubyLabs CMS Template',
+      title: 'CMS Template',
+      description: 'CMS Template',
       images: [EAssetImage.OG_IMAGE],
     },
   }
@@ -60,7 +60,7 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
   // return
   return (
     <html lang={'en'}>
-      <ScanComponent />
+      {process.env.NODE_ENV !== 'production' && <ScanComponent />}
 
       <body className={`${mainFont.className} antialiased`} suppressHydrationWarning>
         <UiProvider locale={'en'}>

@@ -1,9 +1,5 @@
-import { usePagesQuery } from '@/app/(client)/shared/rest-api/api/page'
-
 // service
-export const useHomeService = () => {
-  const { data, isLoading } = usePagesQuery()
-
+export const homeService = () => {
   // return
-  return { data, isLoading }
+  return {}
 }

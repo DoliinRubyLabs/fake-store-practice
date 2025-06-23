@@ -5,7 +5,6 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { HomeModule } from '@/app/(client)/module/home'
 import { pagesQueryOptions } from '@/app/(client)/shared/rest-api/api/page'
-import { IHomePage } from '@/app/(client)/shared/rest-api/interface'
 import { getQueryClient } from '@/pkg/library/rest-api'
 
 // interface
@@ -15,9 +14,7 @@ interface IProps {}
 export const generateMetadata = async (): Promise<Metadata> => {
   const clientQuery = getQueryClient()
 
-  await clientQuery.prefetchQuery(pagesQueryOptions())
-
-  const data = (await clientQuery.getQueryData(pagesQueryOptions().queryKey)) as IHomePage
+  const data = await clientQuery.fetchQuery(pagesQueryOptions())
 
   return {
     title: data?.meta?.title,

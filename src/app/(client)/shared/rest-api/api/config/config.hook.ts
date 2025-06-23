@@ -2,7 +2,11 @@ import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
 
 import { configMutationApi, configQueryApi } from './config.api'
 
-import { EConfigKey } from '../../interface/config.interface'
+// interface
+enum EConfigKey {
+  CONFIG_QUERY = 'config_query',
+  CONFIG_MUTATION = 'config_mutation',
+}
 
 // options
 export const configQueryOptions = (settings?: string) => {

@@ -3,23 +3,19 @@ description:
 globs: 
 alwaysApply: true
 ---
-# Application Architecture
-
-This is a Next.js project that uses yarn as the package manager.
-
-
 ## General Information
 
 This project is built using the following technologies:
 
-- **Next.js 15.x** - React framework
-- **React 19.x** - UI library
-- **TypeScript** - typed superset of JavaScript
-- **Tailwind CSS** - CSS framework for styling
-- **HeroUI** - UI component library
-- **Zustand** - state management library
-- **React Query** - library for server state management
-- **React Hook Form** - library for form handling
+* **Next.js 15.x** - React framework
+* **React 19.x** - UI library
+* **TypeScript** - typed superset of JavaScript
+* **Tailwind CSS** - CSS framework for styling
+* **HeroUI** - UI component library
+* **Zustand** - state management library
+* **React Query** - library for server state management
+* **React Hook Form** - library for form handling
+* **Payload CMS** - library for form handling
 
 
 ## Project Structure
@@ -55,35 +51,28 @@ client/
 │   │   └── font/               # Fonts
 │   └── middleware.ts           # Next.js middleware
 ├── public/                     # Static public assets
-│   ├── image/                 # Image assets
-│   │   └── folder_name/       # Payment provider logos
-│   ├── logo.svg               # Company logo
-│   └── favicon.ico            # Site favicon
-├── translation/               # Internationalization files
-│   ├── messages/              # Translation messages
-│   │   ├── en.json            # English translations
-│   │   └── de.json            # German translations
-│   └── project.inlang/        # Inlang configuration
-├── tests/                     # Test files
-├── package.json               # Package configuration
-├── tsconfig.json              # TypeScript configuration
-├── tailwind.config.ts         # Tailwind CSS configuration
-├── eslint.config.mjs          # ESLint configuration
-├── next.config.ts             # Next.js configuration
-├── playwright.config.ts       # Playwright test configuration
-├── postcss.config.mjs         # PostCSS configuration
-├── Makefile                   # Build automation
-├── README.md                  # Project documentation
-├── .gitignore                 # Git ignore rules
-├── .dockerignore              # Docker ignore rules
-├── .prettierrc                # Prettier configuration
+│   ├── image/                  # Image assets
+│   │   └── folder_name/        # Payment provider logos
+│   ├── logo.svg                # Company logo
+│   └── favicon.ico             # Site favicon
+├── translation/                # Translation messages
+│   ├── en.json                 # English translations
+│   └── de.json                 # German translations
+├── tests/                      # Test files
+├── package.json                # Package configuration
+├── tsconfig.json               # TypeScript configuration
+├── tailwind.config.ts          # Tailwind CSS configuration
+├── eslint.config.mjs           # ESLint configuration
+├── next.config.ts              # Next.js configuration
+├── playwright.config.ts        # Playwright test configuration
+├── postcss.config.mjs          # PostCSS configuration
+├── Makefile                    # Build automation
+├── README.md                   # Project documentation
+├── .gitignore                  # Git ignore rules
+├── .dockerignore               # Docker ignore rules
+├── .prettierrc                 # Prettier configuration
 └── ...
 ```
-
-
-
-
-
 
 
 # Module Creation Template
@@ -134,6 +123,7 @@ const ModuleNameModule: React.FC<IProps> = () => {
     </main>
   )
 }
+
 export default ModuleNameModule
 ```
 
@@ -241,7 +231,7 @@ export { moduleData } from './module_name.constant'
 export const moduleData = {
   example: 'example'
 }
-``` 
+```
 
 
 # Component Creation Template
@@ -359,6 +349,7 @@ export default ElementName
 
 ```tsx
 // service
+
 export const useElementService = () => {
   // Define element logic
 
@@ -370,16 +361,12 @@ export const useElementService = () => {
 
 ## Best Practices
 
+
 1. Keep components focused on a single responsibility
 2. Use the service for all business logic, data fetching, and state management
 3. Prefer composition over inheritance - break complex components into smaller, reusable ones
 4. Use dynamic imports with Next.js for code splitting
-5. Follow consistent naming conventions throughout the project 
-
-
-
-
-
+5. Follow consistent naming conventions throughout the project
 
 
 # REST API Creation Template
@@ -488,38 +475,34 @@ export { EFeatureNameApi, EFeatureNameKey, type IFeatureNameReq, type IFeatureNa
 
 ## Best Practices
 
+
 1. Define clear interfaces before implementing API functions
 2. Use enums for consistent API endpoints and query keys
 3. Separate API implementations from React Query hooks
 4. Use React Query for data fetching, caching, and state management
 5. Export all necessary types and functions through the index file
-6. Use consistent naming conventions across all files 
-
-
-
-
-
+6. Use consistent naming conventions across all files
 
 
 # Guide for Integrating New Languages into the Translation System
 
 ## Overview
 
-This guide describes the process of adding new languages to the project and configuring the translation system. The project uses [Inlang](mdc:https:/inlang.com) and [Paraglide](mdc:https:/inlang.com/m/gerre34r/library-inlang-paraglideJs) for translation management.
+This guide describes the process of adding new languages to the project and configuring the translation system. The project uses @Inlang and @Paraglide for translation management.
 
 ## Prerequisites
 
-- Access to the project code
-- Installed project dependencies (`yarn install`)
+* Access to the project code
+* Installed project dependencies (`yarn install`)
 
 ## Step 1: Adding a New Language in Project Settings
+en thion configuration file:
 
-1. Open the translation configuration file:
    ```
    apps/client/translation/project.inlang/settings.json
    ```
-
 2. Add the new language code to the `locales` array:
+
    ```json
    {
      "$schema": "https://inlang.com/schema/project-settings",
@@ -537,12 +520,14 @@ This guide describes the process of adding new languages to the project and conf
 
 ## Step 2: Creating a Translation File
 
+
 1. Create a new file in the translations directory:
+
    ```
    apps/client/translation/messages/uk.json
    ```
-
 2. Copy the structure from an existing language file (e.g., from `en.json`) and keep the keys unchanged:
+
    ```json
    {
      "$schema": "https://inlang.com/schema/inlang-message-format",
@@ -556,36 +541,41 @@ This guide describes the process of adding new languages to the project and conf
 
 When developing components, use imports and keys for translation:
 
+
 1. Import the translation library in your component:
+
    ```tsx
    import { m } from '@/pkg/library/i18n/paraglide/messages'
    ```
-
 2. Use keys in your code:
+
    ```tsx
    <Button>{m.btn_save()}</Button>
    <p>{m.page_setting_description()}</p>
    ```
-
 3. For translations with parameters:
+
    ```tsx
    <p>{m.label_payment_details_expires({ mounth: '12', year: '2024' })}</p>
    ```
 
 ## Step 4: Automatic Translation
 
+
 1. After adding a new language, run the command for automatic translation:
+
    ```bash
    yarn translate
    ```
-
 2. This command will automatically generate translations for all untranslated keys in the file.
 
 ## Step 5: Checking and Correcting Translations
 
+
 1. Open the generated translation file and check the quality of the automatic translation
 2. Correct translations if necessary
 3. Run the translation quality check:
+
    ```bash
    yarn locale-check
    ```
@@ -593,6 +583,7 @@ When developing components, use imports and keys for translation:
 ## Step 6: Integration with Settings Module
 
 If you want to add the ability to change the language in user settings:
+
 
 1. Add a language selector to the settings component
 2. Use functions from the Paraglide library to change the active language
@@ -621,37 +612,32 @@ const LanguageSelectorComponent = () => {
 
 ## Step 7: Testing
 
+
 1. Check that translations are displayed correctly in all parts of the application
 2. Make sure that language switching works properly
 3. Verify that all interface texts are displayed correctly in each language
 
 ## Useful Commands
 
-- Check translation completeness: `yarn locale-check`
-- Automatic translation: `yarn translate`
-- Run the application with new translations: `yarn dev`
+* Check translation completeness: `yarn locale-check`
+* Automatic translation: `yarn translate`
+* Run the application with new translations: `yarn dev`
 
 ## Common Issues
 
-1. **Missing keys in translations**: 
-   - Make sure all keys from the original file (`en.json`) are present in the new file
-   
-2. **Translations not displaying**:
-   - Check if the `settings.json` file is configured correctly
-   - Restart the development server
 
+1. **Missing keys in translations**:
+   * Make sure all keys from the original file (`en.json`) are present in the new file
+2. **Translations not displaying**:
+   * Check if the `settings.json` file is configured correctly
+   * Restart the development server
 3. **Problems with automatic translation**:
-   - Check your internet connection
-   - Make sure the Inlang CLI is installed correctly
+   * Check your internet connection
+   * Make sure the Inlang CLI is installed correctly
 
 ## Conclusion
 
-By following this guide, you can easily add new languages to the project and maintain up-to-date translations. The automatic translation system simplifies the initial creation of translations, and the integrated verification process helps ensure their quality. 
-
-
-
-
-
+By following this guide, you can easily add new languages to the project and maintain up-to-date translations. The automatic translation system simplifies the initial creation of translations, and the integrated verification process helps ensure their quality.
 
 
 # Shared Files Management Guide
@@ -738,6 +724,7 @@ export default ComponentName
 
 ```tsx
 // index.ts
+
 import dynamic from 'next/dynamic'
 
 export const ComponentNameComponent = dynamic(() => import('./component_name.component'))
@@ -779,6 +766,7 @@ export const serviceUtility = {
 
 ```tsx
 // service/index.ts
+
 export { useServiceName, serviceUtility } from './service_name.service'
 export { useCurrencyService } from './currency.service'
 export { showToast } from './show-toast.service'
@@ -792,6 +780,7 @@ export { useValueFormat } from './value-format.service'
 
 ```tsx
 // constant_name.constant.ts
+
 export const CONSTANT_NAME = {
   VALUE_ONE: 'value_one',
   VALUE_TWO: 'value_two'
@@ -800,12 +789,14 @@ export const CONSTANT_NAME = {
 export type TConstantName = typeof CONSTANT_NAME[keyof typeof CONSTANT_NAME]
 
 // array constants
+
 export const constantArray = [
   { id: 1, name: 'Item 1', value: 'item1' },
   { id: 2, name: 'Item 2', value: 'item2' }
 ]
 
 // enum alternative
+
 export enum EConstantName {
   VALUE_ONE = 'value_one',
   VALUE_TWO = 'value_two'
@@ -816,6 +807,7 @@ export enum EConstantName {
 
 ```tsx
 // constant/index.ts
+
 export { CURRENCIES, type TCurrency } from './currencies.constant'
 export { COUNTRIES, type TCountry } from './countries.constant'
 export { SUB_STATUS_COLORS } from './sub-status-color.constant'
@@ -827,6 +819,7 @@ export { SUB_STATUS_COLORS } from './sub-status-color.constant'
 
 ```tsx
 // global.store.ts
+
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
@@ -871,6 +864,7 @@ export const useGlobalStore = create<IStore>()(
 
 ```tsx
 // route.interface.ts
+
 export interface IRoute {
   path: string
   name: string
@@ -885,6 +879,7 @@ export interface INavigation {
 }
 
 // route constants
+
 export const ROUTES = {
   HOME: '/',
   DASHBOARD: '/dashboard',
@@ -915,44 +910,50 @@ rest-api/
 ## Best Practices
 
 ### 1. Component Guidelines
-- Keep shared components generic and reusable
-- Use proper TypeScript interfaces
-- Implement proper error boundaries
-- Follow accessibility guidelines
-- Use consistent naming conventions
+
+* Keep shared components generic and reusable
+* Use proper TypeScript interfaces
+* Implement proper error boundaries
+* Follow accessibility guidelines
+* Use consistent naming conventions
 
 ### 2. Service Guidelines
-- Create focused, single-responsibility services
-- Use proper error handling
-- Implement proper TypeScript types
-- Make services testable
-- Document complex logic
+
+* Create focused, single-responsibility services
+* Use proper error handling
+* Implement proper TypeScript types
+* Make services testable
+* Document complex logic
 
 ### 3. Constant Guidelines
-- Use `const assertions` for immutable objects
-- Group related constants together
-- Export types for TypeScript support
-- Use descriptive naming
-- Avoid magic numbers/strings
+
+* Use `const assertions` for immutable objects
+* Group related constants together
+* Export types for TypeScript support
+* Use descriptive naming
+* Avoid magic numbers/strings
 
 ### 4. Store Guidelines
-- Keep global state minimal
-- Use proper TypeScript interfaces
-- Implement proper devtools integration
-- Create focused stores for different concerns
-- Provide reset functionality
+
+* Keep global state minimal
+* Use proper TypeScript interfaces
+* Implement proper devtools integration
+* Create focused stores for different concerns
+* Provide reset functionality
 
 ### 5. Import Guidelines
-- Always use index files for clean imports
-- Use dynamic imports for code splitting
-- Group imports logically
-- Use absolute imports with proper aliases
+
+* Always use index files for clean imports
+* Use dynamic imports for code splitting
+* Group imports logically
+* Use absolute imports with proper aliases
 
 ## Usage Examples
 
 ### Using Shared Components
 
 ```tsx
+
 import { HeaderComponent } from '@/app/shared/component/header'
 import { TableComponent } from '@/app/shared/component/table'
 import { ModalComponent } from '@/app/shared/component/modal'
@@ -975,6 +976,7 @@ const ModuleNameModule = () => {
 ### Using Shared Services
 
 ```tsx
+
 import { useCurrencyService, showToast } from '@/app/shared/service'
 
 // component
@@ -994,6 +996,7 @@ const MyComponent = () => {
 ### Using Shared Constants
 
 ```tsx
+
 import { CURRENCIES, COUNTRIES } from '@/app/shared/constant'
 
 // component
@@ -1014,6 +1017,7 @@ const MyComponent = () => {
 ### Using Shared Store
 
 ```tsx
+
 import { useGlobalStore } from '@/app/shared/store'
 
 // component
@@ -1036,16 +1040,12 @@ const MyComponent = () => {
 
 ## Maintenance Guidelines
 
+
 1. **Regular Review**: Periodically review shared components for unused code
 2. **Documentation**: Keep documentation updated with changes
 3. **Testing**: Ensure shared components have proper test coverage
 4. **Performance**: Monitor bundle size impact of shared components
 5. **Versioning**: Consider versioning for breaking changes in shared APIs
-
-
-
-
-
 
 
 # Testing Application Guide with Playwright
@@ -1082,6 +1082,7 @@ When creating a new test, follow this structure:
 import { test, expect } from '@playwright/test';
 
 // Description of the test group
+
 test.describe('Feature name', () => {
   // Individual test in this group
   test('should perform a specific action', async ({ page }) => {
@@ -1101,23 +1102,25 @@ test.describe('Feature name', () => {
 
 For test reliability, use locators in the following priority:
 
+
 1. **Roles and Accessibility** - best for buttons, forms, navigation elements:
+
    ```typescript
    page.getByRole('button', { name: 'Pay' })
    page.getByLabel('Email')
    ```
-
 2. **Text Content** - for elements with unique text:
+
    ```typescript
    page.getByText('Profile Settings')
    ```
-
 3. **Test IDs** - for dynamic elements:
+
    ```typescript
    page.getByTestId('payment-form')
    ```
-
 4. **CSS Selectors** - as a last resort:
+
    ```typescript
    page.locator('.payment-container form button[type="submit"]')
    ```
@@ -1297,6 +1300,7 @@ test('should display data from API', async ({ page }) => {
 
 ## Recommendations for Effective Testing
 
+
 1. **Follow the Principle of Test Isolation** - each test should be independent.
 2. **Test from the User's Perspective** - simulate real interactions.
 3. **Use Accessible Attributes** - prioritize `getByRole` and `getByLabel`.
@@ -1308,19 +1312,23 @@ test('should display data from API', async ({ page }) => {
 
 ### Test Cannot Find an Element
 
+
 1. Check the selector using the Playwright Inspector tool:
+
    ```bash
    PWDEBUG=1 yarn test tests/your-test.spec.ts
    ```
-
 2. Add visibility waiting for the element:
+
    ```typescript
    await page.waitForSelector('.element', { state: 'visible' });
    ```
 
 ### Test Works Locally but Not in CI
 
+
 1. Add failure screenshots:
+
    ```typescript
    test.afterEach(async ({ page }, testInfo) => {
      if (testInfo.status !== 'passed') {
@@ -1328,14 +1336,8 @@ test('should display data from API', async ({ page }) => {
      }
    });
    ```
-
 2. Check for differences in browser window sizes.
 
 ## Conclusion
 
 By following these instructions, you can effectively create and maintain automated tests for our Next.js application. If you have questions, refer to existing tests as examples or consult with the development team.
-
-
-
-
-

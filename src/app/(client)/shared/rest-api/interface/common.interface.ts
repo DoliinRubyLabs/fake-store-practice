@@ -1,10 +1,4 @@
 export interface IRes {
-  meta?: {
-    page: number
-    pages: number
-    limit: number
-    total: number
-  }
   error?: {
     message: string
     validation_errors?: {
@@ -12,4 +6,20 @@ export interface IRes {
       message: string
     }[]
   }
+}
+
+export interface IImage {
+  id: number
+  alt: string
+  updatedAt: string
+  createdAt: string
+  url: string
+  thumbnailURL: string | null
+  filename: string
+  mimeType: string
+  filesize: number
+  width: number
+  height: number
+  focalX: number
+  focalY: number
 }

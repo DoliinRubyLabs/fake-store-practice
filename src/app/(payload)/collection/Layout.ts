@@ -1,20 +1,14 @@
 import type { CollectionConfig } from 'payload'
 
-import {
-  formBuilderBlock,
-  imageBlock,
-  imageGalleryBlock,
-  textContentBlock,
-  titleDescriptionImageBlock,
-} from '../shared/field/blocks'
+import { footerBlock, headerBlock } from '../shared/field/blocks'
 import { seoField } from '../shared/field/seo'
 import { slugField } from '../shared/field/slug'
 import { versionsField } from '../shared/field/versions'
 import { authenticated, authenticatedOrPublished } from '../shared/service'
 
 // pages
-export const Pages: CollectionConfig = {
-  slug: 'pages',
+export const Layout: CollectionConfig = {
+  slug: 'layout',
   access: {
     create: authenticated,
     read: authenticatedOrPublished,
@@ -27,8 +21,8 @@ export const Pages: CollectionConfig = {
     group: 'Content',
   },
   labels: {
-    singular: 'Page',
-    plural: 'Pages',
+    singular: 'Layout',
+    plural: 'Layouts',
   },
   fields: [
     {
@@ -46,7 +40,7 @@ export const Pages: CollectionConfig = {
             {
               name: 'sections',
               type: 'blocks',
-              blocks: [textContentBlock, titleDescriptionImageBlock, imageBlock, imageGalleryBlock, formBuilderBlock],
+              blocks: [headerBlock, footerBlock],
             },
           ],
         },

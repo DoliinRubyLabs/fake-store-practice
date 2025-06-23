@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { Where } from 'payload'
 import { stringify } from 'qs-esm'
 
@@ -5,17 +6,22 @@ import { QueryFunctionContext } from '@tanstack/react-query'
 
 import { restApiFetcher } from '@/pkg/library/rest-api'
 
-import { EPageApi, IHomePageRes } from '../../interface/page.interface'
+import { IHomePageRes } from '../../interface/page.interface'
+
+// interface
+enum EPageApi {
+  API_PAGES = 'pages',
+}
 
 // api
 export const pagesQueryApi = async (opt: QueryFunctionContext) => {
-  const query: Where = {
+  const where: Where = {
     slug: { equals: 'home-page' },
   }
 
   const stringifiedQuery = stringify(
     {
-      where: query,
+      where,
       depth: 2,
       draft: false,
       locale: 'en',
@@ -27,9 +33,15 @@ export const pagesQueryApi = async (opt: QueryFunctionContext) => {
     .get<IHomePageRes>(`${EPageApi.API_PAGES}${stringifiedQuery}`, {
       signal: opt.signal,
       cache: 'force-cache',
-      next: { revalidate: 60 },
+      next: { revalidate: 3600 },
     })
     .json()
 
-  return res?.docs?.at(0) || null
+  const data = res?.docs?.at(0)
+
+  if (!data) {
+    return notFound()
+  }
+
+  return data
 }

@@ -1,1 +1,3 @@
-export { default as ScanComponent } from './scan.component'
+import dynamic from 'next/dynamic'
+
+export const ScanComponent = dynamic(() => import('./scan.component'))

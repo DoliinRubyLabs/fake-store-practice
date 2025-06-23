@@ -8,7 +8,7 @@ import { Page } from '../payload-types'
 
 // generate title
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
-  return doc?.name ? `${doc.name} | Website` : 'Website'
+  return doc?.name ? `${doc.name}` : 'Website Title'
 }
 
 // plugins

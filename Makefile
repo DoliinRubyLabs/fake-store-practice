@@ -2,15 +2,15 @@
 # Start
 # ------------------------------------------------------------
 
-# First start
-.PHONY: first-start
-first-start:
-	@make client-copy-env && make client-install && make client-dev	
-
 # Quick start
 .PHONY: quick-start
 quick-start:
 	@make client-dev
+
+# First start
+.PHONY: first-start
+first-start:
+	@make client-copy-env && make client-install && make client-dev	
 
 
 # ------------------------------------------------------------
