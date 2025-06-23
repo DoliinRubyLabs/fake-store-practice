@@ -28,6 +28,7 @@
     "@payloadcms/payload-cloud": "3.43.0",
     "@payloadcms/plugin-seo": "^3.43.0",
     "@payloadcms/richtext-lexical": "3.43.0",
+    "@payloadcms/storage-s3": "^3.43.0",
     "@payloadcms/ui": "3.43.0",
     "@react-aria/i18n": "^3.12.10",
     "@svgr/webpack": "^8.1.0",
