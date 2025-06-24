@@ -22,7 +22,7 @@ export const plugins = (): Plugin[] => {
     seoPlugin({ generateTitle }),
     s3Storage({
       collections: {
-        media: { prefix: 'media' },
+        media: true,
       },
       bucket: `${process.env.S3_BUCKET}`,
       config: {
