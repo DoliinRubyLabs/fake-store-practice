@@ -17,7 +17,6 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
-    reactCompiler: true,
     optimizeServerReact: true,
     optimizePackageImports: [
       'luxon',
@@ -70,16 +69,21 @@ const nextConfig: NextConfig = {
     return config
   },
 
-  // TODO: add redirects when we have a locale
-  // redirects: async () => {
-  //   return [
-  //     {
-  //       source: `/:locale/admin/:path*`,
-  //       destination: '/admin/:path*',
-  //       permanent: true,
-  //     },
-  //   ]
-  // },
+  redirects: async () => {
+    return [
+      {
+        source: '/404',
+        destination: '/not-found',
+        permanent: true,
+      },
+      // TODO: add redirects when we have a locale
+      //     {
+      //       source: `/:locale/admin/:path*`,
+      //       destination: '/admin/:path*',
+      //       permanent: true,
+      //     },
+    ]
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
