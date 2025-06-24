@@ -1,4 +1,3 @@
-// storage-adapter-import-placeholder
 import path from 'path'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
