@@ -241,7 +241,8 @@ const BuilderSectionComponent: FC<Readonly<IProps>> = (props) => {
                         'object-cover transition-all duration-700 ' +
                         'group-hover/image:scale-105 group-hover/image:brightness-110'
                       }
-                      sizes='(max-width: 768px) 100vw, 50vw'
+                      sizes={'(max-width: 768px) 100vw, 50vw'}
+                      placeholder={'blur'}
                     />
 
                     <div className={'absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent'} />
