@@ -29,13 +29,13 @@ export default buildConfig({
       createFirstUser: '/create-root-user',
     },
     meta: {
-      title: 'Admin Panel - manage your content',
-      description: 'Admin Panel - manage your content',
+      title: 'CMS Template',
+      description: 'CMS Template - manage your content',
     },
   },
   routes: {
     admin: '/admin',
-    api: '/api',
+    api: '/api/rest',
   },
   collections: [Layout, Pages, Media, Users],
   editor: lexicalEditor(),
@@ -43,12 +43,14 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  maxDepth: 3,
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
     },
   }),
   sharp,
-  plugins,
+  plugins: plugins(),
   localization: locales,
 })

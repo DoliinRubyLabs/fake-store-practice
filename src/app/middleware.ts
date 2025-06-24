@@ -9,5 +9,7 @@ export async function middleware() {
 
 // config
 export const config = {
-  matcher: ['/((?!api|_next|_next/static|_next/image|admin|fonts|ico|png|txt|sitemap|robots|webmanifest).*)'],
+  matcher: [
+    '/((?!api|trpc|_next|_next/static|_next/image|_vercel|static|.well-known|admin|fonts|sitemap|images|games|icons|robots|webmanifest|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.ico$|.*\\.svg$|.*\\.txt$|.*\\.js$).*)',
+  ],
 }

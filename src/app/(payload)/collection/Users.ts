@@ -18,7 +18,12 @@ export const Users: CollectionConfig = {
     hideAPIURL: true,
     hidden: notSuperAdmin,
   },
-  auth: true,
+  auth: {
+    tokenExpiration: 7200,
+    // verify: true,
+    maxLoginAttempts: 5,
+    lockTime: 600 * 1000,
+  },
   labels: {
     singular: 'Admin',
     plural: 'Admins',

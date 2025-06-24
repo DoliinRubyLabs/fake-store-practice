@@ -2,9 +2,9 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'AdminPanel',
-    short_name: 'AdminPanel',
-    description: 'AdminPanel',
+    name: 'CMS Template',
+    short_name: 'CMS Template',
+    description: 'CMS Template',
     start_url: '/',
     display: 'standalone',
     icons: [

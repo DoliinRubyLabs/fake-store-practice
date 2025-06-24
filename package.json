@@ -17,6 +17,7 @@
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "dev": "yarn docker:up && yarn generate:types && yarn generate:importmap && next dev --turbopack",
+    "prebuild": "yarn generate:types && yarn generate:importmap",
     "build": "next build",
     "start": "next start"
   },

@@ -10,7 +10,7 @@ import { IHomePageRes } from '../../interface/page.interface'
 
 // interface
 enum EPageApi {
-  API_PAGES = 'pages',
+  API_PAGES = 'rest/pages',
 }
 
 // api
@@ -33,7 +33,7 @@ export const pagesQueryApi = async (opt: QueryFunctionContext) => {
     .get<IHomePageRes>(`${EPageApi.API_PAGES}${stringifiedQuery}`, {
       signal: opt.signal,
       cache: 'force-cache',
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     })
     .json()
 
