@@ -2,7 +2,7 @@ import { type FC } from 'react'
 
 import { ITextContentSection } from '@/app/(client)/entities/models/page.model'
 
-import { TextContentComponent } from './elements/title-description-image-block'
+import { BlockTextContentComponent } from './elements/title-description-image-block'
 
 // interface
 interface IProps {
@@ -16,7 +16,7 @@ const BlockComponent: FC<Readonly<IProps>> = (props) => {
   const { blockType, data, isLoading = false } = props
 
   // return
-  return <>{blockType === 'textContent' && <TextContentComponent data={data} isLoading={isLoading} />}</>
+  return <>{blockType === 'textContent' && <BlockTextContentComponent data={data} isLoading={isLoading} />}</>
 }
 
 export default BlockComponent

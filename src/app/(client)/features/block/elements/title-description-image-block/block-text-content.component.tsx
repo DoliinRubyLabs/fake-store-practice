@@ -15,7 +15,7 @@ interface IProps {
 }
 
 // component
-const TextContentComponent: FC<Readonly<IProps>> = (props) => {
+const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
   const { data, isLoading = false } = props
 
   // return
@@ -91,23 +91,10 @@ const TextContentComponent: FC<Readonly<IProps>> = (props) => {
                   </div>
                 </div>
               )}
-
-              <div className='pt-8'>
-                <div
-                  className={cn('flex flex-col gap-4 sm:flex-row sm:gap-6', {
-                    'justify-center': data?.alignment === 'center',
-                    'justify-end': data?.alignment === 'right',
-                    'justify-start': data?.alignment === 'left' || !data?.alignment,
-                  })}
-                >
-                  {/* You can add buttons or other CTA elements here if needed */}
-                </div>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
         <div className='absolute bottom-8 left-1/2 z-10 -translate-x-1/2 transform'>
           <div className='flex flex-col items-center space-y-2'>
             <div className='animate-bounce'>
@@ -119,7 +106,6 @@ const TextContentComponent: FC<Readonly<IProps>> = (props) => {
           </div>
         </div>
 
-        {/* Decorative Elements */}
         <div className='absolute right-10 top-20 z-10 hidden lg:block'>
           <div className='to-white/1 h-32 w-32 rounded-full bg-gradient-to-br from-white/5 backdrop-blur-sm' />
         </div>
@@ -129,18 +115,15 @@ const TextContentComponent: FC<Readonly<IProps>> = (props) => {
         </div>
 
         {data?.image?.url && (
-          <>
-            {/* Floating particles effect */}
-            <div className='z-5 absolute inset-0'>
-              <div className='absolute left-1/4 top-1/4 h-2 w-2 animate-pulse rounded-full bg-white/20' />
-              <div className='absolute right-1/3 top-1/3 h-1 w-1 animate-pulse rounded-full bg-blue-300/30 delay-1000' />
-              <div className='absolute bottom-1/4 left-1/3 h-3 w-3 animate-pulse rounded-full bg-purple-300/20 delay-500' />
-            </div>
-          </>
+          <div className='z-5 absolute inset-0'>
+            <div className='absolute left-1/4 top-1/4 h-2 w-2 animate-pulse rounded-full bg-white/20' />
+            <div className='absolute right-1/3 top-1/3 h-1 w-1 animate-pulse rounded-full bg-blue-300/30 delay-1000' />
+            <div className='absolute bottom-1/4 left-1/3 h-3 w-3 animate-pulse rounded-full bg-purple-300/20 delay-500' />
+          </div>
         )}
       </section>
     </Skeleton>
   )
 }
 
-export default TextContentComponent
+export default BlockTextContentComponent

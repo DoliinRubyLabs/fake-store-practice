@@ -1,3 +1,3 @@
 import dynamic from 'next/dynamic'
 
-export const TextContentComponent = dynamic(() => import('./title-block.component'))
+export const BlockTextContentComponent = dynamic(() => import('./block-text-content.component'))
