@@ -15,21 +15,72 @@ export const headerBlock: Block = {
       label: 'Logo',
     },
     {
-      name: 'menu',
+      label: 'Navigation',
+      name: 'navigation',
       type: 'array',
-      label: 'Menu',
-      required: true,
       minRows: 1,
       fields: [
         {
           name: 'label',
           type: 'text',
           label: 'Label',
+          required: true,
+          localized: true,
+        },
+        {
+          name: 'links',
+          type: 'array',
+          label: 'Links',
+          required: true,
+          minRows: 1,
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              label: 'Link Label',
+              required: true,
+              localized: true,
+            },
+            {
+              name: 'url',
+              type: 'text',
+              label: 'URL',
+              required: true,
+            },
+            {
+              name: 'openInNewTab',
+              type: 'checkbox',
+              label: 'Open in New Tab',
+              defaultValue: false,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: 'Buttons',
+      name: 'buttons',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        {
+          name: 'text',
+          type: 'text',
+          label: 'Text',
+          required: true,
+          localized: true,
         },
         {
           name: 'url',
           type: 'text',
           label: 'URL',
+          required: true,
+        },
+        {
+          name: 'icon',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Icon',
         },
       ],
     },
@@ -95,9 +146,9 @@ export const footerBlock: Block = {
       ],
     },
     {
-      name: 'copyright',
-      type: 'text',
       label: 'Copyright',
+      name: 'copyright',
+      type: 'richText',
       localized: true,
     },
     {

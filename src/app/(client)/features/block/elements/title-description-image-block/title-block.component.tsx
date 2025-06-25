@@ -1,0 +1,146 @@
+import Image from 'next/image'
+import { type FC } from 'react'
+
+import { cn } from '@heroui/react'
+import { Skeleton } from '@heroui/skeleton'
+import { RichText } from '@payloadcms/richtext-lexical/react'
+
+import { ITextContentSection } from '@/app/(client)/entities/models/page.model'
+import { imgShimmer } from '@/pkg/util'
+
+// interface
+interface IProps {
+  isLoading?: boolean
+  data: ITextContentSection
+}
+
+// component
+const TextContentComponent: FC<Readonly<IProps>> = (props) => {
+  const { data, isLoading = false } = props
+
+  // return
+  return (
+    <Skeleton isLoaded={!isLoading} className={'rounded-none'}>
+      <section className='relative min-h-[70vh] w-full overflow-hidden'>
+        {data?.image?.url && (
+          <div className='absolute inset-0 z-0 overflow-hidden rounded-2xl'>
+            <Image
+              src={data.image.url}
+              alt={data.image.alt || 'Background image'}
+              fill
+              className={'object-cover object-center'}
+              sizes={'100vw'}
+              priority
+              placeholder={'blur'}
+              blurDataURL={imgShimmer(100, 100)}
+            />
+
+            <div className='absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60' />
+
+            <div className='absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10' />
+          </div>
+        )}
+
+        <div className={'relative z-10 flex items-center'}>
+          <div className={'container mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8'}>
+            <div
+              className={cn('space-y-8', {
+                'text-center': data?.alignment === 'center',
+                'text-right': data?.alignment === 'right',
+                'text-left': data?.alignment === 'left' || !data?.alignment,
+              })}
+            >
+              {data?.underTitle && (
+                <div
+                  className={cn('flex items-center gap-3', {
+                    'justify-center': data?.alignment === 'center',
+                    'justify-end': data?.alignment === 'right',
+                    'justify-start': data?.alignment === 'left' || !data?.alignment,
+                  })}
+                >
+                  <div className='h-px w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent' />
+
+                  <span className='text-sm font-medium uppercase tracking-wider text-white/80 sm:text-base'>
+                    {data.underTitle}
+                  </span>
+
+                  <div className='h-px w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent' />
+                </div>
+              )}
+
+              <div className='space-y-4'>
+                <h1 className='xl:text-7xl text-4xl font-bold leading-tight text-white drop-shadow-2xl sm:text-5xl lg:text-6xl'>
+                  {data?.title || ''}
+                </h1>
+
+                <div
+                  className={cn('flex', {
+                    'justify-center': data?.alignment === 'center',
+                    'justify-end': data?.alignment === 'right',
+                    'justify-start': data?.alignment === 'left' || !data?.alignment,
+                  })}
+                >
+                  <div className='h-1 w-24 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 shadow-lg' />
+                </div>
+              </div>
+
+              {data?.content && (
+                <div className='mx-auto max-w-3xl'>
+                  <div className='text-lg leading-relaxed text-white/90 drop-shadow-lg sm:text-xl lg:text-2xl'>
+                    <RichText data={data.content} />
+                  </div>
+                </div>
+              )}
+
+              <div className='pt-8'>
+                <div
+                  className={cn('flex flex-col gap-4 sm:flex-row sm:gap-6', {
+                    'justify-center': data?.alignment === 'center',
+                    'justify-end': data?.alignment === 'right',
+                    'justify-start': data?.alignment === 'left' || !data?.alignment,
+                  })}
+                >
+                  {/* You can add buttons or other CTA elements here if needed */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className='absolute bottom-8 left-1/2 z-10 -translate-x-1/2 transform'>
+          <div className='flex flex-col items-center space-y-2'>
+            <div className='animate-bounce'>
+              <svg className='h-6 w-6 text-white/60' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 14l-7 7m0 0l-7-7m7 7V3' />
+              </svg>
+            </div>
+            <span className='text-xs uppercase tracking-wider text-white/40'>Scroll</span>
+          </div>
+        </div>
+
+        {/* Decorative Elements */}
+        <div className='absolute right-10 top-20 z-10 hidden lg:block'>
+          <div className='to-white/1 h-32 w-32 rounded-full bg-gradient-to-br from-white/5 backdrop-blur-sm' />
+        </div>
+
+        <div className='absolute bottom-20 left-10 z-10 hidden lg:block'>
+          <div className='h-24 w-24 rounded-full bg-gradient-to-tr from-blue-400/10 to-purple-500/10 backdrop-blur-sm' />
+        </div>
+
+        {data?.image?.url && (
+          <>
+            {/* Floating particles effect */}
+            <div className='z-5 absolute inset-0'>
+              <div className='absolute left-1/4 top-1/4 h-2 w-2 animate-pulse rounded-full bg-white/20' />
+              <div className='absolute right-1/3 top-1/3 h-1 w-1 animate-pulse rounded-full bg-blue-300/30 delay-1000' />
+              <div className='absolute bottom-1/4 left-1/3 h-3 w-3 animate-pulse rounded-full bg-purple-300/20 delay-500' />
+            </div>
+          </>
+        )}
+      </section>
+    </Skeleton>
+  )
+}
+
+export default TextContentComponent

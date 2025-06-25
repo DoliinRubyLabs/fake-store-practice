@@ -1,6 +1,15 @@
 import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 import { withPayload } from '@payloadcms/next/withPayload'
+
+// i18n
+const withNextIntl = createNextIntlPlugin({
+  requestConfig: './src/pkg/library/locale/request.ts',
+  experimental: {
+    createMessagesDeclaration: './translations/en.json',
+  },
+})
 
 // config
 const nextConfig: NextConfig = {
@@ -72,18 +81,17 @@ const nextConfig: NextConfig = {
   redirects: async () => {
     return [
       {
+        source: `/:locale/admin/:path*`,
+        destination: '/admin/:path*',
+        permanent: true,
+      },
+      {
         source: '/404',
         destination: '/not-found',
         permanent: true,
       },
-      // TODO: add redirects when we have a locale
-      //     {
-      //       source: `/:locale/admin/:path*`,
-      //       destination: '/admin/:path*',
-      //       permanent: true,
-      //     },
     ]
   },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+export default withPayload(withNextIntl(nextConfig), { devBundleServerPackages: false })

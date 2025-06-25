@@ -6,11 +6,11 @@ import { fileURLToPath } from 'url'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
-import { Layout } from './collection/Layout'
-import { Media } from './collection/Media'
-import { Pages } from './collection/Pages'
-import { Users } from './collection/Users'
-import { plugins } from './plugin'
+import { Layout } from './collections/Layout'
+import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { Users } from './collections/Users'
+import { plugins } from './plugins'
 import { locales } from './shared/constant'
 
 const filename = fileURLToPath(import.meta.url)
@@ -44,6 +44,7 @@ export default buildConfig({
   },
   maxDepth: 3,
   db: postgresAdapter({
+    migrationDir: path.resolve(dirname, 'migrations'),
     pool: {
       connectionString: process.env.DATABASE_URI || '',
       ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
