@@ -5,8 +5,7 @@ import { cn } from '@heroui/react'
 import { Skeleton } from '@heroui/skeleton'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
-import { ITextContentSection } from '@/app/(client)/entities/models/page.model'
-import { imgShimmer } from '@/pkg/util'
+import { ITextContentSection } from '@/app/entities/models/page.model'
 
 // interface
 interface IProps {
@@ -20,20 +19,11 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
 
   // return
   return (
-    <Skeleton isLoaded={!isLoading} className={'rounded-none'}>
+    <Skeleton isLoaded={!isLoading} className='rounded-none'>
       <section className='relative min-h-[70vh] w-full overflow-hidden'>
-        {data?.image?.url && (
+        {data.image?.url && (
           <div className='absolute inset-0 z-0 overflow-hidden rounded-2xl'>
-            <Image
-              src={data.image.url}
-              alt={data.image.alt || 'Background image'}
-              fill
-              className={'object-cover object-center'}
-              sizes={'100vw'}
-              priority
-              placeholder={'blur'}
-              blurDataURL={imgShimmer(100, 100)}
-            />
+            <Image src={data.image.url} alt={data.image.alt} fill className='object-cover object-center' sizes='80vw' />
 
             <div className='absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60' />
 
@@ -41,8 +31,8 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
           </div>
         )}
 
-        <div className={'relative z-10 flex items-center'}>
-          <div className={'container mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8'}>
+        <div className='relative z-10 flex items-center'>
+          <div className='container mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8'>
             <div
               className={cn('space-y-8', {
                 'text-center': data?.alignment === 'center',
@@ -70,7 +60,7 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
 
               <div className='space-y-4'>
                 <h1 className='xl:text-7xl text-4xl font-bold leading-tight text-white drop-shadow-2xl sm:text-5xl lg:text-6xl'>
-                  {data?.title || ''}
+                  {data.title}
                 </h1>
 
                 <div
@@ -84,7 +74,7 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
                 </div>
               </div>
 
-              {data?.content && (
+              {data.content && (
                 <div className='mx-auto max-w-3xl'>
                   <div className='text-lg leading-relaxed text-white/90 drop-shadow-lg sm:text-xl lg:text-2xl'>
                     <RichText data={data.content} />
@@ -102,6 +92,7 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
                 <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 14l-7 7m0 0l-7-7m7 7V3' />
               </svg>
             </div>
+
             <span className='text-xs uppercase tracking-wider text-white/40'>Scroll</span>
           </div>
         </div>
@@ -114,7 +105,7 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
           <div className='h-24 w-24 rounded-full bg-gradient-to-tr from-blue-400/10 to-purple-500/10 backdrop-blur-sm' />
         </div>
 
-        {data?.image?.url && (
+        {data.image?.url && (
           <div className='z-5 absolute inset-0'>
             <div className='absolute left-1/4 top-1/4 h-2 w-2 animate-pulse rounded-full bg-white/20' />
             <div className='absolute right-1/3 top-1/3 h-1 w-1 animate-pulse rounded-full bg-blue-300/30 delay-1000' />

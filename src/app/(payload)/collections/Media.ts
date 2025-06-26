@@ -17,16 +17,23 @@ export const Media: CollectionConfig = {
     group: 'Storage',
   },
   labels: {
-    singular: 'Media',
-    plural: 'Medias',
+    singular: 'Image',
+    plural: 'Images',
   },
   fields: [
     {
       name: 'alt',
       type: 'text',
       defaultValue: 'image',
+      required: true,
       localized: true,
     },
   ],
-  upload: true,
+  upload: {
+    mimeTypes: ['image/*'],
+    formatOptions: {
+      format: 'webp',
+      options: { quality: 85 },
+    },
+  },
 }

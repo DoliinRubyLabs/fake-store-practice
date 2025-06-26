@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 
-import { ITextContentSection } from '@/app/(client)/entities/models/page.model'
+import { ITextContentSection } from '@/app/entities/models/page.model'
 
 import { BlockTextContentComponent } from './elements/title-description-image-block'
 

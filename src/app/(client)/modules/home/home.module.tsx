@@ -2,9 +2,9 @@
 
 import { type FC } from 'react'
 
-import { usePagesQuery } from '@/app/(client)/entities/api/page'
-import { BlockComponent } from '@/app/(client)/features/block'
-import { ContainerComponent } from '@/app/(client)/shared/ui/container'
+import { usePagesQuery } from '@/app/entities/api/page'
+import { BlockComponent } from '@/app/features/block'
+import { ContainerComponent } from '@/app/shared/ui/container'
 
 // interface
 interface IProps {}

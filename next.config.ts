@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
+    reactCompiler: true,
     optimizeServerReact: true,
     optimizePackageImports: [
       'luxon',

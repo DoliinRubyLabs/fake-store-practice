@@ -1,8 +1,8 @@
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-import { pagesQueryApi } from './page.api'
+import { EPageKey } from '@/app/entities/models/page.model'
 
-import { EPageKey } from '../../models/page.model'
+import { pagesQueryApi } from './page.api'
 
 // options
 export const pagesQueryOptions = () => {

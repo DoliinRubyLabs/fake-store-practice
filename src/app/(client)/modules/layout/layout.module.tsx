@@ -1,8 +1,6 @@
 import { FC, ReactNode } from 'react'
 
-import { layoutService } from './layout.service'
-
-import { HeaderComponent } from '../../features/header'
+import { HeaderComponent } from '@/app/features/header'
 
 // interface
 interface IProps {
@@ -12,8 +10,6 @@ interface IProps {
 // component
 const LayoutModule: FC<Readonly<IProps>> = (props) => {
   const { children } = props
-
-  const thiservice = layoutService()
 
   // return
   return (

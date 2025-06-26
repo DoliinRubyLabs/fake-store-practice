@@ -38,16 +38,16 @@ export default buildConfig({
   },
   collections: [Layout, Pages, Media, Users],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: process.env.PAYLOAD_SECRET || 'secret-key',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   maxDepth: 3,
   db: postgresAdapter({
+    idType: 'uuid',
     migrationDir: path.resolve(dirname, 'migrations'),
     pool: {
       connectionString: process.env.DATABASE_URI || '',
-      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
     },
   }),
   sharp,

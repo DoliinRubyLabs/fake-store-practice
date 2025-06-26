@@ -1,14 +1,18 @@
-import { Metadata } from 'next'
-import { FC } from 'react'
+import { type Metadata } from 'next'
+import { type Locale } from 'next-intl'
+import { setRequestLocale } from 'next-intl/server'
+import { type FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { pagesQueryOptions } from '@/app/(client)/entities/api/page'
-import { HomeModule } from '@/app/(client)/modules/home'
+import { pagesQueryOptions } from '@/app/entities/api/page'
+import { HomeModule } from '@/app/modules/home'
 import { getQueryClient } from '@/pkg/library/rest-api'
 
 // interface
-interface IProps {}
+interface IProps {
+  params: Promise<{ locale: Locale }>
+}
 
 // metadata
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -28,7 +32,11 @@ export const generateMetadata = async (): Promise<Metadata> => {
 }
 
 // component
-const Page: FC<Readonly<IProps>> = async () => {
+const Page: FC<Readonly<IProps>> = async (props) => {
+  const { locale } = await props.params
+
+  setRequestLocale(locale)
+
   const clientQuery = getQueryClient()
 
   await clientQuery.prefetchQuery(pagesQueryOptions())

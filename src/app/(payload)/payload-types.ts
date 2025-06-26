@@ -86,7 +86,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   globals: {};
   globalsSelect: {};
@@ -158,12 +158,12 @@ export interface UserAuthOperations {
  * via the `definition` "layout".
  */
 export interface Layout {
-  id: number;
+  id: string;
   name: string;
   blocks?:
     | (
         | {
-            logo?: (number | null) | Media;
+            logo?: (string | null) | Media;
             navigation?:
               | {
                   label: string;
@@ -180,7 +180,7 @@ export interface Layout {
               | {
                   text: string;
                   url: string;
-                  icon?: (number | null) | Media;
+                  icon?: (string | null) | Media;
                   id?: string | null;
                 }[]
               | null;
@@ -189,7 +189,7 @@ export interface Layout {
             blockType: 'header';
           }
         | {
-            logo?: (number | null) | Media;
+            logo?: (string | null) | Media;
             menuColumns: {
               columnTitle: string;
               links: {
@@ -228,7 +228,7 @@ export interface Layout {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
   };
   slug?: string | null;
   slugLock?: boolean | null;
@@ -241,8 +241,8 @@ export interface Layout {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
-  alt?: string | null;
+  id: string;
+  alt: string;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -261,7 +261,7 @@ export interface Media {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: number;
+  id: string;
   name: string;
   blocks?:
     | (
@@ -283,7 +283,7 @@ export interface Page {
               };
               [k: string]: unknown;
             } | null;
-            image?: (number | null) | Media;
+            image?: (string | null) | Media;
             alignment?: ('left' | 'center' | 'right') | null;
             id?: string | null;
             blockName?: string | null;
@@ -320,7 +320,7 @@ export interface Page {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
   };
   slug?: string | null;
   slugLock?: boolean | null;
@@ -333,7 +333,7 @@ export interface Page {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   name?: string | null;
   role?: ('admin' | 'root') | null;
   updatedAt: string;
@@ -352,28 +352,28 @@ export interface User {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: string;
   document?:
     | ({
         relationTo: 'layout';
-        value: number | Layout;
+        value: string | Layout;
       } | null)
     | ({
         relationTo: 'pages';
-        value: number | Page;
+        value: string | Page;
       } | null)
     | ({
         relationTo: 'media';
-        value: number | Media;
+        value: string | Media;
       } | null)
     | ({
         relationTo: 'users';
-        value: number | User;
+        value: string | User;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -383,10 +383,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -406,7 +406,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
