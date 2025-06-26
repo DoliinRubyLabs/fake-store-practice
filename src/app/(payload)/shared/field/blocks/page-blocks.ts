@@ -31,7 +31,7 @@ export const textContentBlock: Block = {
       name: 'image',
       type: 'upload',
       label: 'Image',
-      relationTo: 'media',
+      relationTo: 'images',
     },
     {
       name: 'alignment',

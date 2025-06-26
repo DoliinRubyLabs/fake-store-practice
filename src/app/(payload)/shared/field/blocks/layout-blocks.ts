@@ -11,7 +11,7 @@ export const headerBlock: Block = {
     {
       name: 'logo',
       type: 'upload',
-      relationTo: 'media',
+      relationTo: 'images',
       label: 'Logo',
     },
     {
@@ -79,7 +79,7 @@ export const headerBlock: Block = {
         {
           name: 'icon',
           type: 'upload',
-          relationTo: 'media',
+          relationTo: 'images',
           label: 'Icon',
         },
       ],
@@ -98,7 +98,7 @@ export const footerBlock: Block = {
     {
       name: 'logo',
       type: 'upload',
-      relationTo: 'media',
+      relationTo: 'images',
       label: 'Logo',
     },
     {

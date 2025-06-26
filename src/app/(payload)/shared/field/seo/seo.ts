@@ -13,7 +13,7 @@ export const seoField = () => {
     }),
     MetaDescriptionField({}),
     MetaImageField({
-      relationTo: 'media',
+      relationTo: 'images',
     }),
   ]
 }

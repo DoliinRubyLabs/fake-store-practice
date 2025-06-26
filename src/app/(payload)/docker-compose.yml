@@ -1,6 +1,6 @@
 version: '3.8'
 
-name: affiliate
+name: rt-template-cms
 
 services:
   db-local:

@@ -69,7 +69,7 @@ export interface Config {
   collections: {
     layout: Layout;
     pages: Page;
-    media: Media;
+    images: Image;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -79,7 +79,7 @@ export interface Config {
   collectionsSelect: {
     layout: LayoutSelect<false> | LayoutSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
+    images: ImagesSelect<false> | ImagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -163,7 +163,7 @@ export interface Layout {
   blocks?:
     | (
         | {
-            logo?: (string | null) | Media;
+            logo?: (string | null) | Image;
             navigation?:
               | {
                   label: string;
@@ -180,7 +180,7 @@ export interface Layout {
               | {
                   text: string;
                   url: string;
-                  icon?: (string | null) | Media;
+                  icon?: (string | null) | Image;
                   id?: string | null;
                 }[]
               | null;
@@ -189,7 +189,7 @@ export interface Layout {
             blockType: 'header';
           }
         | {
-            logo?: (string | null) | Media;
+            logo?: (string | null) | Image;
             menuColumns: {
               columnTitle: string;
               links: {
@@ -228,7 +228,7 @@ export interface Layout {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (string | null) | Image;
   };
   slug?: string | null;
   slugLock?: boolean | null;
@@ -238,9 +238,9 @@ export interface Layout {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "images".
  */
-export interface Media {
+export interface Image {
   id: string;
   alt: string;
   prefix?: string | null;
@@ -283,7 +283,7 @@ export interface Page {
               };
               [k: string]: unknown;
             } | null;
-            image?: (string | null) | Media;
+            image?: (string | null) | Image;
             alignment?: ('left' | 'center' | 'right') | null;
             id?: string | null;
             blockName?: string | null;
@@ -320,7 +320,7 @@ export interface Page {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (string | null) | Image;
   };
   slug?: string | null;
   slugLock?: boolean | null;
@@ -363,8 +363,8 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
-        relationTo: 'media';
-        value: string | Media;
+        relationTo: 'images';
+        value: string | Image;
       } | null)
     | ({
         relationTo: 'users';
@@ -549,9 +549,9 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "images_select".
  */
-export interface MediaSelect<T extends boolean = true> {
+export interface ImagesSelect<T extends boolean = true> {
   alt?: T;
   prefix?: T;
   updatedAt?: T;

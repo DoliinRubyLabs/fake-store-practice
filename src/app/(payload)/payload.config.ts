@@ -6,8 +6,8 @@ import { fileURLToPath } from 'url'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
+import { Images } from './collections/Images'
 import { Layout } from './collections/Layout'
-import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Users } from './collections/Users'
 import { plugins } from './plugins'
@@ -36,7 +36,7 @@ export default buildConfig({
     admin: '/admin',
     api: '/api/rest',
   },
-  collections: [Layout, Pages, Media, Users],
+  collections: [Layout, Pages, Images, Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'secret-key',
   typescript: {

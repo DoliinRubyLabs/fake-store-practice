@@ -2,9 +2,9 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone, authenticated } from '../shared/service'
 
-// media
-export const Media: CollectionConfig = {
-  slug: 'media',
+// images
+export const Images: CollectionConfig = {
+  slug: 'images',
   access: {
     create: authenticated,
     delete: authenticated,
