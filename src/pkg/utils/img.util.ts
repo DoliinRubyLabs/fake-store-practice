@@ -1,5 +1,5 @@
-// img shimmer
-export const imgShimmer = (w: number, h: number): string => {
+// img shimmer util
+export const imgShimmerUtil = (w: number, h: number): string => {
   const shimmer = (w: number, h: number) => `
     <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>

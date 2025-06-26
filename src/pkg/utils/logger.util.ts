@@ -7,7 +7,7 @@ interface IDebugUtil {
   isActiveOnProd?: boolean
 }
 
-// debug
+// logger util
 export const loggerUtil = (props: IDebugUtil) => {
   const { text, value, isActiveOnProd = false } = props
 
