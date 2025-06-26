@@ -67,7 +67,13 @@ const eslintConfig = [
     },
   },
   {
-    ignores: ['node_modules/', '.next/', './src/app/(payload)/(web)/admin/**', './src/app/(payload)/payload-types.ts'],
+    ignores: [
+      'node_modules/',
+      '.next/',
+      './src/app/(payload)/(web)/admin/**',
+      './src/app/(payload)/migrations/**',
+      './src/app/(payload)/payload-types.ts',
+    ],
   },
 ]
 

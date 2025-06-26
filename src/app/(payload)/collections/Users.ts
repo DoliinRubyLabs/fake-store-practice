@@ -48,11 +48,7 @@ export const Users: CollectionConfig = {
         position: 'sidebar',
       },
       dbName: 'role',
-      custom: {
-        postgres: {
-          type: 'text',
-        },
-      },
+      custom: { postgres: { type: 'text' } },
     },
   ],
 }

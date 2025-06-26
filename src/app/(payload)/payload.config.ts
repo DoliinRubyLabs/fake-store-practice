@@ -4,7 +4,10 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 import { envServer } from '@/config/env'
 
@@ -12,8 +15,8 @@ import { Images } from './collections/Images'
 import { Layout } from './collections/Layout'
 import { Pages } from './collections/Pages'
 import { Users } from './collections/Users'
-import { plugins } from './plugins'
 import { locales } from './shared/constant'
+import { generateTitle } from './shared/service'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -40,7 +43,7 @@ export default buildConfig({
   },
   collections: [Layout, Pages, Images, Users],
   editor: lexicalEditor(),
-  secret: envServer.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET || 'secret-key',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
@@ -49,10 +52,28 @@ export default buildConfig({
     idType: 'uuid',
     migrationDir: path.resolve(dirname, 'migrations'),
     pool: {
-      connectionString: envServer.DATABASE_URI,
+      connectionString: process.env.DATABASE_URI || '',
     },
   }),
   sharp,
-  plugins: plugins(),
+  plugins: [
+    payloadCloudPlugin(),
+    seoPlugin({ generateTitle }),
+    s3Storage({
+      collections: {
+        images: { prefix: 'images' },
+      },
+      bucket: envServer.S3_BUCKET,
+      config: {
+        credentials: {
+          accessKeyId: envServer.S3_ACCESS_KEY_ID,
+          secretAccessKey: envServer.S3_SECRET_ACCESS_KEY,
+        },
+        region: envServer.S3_REGION,
+        endpoint: envServer.S3_ENDPOINT,
+        forcePathStyle: true,
+      },
+    }),
+  ],
   localization: locales,
 })

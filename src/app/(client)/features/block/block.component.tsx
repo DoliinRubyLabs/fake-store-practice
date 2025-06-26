@@ -16,7 +16,13 @@ const BlockComponent: FC<Readonly<IProps>> = (props) => {
   const { blockType, data, isLoading = false } = props
 
   // return
-  return <>{blockType === 'textContent' && <BlockTextContentComponent data={data} isLoading={isLoading} />}</>
+  return (
+    <>
+      {blockType === 'textContent' && (
+        <BlockTextContentComponent data={data as ITextContentSection} isLoading={isLoading} />
+      )}
+    </>
+  )
 }
 
 export default BlockComponent

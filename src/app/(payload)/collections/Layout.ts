@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload'
 
-import { footerBlock, headerBlock } from '../shared/field/blocks'
-import { seoField } from '../shared/field/seo'
-import { slugField } from '../shared/field/slug'
-import { versionsField } from '../shared/field/versions'
+import { footerBlock, headerBlock } from '../features'
+import { seoFields } from '../shared/fields/seo'
+import { slugField } from '../shared/fields/slug'
+import { versionsField } from '../shared/fields/versions'
 import { authenticated, authenticatedOrPublished } from '../shared/service'
 
 // pages
@@ -19,6 +19,9 @@ export const Layout: CollectionConfig = {
     defaultColumns: ['name', 'slug', '_status', 'createdAt'],
     useAsTitle: 'name',
     group: 'Content',
+    livePreview: {
+      url: (data) => `/${data.locale}`,
+    },
   },
   labels: {
     singular: 'Layout',
@@ -31,6 +34,7 @@ export const Layout: CollectionConfig = {
       required: true,
       label: 'Name',
     },
+    ...slugField(),
     {
       type: 'tabs',
       tabs: [
@@ -48,11 +52,10 @@ export const Layout: CollectionConfig = {
         {
           name: 'meta',
           label: 'SEO',
-          fields: seoField(),
+          fields: seoFields,
         },
       ],
     },
-    ...slugField(),
   ],
   versions: versionsField(),
 }

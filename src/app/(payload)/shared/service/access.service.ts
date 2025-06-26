@@ -8,6 +8,8 @@ export const authenticated: Access = ({ req: { user } }) => Boolean(user?.role =
 
 // super admin
 export const superAdmin: Access = ({ req: { user } }) => Boolean(user?.role === 'root')
+
+// not super admin
 export const notSuperAdmin: (args: { user: ClientUser }) => boolean = ({ user }) => Boolean(user?.role !== 'root')
 
 // authenticated or published

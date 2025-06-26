@@ -13,18 +13,10 @@ export const pagesQueryApi = async (opt: QueryFunctionContext) => {
     slug: { equals: 'home-page' },
   }
 
-  const stringifiedQuery = stringify(
-    {
-      where,
-      depth: 2,
-      draft: false,
-      locale: 'en',
-    },
-    { addQueryPrefix: true },
-  )
+  const stringifiedQuery = stringify({ where, depth: 2, draft: false, locale: 'en' }, { addQueryPrefix: true })
 
   const res = await restApiFetcher
-    .get<IHomePageRes>(`${EPageApi.API_PAGES}${stringifiedQuery}`, {
+    .get<{ docs: IHomePageRes[] }>(`${EPageApi.API_PAGES}${stringifiedQuery}`, {
       signal: opt.signal,
       cache: 'force-cache',
       next: { revalidate: 120 },

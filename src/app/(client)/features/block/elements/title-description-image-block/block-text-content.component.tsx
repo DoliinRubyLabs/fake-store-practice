@@ -19,8 +19,14 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
 
   // return
   return (
-    <Skeleton isLoaded={!isLoading} className='rounded-none'>
-      <section className='relative min-h-[70vh] w-full overflow-hidden'>
+    <Skeleton isLoaded={!isLoading} className='rounded-2xl'>
+      <section
+        className={cn('relative flex min-h-[70vh] w-full overflow-hidden', {
+          'justify-center': data.contentAlignment === 'contentCenter',
+          'justify-start': data.contentAlignment === 'contentLeft',
+          'justify-end': data.contentAlignment === 'contentRight',
+        })}
+      >
         {data.image?.url && (
           <div className='absolute inset-0 z-0 overflow-hidden rounded-2xl'>
             <Image src={data.image.url} alt={data.image.alt} fill className='object-cover object-center' sizes='80vw' />
@@ -35,24 +41,24 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
           <div className='container mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8'>
             <div
               className={cn('space-y-8', {
-                'text-center': data?.alignment === 'center',
-                'text-right': data?.alignment === 'right',
-                'text-left': data?.alignment === 'left' || !data?.alignment,
+                'text-center': data?.textAlignment === 'textCenter',
+                'text-right': data?.textAlignment === 'textRight',
+                'text-left': data?.textAlignment === 'textLeft' || !data?.textAlignment,
               })}
             >
-              {data?.underTitle && (
+              {data?.subtitle && (
                 <div
                   className={cn('flex items-center gap-3', {
-                    'justify-center': data?.alignment === 'center',
-                    'justify-end': data?.alignment === 'right',
-                    'justify-start': data?.alignment === 'left' || !data?.alignment,
+                    'justify-center': data?.textAlignment === 'textCenter',
+                    'justify-end': data?.textAlignment === 'textRight',
+                    'justify-start': data?.textAlignment === 'textLeft' || !data?.textAlignment,
                   })}
                 >
                   <div className='h-px w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent' />
 
-                  <span className='text-sm font-medium uppercase tracking-wider text-white/80 sm:text-base'>
-                    {data.underTitle}
-                  </span>
+                  <p className='text-sm font-medium uppercase tracking-wider text-white/80 sm:text-base'>
+                    {data.subtitle}
+                  </p>
 
                   <div className='h-px w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent' />
                 </div>
@@ -65,9 +71,9 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
 
                 <div
                   className={cn('flex', {
-                    'justify-center': data?.alignment === 'center',
-                    'justify-end': data?.alignment === 'right',
-                    'justify-start': data?.alignment === 'left' || !data?.alignment,
+                    'justify-center': data?.textAlignment === 'textCenter',
+                    'justify-end': data?.textAlignment === 'textRight',
+                    'justify-start': data?.textAlignment === 'textLeft' || !data?.textAlignment,
                   })}
                 >
                   <div className='h-1 w-24 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 shadow-lg' />
@@ -75,11 +81,10 @@ const BlockTextContentComponent: FC<Readonly<IProps>> = (props) => {
               </div>
 
               {data.content && (
-                <div className='mx-auto max-w-3xl'>
-                  <div className='text-lg leading-relaxed text-white/90 drop-shadow-lg sm:text-xl lg:text-2xl'>
-                    <RichText data={data.content} />
-                  </div>
-                </div>
+                <RichText
+                  data={data.content}
+                  className='text-lg leading-relaxed text-white/90 drop-shadow-lg sm:text-xl lg:text-2xl'
+                />
               )}
             </div>
           </div>

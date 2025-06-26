@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload'
 
-import { formBuilderBlock, textContentBlock } from '../shared/field/blocks'
-import { seoField } from '../shared/field/seo'
-import { slugField } from '../shared/field/slug'
-import { versionsField } from '../shared/field/versions'
+import { formBuilderBlock, textContentBlock } from '../features'
+import { seoFields } from '../shared/fields/seo'
+import { slugField } from '../shared/fields/slug'
+import { versionsField } from '../shared/fields/versions'
 import { authenticated, authenticatedOrPublished } from '../shared/service'
 
 // pages
@@ -33,7 +33,9 @@ export const Pages: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Name',
+      defaultValue: 'Home Page',
     },
+    ...slugField(),
     {
       type: 'tabs',
       tabs: [
@@ -51,11 +53,10 @@ export const Pages: CollectionConfig = {
         {
           name: 'meta',
           label: 'SEO',
-          fields: seoField(),
+          fields: seoFields,
         },
       ],
     },
-    ...slugField(),
   ],
   versions: versionsField(),
 }

@@ -1,5 +1,7 @@
 import { type Block } from 'payload'
 
+import { contentAlignmentField, textAlignmentField } from '../shared/fields/alignment'
+
 // text content block
 export const textContentBlock: Block = {
   slug: 'textContent',
@@ -9,23 +11,20 @@ export const textContentBlock: Block = {
   },
   fields: [
     {
-      name: 'underTitle',
-      type: 'text',
-      label: 'Under Title',
-      localized: true,
-    },
-    {
       name: 'title',
       type: 'text',
       label: 'Title',
       required: true,
-      localized: true,
+    },
+    {
+      name: 'subtitle',
+      type: 'text',
+      label: 'Subtitle',
     },
     {
       name: 'content',
       type: 'richText',
       label: 'Content',
-      localized: true,
     },
     {
       name: 'image',
@@ -33,17 +32,8 @@ export const textContentBlock: Block = {
       label: 'Image',
       relationTo: 'images',
     },
-    {
-      name: 'alignment',
-      type: 'select',
-      label: 'Text Alignment',
-      options: [
-        { label: 'Left', value: 'left' },
-        { label: 'Center', value: 'center' },
-        { label: 'Right', value: 'right' },
-      ],
-      defaultValue: 'left',
-    },
+    contentAlignmentField,
+    textAlignmentField,
   ],
 }
 
@@ -56,16 +46,14 @@ export const formBuilderBlock: Block = {
   },
   fields: [
     {
-      name: 'title',
+      name: 'formTitle',
       type: 'text',
       label: 'Form Title',
-      localized: true,
     },
     {
-      name: 'description',
-      type: 'textarea',
+      name: 'formDescription',
+      type: 'richText',
       label: 'Form Description',
-      localized: true,
     },
     {
       name: 'fields',
@@ -73,17 +61,19 @@ export const formBuilderBlock: Block = {
       label: 'Form Fields',
       required: true,
       minRows: 1,
+      maxRows: 10,
       fields: [
         {
           name: 'fieldType',
           type: 'select',
           label: 'Field Type',
           required: true,
+          defaultValue: 'textInput',
           options: [
-            { label: 'Text Input', value: 'text' },
-            { label: 'Email', value: 'email' },
-            { label: 'Phone', value: 'phone' },
-            { label: 'Textarea', value: 'textarea' },
+            { label: 'Text Input', value: 'textInput' },
+            { label: 'Email', value: 'emailInput' },
+            { label: 'Phone', value: 'phoneInput' },
+            { label: 'Textarea', value: 'textareaInput' },
             { label: 'Select', value: 'select' },
             { label: 'Checkbox', value: 'checkbox' },
             { label: 'Radio', value: 'radio' },
@@ -93,16 +83,15 @@ export const formBuilderBlock: Block = {
           name: 'label',
           type: 'text',
           label: 'Field Label',
-          localized: true,
         },
         {
           name: 'placeholder',
           type: 'text',
           label: 'Placeholder',
-          localized: true,
           admin: {
-            condition: (_data, siblingData) =>
-              siblingData.fieldType !== 'radio' && siblingData.fieldType !== 'checkbox',
+            condition: (_data, siblingData) => {
+              return siblingData.fieldType !== 'radio' && siblingData.fieldType !== 'checkbox'
+            },
           },
         },
         {
@@ -116,21 +105,23 @@ export const formBuilderBlock: Block = {
           type: 'array',
           label: 'Options',
           admin: {
-            condition: (_data, siblingData) =>
-              siblingData.fieldType === 'select' ||
-              siblingData.fieldType === 'radio' ||
-              siblingData.fieldType === 'checkbox',
+            condition: (_data, siblingData) => {
+              return (
+                siblingData.fieldType === 'select' ||
+                siblingData.fieldType === 'radio' ||
+                siblingData.fieldType === 'checkbox'
+              )
+            },
           },
           fields: [
             {
-              name: 'label',
+              name: 'optionLabel',
               type: 'text',
               label: 'Option Label',
               required: true,
-              localized: true,
             },
             {
-              name: 'value',
+              name: 'optionValue',
               type: 'text',
               label: 'Option Value',
               required: true,
@@ -150,7 +141,6 @@ export const formBuilderBlock: Block = {
       type: 'text',
       label: 'Submit Button Text',
       defaultValue: 'Submit',
-      localized: true,
       admin: {
         condition: (_data, siblingData) => siblingData.showSubmitButton,
       },

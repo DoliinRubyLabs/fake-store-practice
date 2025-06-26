@@ -15,12 +15,10 @@ const HomeModule: FC<IProps> = () => {
 
   // return
   return (
-    <ContainerComponent>
-      <div className={'mt-16 w-full space-y-12'}>
-        {data?.blocks?.map((data, index) => (
-          <BlockComponent key={`${data?.id}-${index}`} blockType={data?.blockType} data={data} isLoading={isLoading} />
-        ))}
-      </div>
+    <ContainerComponent className='mt-16 w-full space-y-12'>
+      {data?.blocks?.map((data, index) => (
+        <BlockComponent key={`${data?.id}-${index}`} blockType={data?.blockType} data={data} isLoading={isLoading} />
+      ))}
     </ContainerComponent>
   )
 }

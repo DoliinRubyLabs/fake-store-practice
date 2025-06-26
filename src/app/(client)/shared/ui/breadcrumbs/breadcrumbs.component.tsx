@@ -1,6 +1,6 @@
 import { ChevronRight } from 'lucide-react'
 import NextLink from 'next/link'
-import { useParams, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { type FC } from 'react'
 
 import { BreadcrumbItem, Breadcrumbs } from '@heroui/breadcrumbs'
@@ -13,7 +13,6 @@ interface IProps {}
 
 // component
 const BreadcrumbsComponent: FC<Readonly<IProps>> = () => {
-  const { slug } = useParams()
   const pathname = usePathname()
 
   // return

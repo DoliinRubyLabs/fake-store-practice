@@ -1,35 +1,34 @@
-import { IImage } from './common.model'
+import { IImage, IMeta, TContentAlignment, TRichText, TTextAlignment } from './common.model'
 
+// key
 export enum EPageKey {
   PAGES_QUERY = 'pages_query',
 }
 
+// api
 export enum EPageApi {
   API_PAGES = 'rest/pages',
 }
 
+// text content section
 export interface ITextContentSection {
   id: string
   blockType: 'textContent'
-  underTitle?: string
   title: string
-  content?: any
+  subtitle?: string
+  content?: TRichText
   image?: IImage
-  alignment?: 'left' | 'center' | 'right'
+  contentAlignment?: TContentAlignment
+  textAlignment?: TTextAlignment
 }
 
-interface IMeta {
-  title?: string
-  description?: string
-  image?: { url: string; alt?: string }
-}
-
-export interface IHomePage {
+// home page response
+export interface IHomePageRes {
   id: string
+  name: string
+  slug: string
+  updatedAt: string
+  createdAt: string
   blocks: ITextContentSection[]
   meta: IMeta
-}
-
-export interface IHomePageRes {
-  docs: IHomePage[]
 }

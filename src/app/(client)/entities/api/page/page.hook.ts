@@ -9,6 +9,7 @@ export const pagesQueryOptions = () => {
   return queryOptions({
     queryKey: [EPageKey.PAGES_QUERY],
     queryFn: (params) => pagesQueryApi(params),
+    staleTime: 120,
   })
 }
 

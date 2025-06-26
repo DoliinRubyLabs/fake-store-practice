@@ -29,6 +29,7 @@ export const slugField = (fieldToUse = 'name', overrides: Overrides = {}) => {
     type: 'text',
     index: true,
     label: 'Slug',
+    unique: true,
     ...(slugOverrides || {}),
     hooks: {
       beforeValidate: [formatSlugHook(fieldToUse)],
@@ -38,7 +39,7 @@ export const slugField = (fieldToUse = 'name', overrides: Overrides = {}) => {
       ...(slugOverrides?.admin || {}),
       components: {
         Field: {
-          path: '@/app/(payload)/shared/field/slug/slug.component#SlugComponent',
+          path: '@/app/(payload)/shared/fields/slug/slug.component#SlugComponent',
           clientProps: {
             fieldToUse,
             checkboxFieldPath: checkBoxField.name,

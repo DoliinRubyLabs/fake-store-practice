@@ -26,7 +26,6 @@ export const Images: CollectionConfig = {
       type: 'text',
       defaultValue: 'image',
       required: true,
-      localized: true,
     },
   ],
   upload: {
