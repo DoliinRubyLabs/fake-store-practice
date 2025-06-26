@@ -25,6 +25,8 @@ const nextConfig: NextConfig = {
     formats: ['image/webp', 'image/avif'],
   },
 
+  serverExternalPackages: ['pino', 'pino-pretty'],
+
   experimental: {
     reactCompiler: true,
     optimizeServerReact: true,

@@ -1,2 +1,2 @@
 export { imgShimmer } from './img.util'
-export { debugUtil } from './logging.util'
+export { loggerUtil } from './logger.util'
