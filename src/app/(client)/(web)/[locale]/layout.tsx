@@ -7,13 +7,14 @@ import { getLangDir } from 'rtl-detect'
 
 import { LayoutModule } from '@/app/modules/layout'
 import { EAssetImage } from '@/app/shared/assets/interface/asset.interface'
-import { mainFont } from '@/pkg/font'
-import { routing } from '@/pkg/library/locale/routing'
-import { RestApiProvider } from '@/pkg/library/rest-api'
-import { ScanComponent } from '@/pkg/library/scan'
-import { UiProvider } from '@/pkg/library/ui'
+import { envClient } from '@/config/env'
+import { mainFont } from '@/config/fonts'
+import { routing } from '@/pkg/libraries/locale/routing'
+import { RestApiProvider } from '@/pkg/libraries/rest-api'
+import { ScanComponent } from '@/pkg/libraries/scan'
+import { UiProvider } from '@/pkg/libraries/ui'
 
-import '@/pkg/style/globals.css'
+import '@/config/styles/globals.css'
 
 // interface
 interface IProps {
@@ -29,7 +30,7 @@ export function generateStaticParams() {
 // metadata
 export const generateMetadata = async (): Promise<Metadata> => {
   return {
-    metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT_WEB_URL}`),
+    metadataBase: new URL(envClient.NEXT_PUBLIC_CLIENT_WEB_URL),
     title: {
       default: 'CMS Template',
       template: `CMS Template | %s`,
@@ -44,7 +45,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       description: 'CMS Template',
       siteName: 'CMS Template',
       type: 'website',
-      url: `${process.env.NEXT_PUBLIC_CLIENT_WEB_URL}`,
+      url: envClient.NEXT_PUBLIC_CLIENT_WEB_URL,
       images: [
         {
           url: EAssetImage.OG_IMAGE,

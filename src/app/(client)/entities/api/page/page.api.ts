@@ -5,7 +5,7 @@ import { stringify } from 'qs-esm'
 import { QueryFunctionContext } from '@tanstack/react-query'
 
 import { EPageApi, IHomePageRes } from '@/app/entities/models/page.model'
-import { restApiFetcher } from '@/pkg/library/rest-api'
+import { restApiFetcher } from '@/pkg/libraries/rest-api'
 
 // api
 export const pagesQueryApi = async (opt: QueryFunctionContext) => {

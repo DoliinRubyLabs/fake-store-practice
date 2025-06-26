@@ -5,7 +5,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 // i18n
 const withNextIntl = createNextIntlPlugin({
-  requestConfig: './src/pkg/library/locale/request.ts',
+  requestConfig: './src/pkg/libraries/locale/request.ts',
   experimental: {
     createMessagesDeclaration: './translations/en.json',
   },
@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
     reactCompiler: true,
     optimizeServerReact: true,
     optimizePackageImports: [
+      'zod',
       'luxon',
       'react-hook-form',
       'usehooks-ts',

@@ -1,6 +1,6 @@
 version: '3.8'
 
-name: rt-template-cms
+name: rl-template-cms
 
 services:
   db-local:

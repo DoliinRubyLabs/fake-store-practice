@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 
-import { routing } from '@/pkg/library/locale/routing'
+import { routing } from '@/pkg/libraries/locale/routing'
 
 // middleware
 export async function middleware(req: NextRequest) {

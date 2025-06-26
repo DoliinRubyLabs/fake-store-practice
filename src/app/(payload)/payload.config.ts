@@ -6,6 +6,8 @@ import { fileURLToPath } from 'url'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
+import { envServer } from '@/config/env'
+
 import { Images } from './collections/Images'
 import { Layout } from './collections/Layout'
 import { Pages } from './collections/Pages'
@@ -38,7 +40,7 @@ export default buildConfig({
   },
   collections: [Layout, Pages, Images, Users],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || 'secret-key',
+  secret: envServer.PAYLOAD_SECRET,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
@@ -47,7 +49,7 @@ export default buildConfig({
     idType: 'uuid',
     migrationDir: path.resolve(dirname, 'migrations'),
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: envServer.DATABASE_URI,
     },
   }),
   sharp,

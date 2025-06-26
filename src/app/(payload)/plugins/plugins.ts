@@ -5,6 +5,8 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import { GenerateTitle } from '@payloadcms/plugin-seo/types'
 import { s3Storage } from '@payloadcms/storage-s3'
 
+import { envServer } from '@/config/env'
+
 import { Page } from '../payload-types'
 
 // generate title
@@ -21,14 +23,14 @@ export const plugins = (): Plugin[] => {
       collections: {
         images: { prefix: 'images' },
       },
-      bucket: `${process.env.S3_BUCKET}`,
+      bucket: envServer.S3_BUCKET,
       config: {
         credentials: {
-          accessKeyId: `${process.env.S3_ACCESS_KEY_ID}`,
-          secretAccessKey: `${process.env.S3_SECRET_ACCESS_KEY}`,
+          accessKeyId: envServer.S3_ACCESS_KEY_ID,
+          secretAccessKey: envServer.S3_SECRET_ACCESS_KEY,
         },
-        region: `${process.env.S3_REGION}`,
-        endpoint: `${process.env.S3_ENDPOINT}`,
+        region: envServer.S3_REGION,
+        endpoint: envServer.S3_ENDPOINT,
         forcePathStyle: true,
       },
     }),
