@@ -2,7 +2,7 @@ import { IActionField, IMeta } from './common.model'
 
 // key
 export enum ELayoutKey {
-  LAYOUT_QUERY = 'layout_query',
+  LAYOUT_QUERY_ROOT_LAYOUT = 'root-layout',
 }
 
 // api

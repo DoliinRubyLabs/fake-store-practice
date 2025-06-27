@@ -1,6 +1,6 @@
 import { Field } from 'payload'
 
-import { buttonColorOptions, buttonVariantOptions, linkColorOptions } from '../../constant/ui.constant'
+import { buttonColorOptions, buttonVariantOptions, linkColorOptions } from '../../constants/ui.constant'
 
 // interface
 type IValue = 'link' | 'button'
@@ -153,11 +153,7 @@ export const actionFields = (value?: IValue): Field[] => {
             siblingData.actionType === 'buttonIconOnly'),
       },
       dbName: 'btn_color',
-      custom: {
-        postgres: {
-          type: 'text',
-        },
-      },
+      custom: { postgres: { type: 'text' } },
     },
     {
       name: 'actionButtonVariant',

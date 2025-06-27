@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
-import { footerBlock, headerBlock } from '../features/blocks'
+import { footerBlock, headerBlock } from '../features/layout'
 import { seoFields } from '../shared/fields/seo'
 import { slugField } from '../shared/fields/slug'
 import { versionsField } from '../shared/fields/versions'
-import { authenticated, authenticatedOrPublished } from '../shared/service'
+import { authenticated, authenticatedOrPublished } from '../shared/services'
 
 // pages
 export const Layout: CollectionConfig = {
@@ -46,6 +46,7 @@ export const Layout: CollectionConfig = {
               name: 'blocks',
               type: 'blocks',
               blocks: [headerBlock, footerBlock],
+              maxRows: 2,
             },
           ],
         },

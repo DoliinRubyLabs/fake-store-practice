@@ -5,12 +5,17 @@ import { setRequestLocale } from 'next-intl/server'
 import { type FC, type ReactNode } from 'react'
 import { getLangDir } from 'rtl-detect'
 
+import { HydrationBoundary } from '@tanstack/react-query'
+import { dehydrate } from '@tanstack/react-query'
+
+import { layoutQueryOptions } from '@/app/entities/api/layout'
 import { LayoutModule } from '@/app/modules/layout'
-import { EAssetImage } from '@/app/shared/assets/interface/asset.interface'
+import { EAssetImage } from '@/app/shared/assets/interface'
 import { envClient } from '@/config/env'
 import { mainFont } from '@/config/fonts'
 import { routing } from '@/pkg/libraries/locale/routing'
 import { RestApiProvider } from '@/pkg/libraries/rest-api'
+import { getQueryClient } from '@/pkg/libraries/rest-api'
 import { ScanComponent } from '@/pkg/libraries/scan'
 import { UiProvider } from '@/pkg/libraries/ui'
 
@@ -29,37 +34,44 @@ export function generateStaticParams() {
 
 // metadata
 export const generateMetadata = async (): Promise<Metadata> => {
+  const clientQuery = getQueryClient()
+  const data = await clientQuery.fetchQuery(layoutQueryOptions())
+
+  const title = data?.meta?.title || 'Website'
+  const description = data?.meta?.description || 'Website'
+  const ogImage = data?.meta?.image?.url || EAssetImage.OG_IMAGE
+
   return {
     metadataBase: new URL(envClient.NEXT_PUBLIC_CLIENT_WEB_URL),
     title: {
-      default: 'CMS Template',
-      template: `CMS Template | %s`,
+      default: title,
+      template: `${title} | %s`,
     },
-    description: 'CMS Template',
-    applicationName: 'CMS Template',
+    description: description,
+    applicationName: title,
     openGraph: {
       title: {
-        default: 'CMS Template',
-        template: `CMS Template | %s`,
+        default: title,
+        template: `${title} | %s`,
       },
-      description: 'CMS Template',
-      siteName: 'CMS Template',
+      description: description,
+      siteName: title,
       type: 'website',
       url: envClient.NEXT_PUBLIC_CLIENT_WEB_URL,
       images: [
         {
-          url: EAssetImage.OG_IMAGE,
+          url: ogImage,
           width: 1200,
           height: 630,
-          alt: 'CMS Template',
+          alt: title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'CMS Template',
-      description: 'CMS Template',
-      images: [EAssetImage.OG_IMAGE],
+      title: title,
+      description: description,
+      images: [ogImage],
     },
   }
 }
@@ -77,6 +89,9 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
 
   const direction = getLangDir(locale)
 
+  const clientQuery = getQueryClient()
+  await clientQuery.prefetchQuery(layoutQueryOptions())
+
   // return
   return (
     <html lang={locale} dir={direction}>
@@ -86,7 +101,9 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
         <NextIntlClientProvider>
           <UiProvider locale={locale}>
             <RestApiProvider>
-              <LayoutModule>{children}</LayoutModule>
+              <HydrationBoundary state={dehydrate(clientQuery)}>
+                <LayoutModule>{children}</LayoutModule>
+              </HydrationBoundary>
             </RestApiProvider>
           </UiProvider>
         </NextIntlClientProvider>

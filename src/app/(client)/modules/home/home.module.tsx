@@ -2,8 +2,10 @@
 
 import { type FC } from 'react'
 
-import { usePagesQuery } from '@/app/entities/api/page'
-import { BlockComponent } from '@/app/features/block'
+import { AboutInfoComponent } from '@/app/features/block/elements/about-info'
+import { ContactFormComponent } from '@/app/features/block/elements/contact-form'
+import { HeroComponent } from '@/app/features/block/elements/hero'
+import { TopComparisonsComponent } from '@/app/features/block/elements/top-comparisons'
 import { ContainerComponent } from '@/app/shared/ui/container'
 
 // interface
@@ -11,14 +13,18 @@ interface IProps {}
 
 // component
 const HomeModule: FC<IProps> = () => {
-  const { data, isLoading } = usePagesQuery()
-
   // return
   return (
-    <ContainerComponent className='mt-16 w-full space-y-12'>
-      {data?.blocks?.map((data, index) => (
-        <BlockComponent key={`${data?.id}-${index}`} blockType={data?.blockType} data={data} isLoading={isLoading} />
-      ))}
+    <ContainerComponent className='w-full space-y-12 pb-44'>
+      <HeroComponent />
+
+      <TopComparisonsComponent />
+
+      <AboutInfoComponent />
+
+      <ContactFormComponent />
+
+      {/* <BlockComponent /> */}
     </ContainerComponent>
   )
 }

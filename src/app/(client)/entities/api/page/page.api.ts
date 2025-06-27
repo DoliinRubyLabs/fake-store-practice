@@ -4,14 +4,12 @@ import { stringify } from 'qs-esm'
 
 import { QueryFunctionContext } from '@tanstack/react-query'
 
-import { EPageApi, IHomePageRes } from '@/app/entities/models/page.model'
+import { EPageApi, EPageKey, IHomePageRes } from '@/app/entities/models/page.model'
 import { restApiFetcher } from '@/pkg/libraries/rest-api'
 
 // api
 export const pagesQueryApi = async (opt: QueryFunctionContext) => {
-  const where: Where = {
-    slug: { equals: 'home-page' },
-  }
+  const where: Where = { slug: { equals: EPageKey.PAGES_QUERY_HOME_PAGE } }
 
   const stringifiedQuery = stringify({ where, depth: 2, draft: false, locale: 'en' }, { addQueryPrefix: true })
 

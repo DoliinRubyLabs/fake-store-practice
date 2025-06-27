@@ -19,7 +19,7 @@ interface IProps {}
 const HeaderComponent: FC<Readonly<IProps>> = () => {
   const { data } = useLayoutQuery()
 
-  const headerBlock = data?.blocks?.find((block) => block.blockType === 'header')
+  const headerBlock = data?.header
 
   const menu = useGlobalStore((s) => s.menu)
   const handleGlobalStore = useGlobalStore((s) => s.handleGlobalStore)

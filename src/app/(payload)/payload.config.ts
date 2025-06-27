@@ -15,8 +15,8 @@ import { Images } from './collections/Images'
 import { Layout } from './collections/Layout'
 import { Pages } from './collections/Pages'
 import { Users } from './collections/Users'
-import { locales } from './shared/constant'
-import { generateTitle } from './shared/service'
+import { locales } from './shared/constants'
+import { generateTitle } from './shared/services'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

@@ -1,26 +1,30 @@
-import { type FC } from 'react'
+import { type FC, Fragment } from 'react'
 
-import { ITextContentSection } from '@/app/entities/models/page.model'
+import { usePagesQuery } from '@/app/entities/api/page/page.hook'
 
-import { BlockTextContentComponent } from './elements/title-description-image-block'
+import { BlockTextContentComponent } from './elements/text-content'
 
 // interface
-interface IProps {
-  isLoading?: boolean
-  blockType: 'textContent'
-  data: ITextContentSection
-}
+interface IProps {}
 
 // component
-const BlockComponent: FC<Readonly<IProps>> = (props) => {
-  const { blockType, data, isLoading = false } = props
+const BlockComponent: FC<Readonly<IProps>> = () => {
+  const { data, isLoading } = usePagesQuery()
 
   // return
   return (
     <>
-      {blockType === 'textContent' && (
-        <BlockTextContentComponent data={data as ITextContentSection} isLoading={isLoading} />
-      )}
+      {data?.blocks?.map((block) => (
+        <Fragment key={`${block?.id}-block`}>
+          {block?.blockType === 'textContent' && (
+            <BlockTextContentComponent
+              key={`${block?.id}-${block?.blockType}-block`}
+              data={block}
+              isLoading={isLoading}
+            />
+          )}
+        </Fragment>
+      ))}
     </>
   )
 }

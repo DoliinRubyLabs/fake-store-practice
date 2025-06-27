@@ -16,11 +16,11 @@ interface IProps {}
 const FooterComponent: FC<Readonly<IProps>> = () => {
   const { data } = useLayoutQuery()
 
-  const footerBlock = data?.blocks?.find((block) => block.blockType === 'footer')
+  const footerBlock = data?.footer
 
   // return
   return (
-    <footer className='bg-content2 px-6 pb-8 pt-16'>
+    <footer className='bg-content2 px-6 pb-8 pt-16 dark:bg-content1'>
       <section className='mx-auto grid max-w-screen-lg gap-6 md:grid-cols-[auto_1fr] md:justify-items-end md:pb-10'>
         <div className='grid content-start gap-6'>
           <LogoComponent w={90} h={30} />

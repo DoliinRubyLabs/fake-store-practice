@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone, authenticated } from '../shared/service'
+import { anyone, authenticated } from '../shared/services'
 
 // images
 export const Images: CollectionConfig = {

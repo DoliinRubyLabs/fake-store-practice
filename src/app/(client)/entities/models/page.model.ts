@@ -2,7 +2,7 @@ import { IImage, IMeta, TContentAlignment, TRichText, TTextAlignment } from './c
 
 // key
 export enum EPageKey {
-  PAGES_QUERY = 'pages_query',
+  PAGES_QUERY_HOME_PAGE = 'home-page',
 }
 
 // api
