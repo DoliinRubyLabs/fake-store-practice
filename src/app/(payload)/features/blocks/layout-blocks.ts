@@ -1,6 +1,6 @@
 import { type Block } from 'payload'
 
-import { actionFields } from '../shared/fields/actions'
+import { actionFields } from '../../shared/fields/actions'
 
 // header block
 export const headerBlock: Block = {

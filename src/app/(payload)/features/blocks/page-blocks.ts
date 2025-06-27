@@ -1,6 +1,6 @@
 import { type Block } from 'payload'
 
-import { contentAlignmentField, textAlignmentField } from '../shared/fields/alignment'
+import { contentAlignmentField, textAlignmentField } from '../../shared/fields/alignment'
 
 // text content block
 export const textContentBlock: Block = {

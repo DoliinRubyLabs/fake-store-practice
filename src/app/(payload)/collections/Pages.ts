@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { formBuilderBlock, textContentBlock } from '../features'
+import { formBuilderBlock, textContentBlock } from '../features/blocks'
 import { seoFields } from '../shared/fields/seo'
 import { slugField } from '../shared/fields/slug'
 import { versionsField } from '../shared/fields/versions'
