@@ -5,14 +5,14 @@ export const contentAlignmentField: Field = {
   name: 'contentAlignment',
   type: 'select',
   label: 'Content Alignment',
-  options: [
-    { label: 'Content Left', value: 'contentLeft' },
-    { label: 'Content Center', value: 'contentCenter' },
-    { label: 'Content Right', value: 'contentRight' },
-  ],
-  defaultValue: 'contentLeft',
   required: true,
-  dbName: 'content_alignment',
+  options: [
+    { label: 'Content Left', value: 'left' },
+    { label: 'Content Center', value: 'center' },
+    { label: 'Content Right', value: 'right' },
+  ],
+  defaultValue: 'left',
+  dbName: 'content_align',
   custom: { postgres: { type: 'text' } },
 }
 
@@ -21,13 +21,13 @@ export const textAlignmentField: Field = {
   name: 'textAlignment',
   type: 'select',
   label: 'Text Alignment',
-  options: [
-    { label: 'Text Left', value: 'textLeft' },
-    { label: 'Text Center', value: 'textCenter' },
-    { label: 'Text Right', value: 'textRight' },
-  ],
-  defaultValue: 'textLeft',
   required: true,
-  dbName: 'text_alignment',
+  options: [
+    { label: 'Text Left', value: 'left' },
+    { label: 'Text Center', value: 'center' },
+    { label: 'Text Right', value: 'right' },
+  ],
+  defaultValue: 'left',
+  dbName: 'text_align',
   custom: { postgres: { type: 'text' } },
 }

@@ -1,4 +1,4 @@
-import type { Access, ClientUser } from 'payload'
+import type { Access, ClientUser, PayloadRequest } from 'payload'
 
 // anyone
 export const anyone: Access = () => true
@@ -24,3 +24,6 @@ export const authenticatedOrPublished: Access = ({ req: { user } }) => {
     },
   }
 }
+
+// read only
+export const authenticatedReadOnly = ({ req }: { req: PayloadRequest }) => Boolean(req.user)

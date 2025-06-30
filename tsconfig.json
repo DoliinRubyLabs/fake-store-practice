@@ -16,11 +16,10 @@
     "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./src/*"],
-      "@/app/entities/*": ["./src/app/(client)/entities/*"],
-      "@/app/features/*": ["./src/app/(client)/features/*"],
-      "@/app/modules/*": ["./src/app/(client)/modules/*"],
-      "@/app/shared/*": ["./src/app/(client)/shared/*"],
-      "@/app/widgets/*": ["./src/app/(client)/widgets/*"],
+      "@/config/*": ["./src/config/*"],
+      "@/pkg/*": ["./src/pkg/*"],
+      "@/client/*": ["./src/app/(client)/*"],
+      "@/payload/*": ["./src/app/(payload)/*"],
       "@payload-config": ["./src/app/(payload)/payload.config.ts"]
     },
     "target": "ES2022"

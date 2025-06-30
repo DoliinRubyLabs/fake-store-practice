@@ -1,4 +1,4 @@
-import { IActionField, IMeta } from './common.model'
+import { IActionField, IImage, IMeta, TAlignment } from './common.model'
 
 // key
 export enum ELayoutKey {
@@ -7,41 +7,61 @@ export enum ELayoutKey {
 
 // api
 export enum ELayoutApi {
-  API_LAYOUT = 'rest/layout',
-}
-
-// header navigation
-interface IHeaderNavigation {
-  id: string
-  linkText: string
-  linkUrl?: string
-  openInNewTab: boolean
-  hasLinks: boolean
-  links: IActionField[]
+  API_LAYOUT = 'rest/globals/layout',
 }
 
 // menu column
 interface IMenuColumn {
   id: string
-  columnTitle: string
+  title: string
   links: IActionField[]
 }
 
 // header block
 interface IHeaderBlock {
   id: string
-  blockType: 'header'
-  navigation: IHeaderNavigation[]
+  blockType: 'headerBlock'
   actions: IActionField[]
 }
 
 // footer block
 interface IFooterBlock {
   id: string
-  blockType: 'footer'
-  copyright?: string
-  copyrightAlignment?: 'left' | 'center' | 'right'
-  menuColumns: IMenuColumn[]
+  blockType: 'footerBlock'
+  columns: IMenuColumn[]
+  copyright: {
+    text: string
+    textAlignment: TAlignment
+  }
+}
+
+// branding
+interface IBranding {
+  id: string
+  logoImage: IImage
+  logoIconSvg?: string
+  logoAsIconSvg?: boolean
+  favicon: IImage
+  socialMediaLinks: {
+    id: string
+    socialPlatform:
+      | 'facebook'
+      | 'instagram'
+      | 'x'
+      | 'linkedin'
+      | 'youtube'
+      | 'tiktok'
+      | 'pinterest'
+      | 'snapchat'
+      | 'twitch'
+      | 'discord'
+      | 'telegram'
+      | 'whatsapp'
+      | 'skype'
+      | 'viber'
+    socialUrl: string
+    socialIconSvg?: string
+  }[]
 }
 
 // root layout response
@@ -53,4 +73,5 @@ export interface IRootLayoutRes {
   createdAt: string
   meta: IMeta
   blocks: IHeaderBlock[] | IFooterBlock[]
+  branding?: IBranding
 }

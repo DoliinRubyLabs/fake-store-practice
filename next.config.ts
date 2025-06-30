@@ -3,6 +3,8 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 import { withPayload } from '@payloadcms/next/withPayload'
 
+import { envClient } from '@/config/env'
+
 // i18n
 const withNextIntl = createNextIntlPlugin({
   requestConfig: './src/pkg/libraries/locale/request.ts',
@@ -11,18 +13,14 @@ const withNextIntl = createNextIntlPlugin({
   },
 })
 
-// config
+// next config
 const nextConfig: NextConfig = {
   output: 'standalone',
 
   poweredByHeader: false,
 
   images: {
-    deviceSizes: [768, 1024, 1920],
-    imageSizes: [32, 128, 384],
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
-    minimumCacheTTL: 3600,
-    formats: ['image/webp', 'image/avif'],
   },
 
   serverExternalPackages: ['pino', 'pino-pretty'],
@@ -93,6 +91,25 @@ const nextConfig: NextConfig = {
         source: '/404',
         destination: '/not-found',
         permanent: true,
+      },
+    ]
+  },
+
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: envClient.NEXT_PUBLIC_CLIENT_WEB_URL },
+          { key: 'Access-Control-Allow-Methods', value: 'GET,DELETE,PATCH,POST,PUT,OPTIONS' },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+          },
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+        ],
       },
     ]
   },

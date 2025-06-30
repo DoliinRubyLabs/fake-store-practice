@@ -27,18 +27,29 @@ export interface IImage {
 // link
 export interface IActionField {
   id: string
-  actionType: 'link' | 'button' | 'linkWithIcon' | 'buttonWithIcon' | 'linkIconOnly' | 'buttonIconOnly'
-  actionText?: string
-  actionLinkUrl?: string
-  actionButtonUrl?: string
-  actionIconSvg?: string
-  actionIconPosition?: 'left' | 'right'
-  actionLinkColor?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'foreground' | undefined
-  actionButtonColor?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | undefined
-  actionButtonVariant?: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered' | undefined
-  actionOpenInNewTab?: boolean
+  actionType: 'link' | 'button' | 'linkIcon' | 'buttonIcon' | 'linkIconOnly' | 'buttonIconOnly'
+  text?: string
+  url?: string
+  asLink?: boolean
+  iconSvg?: string
+  iconPosition?: 'left' | 'right'
+  linkColor?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'foreground' | undefined
+  buttonColor?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | undefined
+  buttonVariant?: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered' | undefined
+  linkVariant?: 'default' | 'underline'
+  openInNewTab?: boolean
 }
 
-export type TContentAlignment = 'contentLeft' | 'contentCenter' | 'contentRight'
-export type TTextAlignment = 'textLeft' | 'textCenter' | 'textRight'
+// form field
+export interface IFormField {
+  fieldType: 'emailInput' | 'textInput' | 'textarea' | 'select' | 'radio' | 'checkbox'
+  fieldLabel?: string
+  fieldPlaceholder?: string
+  fieldIsRequired?: boolean
+  fieldInfoMessage?: string
+  fieldErrorMessage?: string
+  fieldOptions?: { label: string; value: string }[]
+}
+
+export type TAlignment = 'left' | 'center' | 'right'
 export type TRichText = SerializedEditorState

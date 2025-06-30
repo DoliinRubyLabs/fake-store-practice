@@ -11,10 +11,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 
 import { envServer } from '@/config/env'
 
-import { Images } from './collections/Images'
-import { Layout } from './collections/Layout'
-import { Pages } from './collections/Pages'
-import { Users } from './collections/Users'
+import { Images, LayoutGlobal, Pages, Users } from './entities'
 import { locales } from './shared/constants'
 import { generateTitle } from './shared/services'
 
@@ -27,7 +24,7 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
-      importMapFile: path.resolve(dirname, '(web)/admin/importMap.js'),
+      importMapFile: path.resolve(dirname, '(app)/admin/importMap.js'),
     },
     routes: {
       createFirstUser: '/create-root-user',
@@ -41,9 +38,10 @@ export default buildConfig({
     admin: '/admin',
     api: '/api/rest',
   },
-  collections: [Layout, Pages, Images, Users],
+  collections: [Pages, Images, Users],
+  globals: [LayoutGlobal],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || 'secret-key',
+  secret: envServer.PAYLOAD_SECRET,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
@@ -52,7 +50,7 @@ export default buildConfig({
     idType: 'uuid',
     migrationDir: path.resolve(dirname, 'migrations'),
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: envServer.DATABASE_URI,
     },
   }),
   sharp,

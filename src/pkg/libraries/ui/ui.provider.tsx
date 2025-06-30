@@ -1,7 +1,7 @@
 'use client'
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
-import { FC, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 
 import { HeroUIProvider } from '@heroui/system'
 import { ToastProvider } from '@heroui/toast'
@@ -19,18 +19,18 @@ const UiProvider: FC<Readonly<IProps>> = (props) => {
   // return
   return (
     <HeroUIProvider locale={locale}>
-      <NextThemesProvider attribute={'class'} defaultTheme={'dark'} disableTransitionOnChange>
+      <NextThemesProvider attribute='class' forcedTheme='light' defaultTheme='system' disableTransitionOnChange>
+        {children}
+
         <ToastProvider
           maxVisibleToasts={3}
-          placement={'top-right'}
+          placement='top-right'
           toastProps={{
             radius: 'md',
             timeout: 3500,
             classNames: { title: 'first-letter:uppercase', description: 'first-letter:uppercase' },
           }}
         />
-
-        {children}
       </NextThemesProvider>
     </HeroUIProvider>
   )

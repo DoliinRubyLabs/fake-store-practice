@@ -1,11 +1,9 @@
 import { Field } from 'payload'
 
-import { buttonColorOptions, buttonVariantOptions, linkColorOptions } from '../../constants/ui.constant'
-
 // interface
 type IValue = 'link' | 'button'
 
-// action field
+// action fields
 export const actionFields = (value?: IValue): Field[] => {
   return [
     {
@@ -15,23 +13,21 @@ export const actionFields = (value?: IValue): Field[] => {
       required: true,
       options: [
         { label: 'Link', value: 'link' },
-        { label: 'Link with Icon', value: 'linkWithIcon' },
+        { label: 'Link with Icon', value: 'linkIcon' },
         { label: 'Link with Icon Only', value: 'linkIconOnly' },
         { label: 'Button', value: 'button' },
-        { label: 'Button with Icon', value: 'buttonWithIcon' },
+        { label: 'Button with Icon', value: 'buttonIcon' },
         { label: 'Button with Icon Only', value: 'buttonIconOnly' },
       ],
+      defaultValue: value || 'link',
       filterOptions: (args) => {
-        return args.options.filter((option) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return args.options.filter((option: any) => {
           if (value === 'link') {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            return option.value === 'link' || option.value === 'linkWithIcon' || option.value === 'linkIconOnly'
+            return option.value === 'link' || option.value === 'linkIcon' || option.value === 'linkIconOnly'
           }
           if (value === 'button') {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            return option.value === 'button' || option.value === 'buttonWithIcon' || option.value === 'buttonIconOnly'
+            return option.value === 'button' || option.value === 'buttonIcon' || option.value === 'buttonIconOnly'
           }
 
           return true
@@ -41,135 +37,162 @@ export const actionFields = (value?: IValue): Field[] => {
       custom: { postgres: { type: 'text' } },
     },
     {
-      name: 'actionText',
-      type: 'text',
-      label: 'Text',
-      required: true,
-      admin: {
-        condition: (_data, siblingData) => {
-          return (
-            siblingData.actionType === 'link' ||
-            siblingData.actionType === 'button' ||
-            siblingData.actionType === 'linkWithIcon' ||
-            siblingData.actionType === 'buttonWithIcon'
-          )
+      type: 'row',
+      fields: [
+        {
+          name: 'text',
+          type: 'text',
+          label: 'Text',
+          required: true,
+          admin: {
+            condition: (_data, siblingData) => {
+              return siblingData.actionType !== 'linkIconOnly' && siblingData.actionType !== 'buttonIconOnly'
+            },
+          },
         },
-      },
+        {
+          name: 'url',
+          type: 'text',
+          label: 'URL',
+          required: true,
+          admin: {
+            condition: (_data, siblingData) => siblingData.asLink || siblingData.actionType.includes('link'),
+          },
+        },
+      ],
     },
     {
-      name: 'actionLinkUrl',
-      type: 'text',
-      label: 'URL',
-      required: true,
+      type: 'row',
+      fields: [
+        {
+          name: 'iconSvg',
+          type: 'text',
+          label: 'Icon SVG',
+          required: true,
+          admin: {
+            condition: (_data, siblingData) => siblingData.actionType !== 'button' && siblingData.actionType !== 'link',
+            description: 'Copy and paste the icon svg code from: https://lucide.dev/icons',
+          },
+        },
+        {
+          name: 'iconPosition',
+          type: 'select',
+          label: 'Icon Position',
+          required: true,
+          defaultValue: 'left',
+          options: [
+            { label: 'Icon Left', value: 'left' },
+            { label: 'Icon Right', value: 'right' },
+          ],
+          admin: {
+            condition: (_data, siblingData) => siblingData.actionType !== 'link' && siblingData.actionType !== 'button',
+          },
+          dbName: 'icon_position',
+          custom: { postgres: { type: 'text' } },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'linkColor',
+          type: 'select',
+          label: 'Link Color',
+          required: true,
+          options: [
+            { label: 'Foreground', value: 'foreground' },
+            { label: 'Primary', value: 'primary' },
+            { label: 'Secondary', value: 'secondary' },
+            { label: 'Success', value: 'success' },
+            { label: 'Warning', value: 'warning' },
+          ],
+          defaultValue: 'foreground',
+          dbName: 'link_color',
+          custom: { postgres: { type: 'text' } },
+        },
+        {
+          name: 'linkVariant',
+          type: 'select',
+          label: 'Link Variant',
+          required: true,
+          options: [
+            { label: 'Default', value: 'default' },
+            { label: 'Underline', value: 'underline' },
+          ],
+          defaultValue: 'underline',
+          dbName: 'link_variant',
+          custom: { postgres: { type: 'text' } },
+        },
+      ],
       admin: {
-        condition: (_data, siblingData) =>
-          value !== 'button' &&
-          (siblingData.actionType === 'link' ||
-            siblingData.actionType === 'linkWithIcon' ||
-            siblingData.actionType === 'linkIconOnly'),
+        condition: (_data, siblingData) => siblingData.actionType.includes('link'),
       },
     },
     {
-      name: 'actionButtonUrl',
-      type: 'text',
-      label: 'URL',
-      defaultValue: '',
+      type: 'row',
+      fields: [
+        {
+          name: 'buttonColor',
+          type: 'select',
+          label: 'Color',
+          required: true,
+          options: [
+            { label: 'Default', value: 'default' },
+            { label: 'Primary', value: 'primary' },
+            { label: 'Secondary', value: 'secondary' },
+            { label: 'Success', value: 'success' },
+            { label: 'Danger', value: 'danger' },
+            { label: 'Warning', value: 'warning' },
+          ],
+          defaultValue: 'primary',
+          dbName: 'btn_color',
+          custom: { postgres: { type: 'text' } },
+        },
+        {
+          name: 'buttonVariant',
+          type: 'select',
+          label: 'Variant',
+          required: true,
+          options: [
+            { label: 'Light', value: 'light' },
+            { label: 'Solid', value: 'solid' },
+            { label: 'Ghost', value: 'ghost' },
+            { label: 'Faded', value: 'faded' },
+            { label: 'Flat', value: 'flat' },
+            { label: 'Shadow', value: 'shadow' },
+            { label: 'Bordered', value: 'bordered' },
+          ],
+          defaultValue: 'solid',
+          dbName: 'btn_variant',
+          custom: { postgres: { type: 'text' } },
+        },
+      ],
       admin: {
-        condition: (_data, siblingData) =>
-          value !== 'link' &&
-          (siblingData.actionType === 'button' ||
-            siblingData.actionType === 'buttonWithIcon' ||
-            siblingData.actionType === 'buttonIconOnly'),
+        condition: (_data, siblingData) => siblingData.actionType.includes('button'),
       },
     },
     {
-      name: 'actionOpenInNewTab',
+      name: 'asLink',
+      type: 'checkbox',
+      label: 'As Link?',
+      defaultValue: false,
+      admin: {
+        condition: (_data, siblingData) => siblingData.actionType.includes('button'),
+      },
+    },
+    {
+      name: 'openInNewTab',
       type: 'checkbox',
       label: 'Open in New Tab',
       defaultValue: false,
       admin: {
         condition: (_data, siblingData) =>
-          siblingData.actionButtonUrl !== '' ||
+          siblingData.asLink ||
           siblingData.actionType === 'link' ||
-          siblingData.actionType === 'linkWithIcon' ||
+          siblingData.actionType === 'linkIcon' ||
           siblingData.actionType === 'linkIconOnly',
       },
-    },
-    {
-      name: 'actionIconSvg',
-      type: 'text',
-      label: 'Icon',
-      admin: {
-        condition: (_data, siblingData) =>
-          siblingData.actionType === 'linkWithIcon' ||
-          siblingData.actionType === 'buttonWithIcon' ||
-          siblingData.actionType === 'linkIconOnly' ||
-          siblingData.actionType === 'buttonIconOnly',
-        description: 'Copy and paste the icon svg code from: https://lucide.dev/icons',
-      },
-    },
-    {
-      name: 'actionIconPosition',
-      type: 'select',
-      label: 'Icon Position',
-      defaultValue: 'left',
-      options: [
-        { label: 'Left', value: 'left' },
-        { label: 'Right', value: 'right' },
-      ],
-      admin: {
-        condition: (_data, siblingData) => !!siblingData.actionIconSvg,
-      },
-      dbName: 'icon_position',
-      custom: { postgres: { type: 'text' } },
-    },
-    {
-      name: 'actionLinkColor',
-      type: 'select',
-      label: 'Color',
-      defaultValue: 'foreground',
-      options: linkColorOptions,
-      admin: {
-        condition: (_data, siblingData) =>
-          value !== 'button' &&
-          (siblingData.actionType === 'link' ||
-            siblingData.actionType === 'linkWithIcon' ||
-            siblingData.actionType === 'linkIconOnly'),
-      },
-      dbName: 'link_color',
-      custom: { postgres: { type: 'text' } },
-    },
-    {
-      name: 'actionButtonColor',
-      type: 'select',
-      label: 'Color',
-      defaultValue: 'default',
-      options: buttonColorOptions,
-      admin: {
-        condition: (_data, siblingData) =>
-          value !== 'link' &&
-          (siblingData.actionType === 'button' ||
-            siblingData.actionType === 'buttonWithIcon' ||
-            siblingData.actionType === 'buttonIconOnly'),
-      },
-      dbName: 'btn_color',
-      custom: { postgres: { type: 'text' } },
-    },
-    {
-      name: 'actionButtonVariant',
-      type: 'select',
-      label: 'Variant',
-      defaultValue: 'light',
-      options: buttonVariantOptions,
-      admin: {
-        condition: (_data, siblingData) =>
-          value !== 'link' &&
-          (siblingData.actionType === 'button' ||
-            siblingData.actionType === 'buttonWithIcon' ||
-            siblingData.actionType === 'buttonIconOnly'),
-      },
-      dbName: 'btn_variant',
-      custom: { postgres: { type: 'text' } },
     },
   ]
 }

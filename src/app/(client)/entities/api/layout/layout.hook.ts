@@ -12,8 +12,9 @@ export const layoutQueryOptions = () => {
     select: (data) => {
       return {
         meta: data?.meta,
-        header: data?.blocks?.find((block) => block.blockType === 'header'),
-        footer: data?.blocks?.find((block) => block.blockType === 'footer'),
+        branding: data?.branding,
+        headerBlock: data?.blocks?.find((block) => block.blockType === 'headerBlock'),
+        footerBlock: data?.blocks?.find((block) => block.blockType === 'footerBlock'),
       }
     },
   })

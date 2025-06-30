@@ -6,124 +6,140 @@ import { Divider } from '@heroui/divider'
 import { Link } from '@heroui/link'
 import { cn } from '@heroui/react'
 
-import { type IActionField } from '@/app/entities/models/common.model'
+import { type IActionField } from '@/client/entities/models/common.model'
 
 // interface
 interface IProps extends IActionField {
-  prefetch?: boolean
-  actionLinkVariant?: 'underline'
-  radius?: ButtonProps['radius']
-  className?: string
   onPress?: ButtonProps['onPress']
+  prefetch?: boolean
+  radius?: ButtonProps['radius']
+  size?: ButtonProps['size']
+  type?: ButtonProps['type']
+  className?: string
+  isDisabled?: boolean
+  disableRipple?: boolean
 }
 
 // component
 const ActionComponent: FC<Readonly<IProps>> = (props) => {
   const {
     actionType,
-    actionText,
-    actionLinkUrl,
-    actionButtonUrl,
-    actionIconSvg,
-    actionIconPosition,
-    actionLinkColor,
-    actionButtonColor,
-    actionButtonVariant,
-    actionOpenInNewTab,
+    text,
+    url,
+    asLink,
+    iconSvg,
+    iconPosition,
+    linkColor,
+    buttonColor,
+    buttonVariant,
+    openInNewTab,
+    linkVariant,
     className,
-    actionLinkVariant,
     radius,
+    size,
     prefetch = true,
+    isDisabled,
+    type = 'button',
+    disableRipple,
     onPress,
   } = props
 
   // return
   return (
     <>
-      {(actionType === 'button' || actionType === 'buttonWithIcon' || actionType === 'buttonIconOnly') && (
+      {(actionType === 'button' || actionType === 'buttonIcon' || actionType === 'buttonIconOnly') && (
         <>
-          {!actionButtonUrl ? (
+          {!asLink ? (
             <Button
+              type={type}
+              size={size}
               onPress={onPress}
               startContent={
-                actionIconSvg &&
-                actionIconPosition === 'left' &&
+                iconSvg &&
+                iconPosition === 'left' &&
                 actionType !== 'button' && (
-                  <span className='[&_svg]:w-4' dangerouslySetInnerHTML={{ __html: actionIconSvg }} />
+                  <span className='[&_svg]:w-4' dangerouslySetInnerHTML={{ __html: iconSvg }} />
                 )
               }
               endContent={
-                actionIconSvg &&
-                actionIconPosition === 'right' &&
+                iconSvg &&
+                iconPosition === 'right' &&
                 actionType !== 'button' && (
-                  <span className='[&_svg]:w-4' dangerouslySetInnerHTML={{ __html: actionIconSvg }} />
-                )
-              }
-              className={cn('hidden md:flex', className)}
-              isIconOnly={actionType === 'buttonIconOnly'}
-              radius={radius}
-              variant={actionButtonVariant}
-              color={actionButtonColor}
-            >
-              {actionText}
-            </Button>
-          ) : (
-            <Button
-              href={actionButtonUrl}
-              as={NextLink}
-              prefetch={prefetch}
-              target={actionOpenInNewTab ? '_blank' : '_self'}
-              onPress={onPress}
-              startContent={
-                actionIconSvg &&
-                actionIconPosition === 'left' &&
-                actionType !== 'button' && (
-                  <span className='[&_svg]:w-[20px]' dangerouslySetInnerHTML={{ __html: actionIconSvg }} />
-                )
-              }
-              endContent={
-                actionIconSvg &&
-                actionIconPosition === 'right' &&
-                actionType !== 'button' && (
-                  <span className='[&_svg]:w-[20px]' dangerouslySetInnerHTML={{ __html: actionIconSvg }} />
+                  <span className='[&_svg]:w-4' dangerouslySetInnerHTML={{ __html: iconSvg }} />
                 )
               }
               className={cn(className)}
               isIconOnly={actionType === 'buttonIconOnly'}
               radius={radius}
-              variant={actionButtonVariant}
-              color={actionButtonColor}
+              variant={buttonVariant}
+              color={buttonColor}
+              isDisabled={isDisabled}
+              disableRipple={disableRipple}
             >
-              {actionText}
+              {text}
+            </Button>
+          ) : (
+            <Button
+              size={size}
+              href={url ?? '/'}
+              as={NextLink}
+              prefetch={prefetch}
+              target={openInNewTab ? '_blank' : '_self'}
+              onPress={onPress}
+              startContent={
+                iconSvg &&
+                iconPosition === 'left' &&
+                actionType !== 'button' && (
+                  <span className='[&_svg]:w-[20px]' dangerouslySetInnerHTML={{ __html: iconSvg }} />
+                )
+              }
+              endContent={
+                iconSvg &&
+                iconPosition === 'right' &&
+                actionType !== 'button' && (
+                  <span className='[&_svg]:w-[20px]' dangerouslySetInnerHTML={{ __html: iconSvg }} />
+                )
+              }
+              className={cn(className)}
+              isIconOnly={actionType === 'buttonIconOnly'}
+              radius={radius}
+              variant={buttonVariant}
+              color={buttonColor}
+              isDisabled={isDisabled}
+              disableRipple={disableRipple}
+            >
+              {text}
             </Button>
           )}
         </>
       )}
 
-      {(actionType === 'link' || actionType === 'linkWithIcon' || actionType === 'linkIconOnly') && (
+      {(actionType === 'link' || actionType === 'linkIcon' || actionType === 'linkIconOnly') && (
         <Link
-          href={actionLinkUrl ?? '/'}
+          href={url ?? '/'}
           as={NextLink}
+          size={size}
           prefetch={prefetch}
-          target={actionOpenInNewTab ? '_blank' : '_self'}
+          target={openInNewTab ? '_blank' : '_self'}
           className={cn('group relative grid w-fit items-center gap-1 text-sm', className, {
-            'grid-cols-[auto_1fr]': actionType === 'linkWithIcon' && actionIconPosition === 'left',
-            'grid-cols-[1fr_auto]': actionType === 'linkWithIcon' && actionIconPosition === 'right',
+            'grid-cols-[auto_1fr]': actionType === 'linkIcon' && iconPosition === 'left',
+            'grid-cols-[1fr_auto]': actionType === 'linkIcon' && iconPosition === 'right',
           })}
-          color={actionLinkColor || 'foreground'}
+          color={linkColor || 'foreground'}
+          isDisabled={isDisabled}
         >
-          {actionIconSvg && actionType !== 'link' && actionIconPosition === 'left' && (
-            <span className='[&_svg]:max-h-4 [&_svg]:max-w-4' dangerouslySetInnerHTML={{ __html: actionIconSvg }} />
+          {iconSvg && actionType !== 'link' && iconPosition === 'left' && (
+            <span className='[&_svg]:max-h-4 [&_svg]:max-w-4' dangerouslySetInnerHTML={{ __html: iconSvg }} />
           )}
 
-          {actionType === 'linkIconOnly' ? null : actionText}
+          {actionType === 'linkIconOnly' ? null : text}
 
-          {actionIconSvg && actionType !== 'link' && actionIconPosition === 'right' && (
-            <span className='[&_svg]:h-4 [&_svg]:w-4' dangerouslySetInnerHTML={{ __html: actionIconSvg }} />
+          {iconSvg && actionType !== 'link' && iconPosition === 'right' && (
+            <span className='[&_svg]:h-4 [&_svg]:w-4' dangerouslySetInnerHTML={{ __html: iconSvg }} />
           )}
 
-          {actionLinkVariant === 'underline' && (
-            <Divider className='absolute bottom-0 left-0 right-0 -mb-1 bg-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+          {linkVariant === 'underline' && (
+            <Divider className='absolute bottom-0 left-0 right-0 -mb-0.5 bg-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
           )}
         </Link>
       )}
