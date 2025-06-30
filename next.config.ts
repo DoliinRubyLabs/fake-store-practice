@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
 
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
+    minimumCacheTTL: 3600,
   },
 
   serverExternalPackages: ['pino', 'pino-pretty'],
