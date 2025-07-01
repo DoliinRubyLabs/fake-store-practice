@@ -33,3 +33,13 @@
 .blocks-field__header-wrap {
   align-items: center;
 }
+
+.tabs-field__content-wrap {
+  padding-right: 40px;
+}
+
+@media (max-width: 768px) {
+  .tabs-field__content-wrap {
+    padding-right: 16px;
+  }
+}
