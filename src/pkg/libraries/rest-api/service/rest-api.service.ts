@@ -7,7 +7,7 @@ const makeQueryClient = () => {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 300000,
+        staleTime: 60 * 1000,
         networkMode: 'offlineFirst',
         refetchOnWindowFocus: false,
         placeholderData: keepPreviousData,
