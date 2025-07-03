@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
 
 import { ContainerComponent } from '@/client/shared/ui/container'
+import { Link } from '@/pkg/libraries/locale'
 
 // page
 const NotFound: NextPage = () => {

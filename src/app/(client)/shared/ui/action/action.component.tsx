@@ -1,4 +1,3 @@
-import NextLink from 'next/link'
 import { type FC } from 'react'
 
 import { Button, type ButtonProps } from '@heroui/button'
@@ -7,6 +6,7 @@ import { Link } from '@heroui/link'
 import { cn } from '@heroui/react'
 
 import { type IActionField } from '@/client/entities/models/common.model'
+import { Link as NextLink } from '@/pkg/libraries/locale'
 
 // interface
 interface IProps extends IActionField {

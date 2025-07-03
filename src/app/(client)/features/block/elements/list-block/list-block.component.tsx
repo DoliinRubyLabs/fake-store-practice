@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { type FC } from 'react'
 
 import { Divider } from '@heroui/divider'
@@ -7,6 +6,7 @@ import { Skeleton } from '@heroui/skeleton'
 
 import { IListBlock } from '@/app/(client)/entities/models/page.model'
 import { ActionComponent } from '@/client/shared/ui/action'
+import { Link } from '@/pkg/libraries/locale'
 
 // interface
 interface IProps {

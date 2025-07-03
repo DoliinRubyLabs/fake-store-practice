@@ -1,14 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { type FC } from 'react'
 
 import { cn } from '@heroui/react'
 
 import { IconLogo } from '@/app/(client)/shared/assets/icon'
 import { ESiteRoute } from '@/app/(client)/shared/routes/route.interface'
+import { Link, usePathname } from '@/pkg/libraries/locale'
 
 // interface
 interface IProps {

@@ -1,12 +1,11 @@
 import { ChevronRight } from 'lucide-react'
-import NextLink from 'next/link'
-import { usePathname } from 'next/navigation'
 import { type FC } from 'react'
 
 import { BreadcrumbItem, Breadcrumbs } from '@heroui/breadcrumbs'
 import { Link } from '@heroui/link'
 
 import { ESiteRoute } from '@/app/(client)/shared/routes/route.interface'
+import { Link as NextLink, usePathname } from '@/pkg/libraries/locale'
 
 // interface
 interface IProps {}

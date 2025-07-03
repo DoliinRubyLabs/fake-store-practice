@@ -59,661 +59,661 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | 'Pacific/Fiji'
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
-  };
-  blocks: {};
+    users: UserAuthOperations
+  }
+  blocks: {}
   collections: {
-    pages: Page;
-    images: Image;
-    users: User;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {};
+    pages: Page
+    images: Image
+    users: User
+    'payload-locked-documents': PayloadLockedDocument
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
   collectionsSelect: {
-    pages: PagesSelect<false> | PagesSelect<true>;
-    images: ImagesSelect<false> | ImagesSelect<true>;
-    users: UsersSelect<false> | UsersSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
+    pages: PagesSelect<false> | PagesSelect<true>
+    images: ImagesSelect<false> | ImagesSelect<true>
+    users: UsersSelect<false> | UsersSelect<true>
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
   db: {
-    defaultIDType: string;
-  };
+    defaultIDType: string
+  }
   globals: {
-    layout: Layout;
-  };
+    layout: Layout
+  }
   globalsSelect: {
-    layout: LayoutSelect<false> | LayoutSelect<true>;
-  };
-  locale: 'en' | 'de' | 'ar';
+    layout: LayoutSelect<false> | LayoutSelect<true>
+  }
+  locale: 'en' | 'de' | 'ar'
   user: User & {
-    collection: 'users';
-  };
+    collection: 'users'
+  }
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+    tasks: unknown
+    workflows: unknown
+  }
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
-  id: string;
-  name: string;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  id: string
+  name: string
+  slug?: string | null
+  slugLock?: boolean | null
   blocks?:
     | (
         | {
-            title: string;
-            subtitle?: string | null;
-            image: string | Image;
+            title: string
+            subtitle?: string | null
+            image: string | Image
             action: {
-              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
-              text?: string | null;
-              url?: string | null;
+              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly'
+              text?: string | null
+              url?: string | null
               /**
                * Copy and paste the icon svg code from: https://lucide.dev/icons
                */
-              iconSvg?: string | null;
-              iconPosition?: ('left' | 'right') | null;
-              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
-              linkVariant: 'default' | 'underline';
-              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
-              asLink?: boolean | null;
-              openInNewTab?: boolean | null;
-            };
+              iconSvg?: string | null
+              iconPosition?: ('left' | 'right') | null
+              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning'
+              linkVariant: 'default' | 'underline'
+              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
+              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered'
+              asLink?: boolean | null
+              openInNewTab?: boolean | null
+            }
             disclosure: {
-              title: string;
+              title: string
               info: {
                 root: {
-                  type: string;
+                  type: string
                   children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              };
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'heroMainBlock';
+                    type: string
+                    version: number
+                    [k: string]: unknown
+                  }[]
+                  direction: ('ltr' | 'rtl') | null
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                  indent: number
+                  version: number
+                }
+                [k: string]: unknown
+              }
+            }
+            id?: string | null
+            blockName?: string | null
+            blockType: 'heroMainBlock'
           }
         | {
-            title: string;
-            subtitle?: string | null;
+            title: string
+            subtitle?: string | null
             list?:
               | {
-                  image: string | Image;
-                  title: string;
-                  description: string;
-                  url: string;
-                  asTop?: boolean | null;
-                  id?: string | null;
+                  image: string | Image
+                  title: string
+                  description: string
+                  url: string
+                  asTop?: boolean | null
+                  id?: string | null
                 }[]
-              | null;
+              | null
             action: {
-              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
-              text?: string | null;
-              url?: string | null;
+              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly'
+              text?: string | null
+              url?: string | null
               /**
                * Copy and paste the icon svg code from: https://lucide.dev/icons
                */
-              iconSvg?: string | null;
-              iconPosition?: ('left' | 'right') | null;
-              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
-              linkVariant: 'default' | 'underline';
-              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
-              asLink?: boolean | null;
-              openInNewTab?: boolean | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'listBlock';
+              iconSvg?: string | null
+              iconPosition?: ('left' | 'right') | null
+              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning'
+              linkVariant: 'default' | 'underline'
+              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
+              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered'
+              asLink?: boolean | null
+              openInNewTab?: boolean | null
+            }
+            id?: string | null
+            blockName?: string | null
+            blockType: 'listBlock'
           }
         | {
-            title: string;
-            subtitle?: string | null;
+            title: string
+            subtitle?: string | null
             tabs?:
               | {
-                  label: string;
+                  label: string
                   /**
                    * Copy and paste the icon svg code
                    */
-                  icon: string;
-                  title: string;
-                  image: string | Image;
+                  icon: string
+                  title: string
+                  image: string | Image
                   items?:
                     | {
                         /**
                          * Copy and paste the icon svg code
                          */
-                        icon: string;
-                        description: string;
-                        id?: string | null;
+                        icon: string
+                        description: string
+                        id?: string | null
                       }[]
-                    | null;
-                  id?: string | null;
+                    | null
+                  id?: string | null
                 }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'tabsBlock';
+              | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'tabsBlock'
           }
         | {
-            title: string;
+            title: string
             subtitle?: {
               root: {
-                type: string;
+                type: string
                 children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
+                  type: string
+                  version: number
+                  [k: string]: unknown
+                }[]
+                direction: ('ltr' | 'rtl') | null
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+                indent: number
+                version: number
+              }
+              [k: string]: unknown
+            } | null
             formField: {
-              fieldType: 'textInput' | 'emailInput' | 'phoneInput' | 'textareaInput' | 'select' | 'checkbox' | 'radio';
-              fieldLabel?: string | null;
-              fieldPlaceholder?: string | null;
-              fieldIsRequired?: boolean | null;
-              fieldInfoMessage?: string | null;
-              fieldErrorMessage?: string | null;
+              fieldType: 'textInput' | 'emailInput' | 'phoneInput' | 'textareaInput' | 'select' | 'checkbox' | 'radio'
+              fieldLabel?: string | null
+              fieldPlaceholder?: string | null
+              fieldIsRequired?: boolean | null
+              fieldInfoMessage?: string | null
+              fieldErrorMessage?: string | null
               fieldOptions?:
                 | {
-                    fieldOptionLabel: string;
-                    fieldOptionValue: string;
-                    id?: string | null;
+                    fieldOptionLabel: string
+                    fieldOptionValue: string
+                    id?: string | null
                   }[]
-                | null;
-            };
+                | null
+            }
             formAction?: {
-              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
-              text?: string | null;
-              url?: string | null;
+              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly'
+              text?: string | null
+              url?: string | null
               /**
                * Copy and paste the icon svg code from: https://lucide.dev/icons
                */
-              iconSvg?: string | null;
-              iconPosition?: ('left' | 'right') | null;
-              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
-              linkVariant: 'default' | 'underline';
-              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
-              asLink?: boolean | null;
-              openInNewTab?: boolean | null;
-            };
-            showSubmitButton?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'feedbackBlock';
+              iconSvg?: string | null
+              iconPosition?: ('left' | 'right') | null
+              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning'
+              linkVariant: 'default' | 'underline'
+              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
+              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered'
+              asLink?: boolean | null
+              openInNewTab?: boolean | null
+            }
+            showSubmitButton?: boolean | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'feedbackBlock'
           }
       )[]
-    | null;
+    | null
   meta?: {
-    title?: string | null;
-    description?: string | null;
+    title?: string | null
+    description?: string | null
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Image;
-  };
-  blocksInfo?: string | null;
-  seoInfo?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+    image?: (string | null) | Image
+  }
+  blocksInfo?: string | null
+  seoInfo?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "images".
  */
 export interface Image {
-  id: string;
-  alt: string;
-  prefix?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+  id: string
+  alt: string
+  prefix?: string | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
-  name?: string | null;
-  role?: ('admin' | 'root') | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
+  id: string
+  name?: string | null
+  role?: ('admin' | 'root') | null
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
   sessions?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        id: string
+        createdAt?: string | null
+        expiresAt: string
       }[]
-    | null;
-  password?: string | null;
+    | null
+  password?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: string
   document?:
     | ({
-        relationTo: 'pages';
-        value: string | Page;
+        relationTo: 'pages'
+        value: string | Page
       } | null)
     | ({
-        relationTo: 'images';
-        value: string | Image;
+        relationTo: 'images'
+        value: string | Image
       } | null)
     | ({
-        relationTo: 'users';
-        value: string | User;
-      } | null);
-  globalSlug?: string | null;
+        relationTo: 'users'
+        value: string | User
+      } | null)
+  globalSlug?: string | null
   user: {
-    relationTo: 'users';
-    value: string | User;
-  };
-  updatedAt: string;
-  createdAt: string;
+    relationTo: 'users'
+    value: string | User
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: string
   user: {
-    relationTo: 'users';
-    value: string | User;
-  };
-  key?: string | null;
+    relationTo: 'users'
+    value: string | User
+  }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: string
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  name?: T;
-  slug?: T;
-  slugLock?: T;
+  name?: T
+  slug?: T
+  slugLock?: T
   blocks?:
     | T
     | {
         heroMainBlock?:
           | T
           | {
-              title?: T;
-              subtitle?: T;
-              image?: T;
+              title?: T
+              subtitle?: T
+              image?: T
               action?:
                 | T
                 | {
-                    actionType?: T;
-                    text?: T;
-                    url?: T;
-                    iconSvg?: T;
-                    iconPosition?: T;
-                    linkColor?: T;
-                    linkVariant?: T;
-                    buttonColor?: T;
-                    buttonVariant?: T;
-                    asLink?: T;
-                    openInNewTab?: T;
-                  };
+                    actionType?: T
+                    text?: T
+                    url?: T
+                    iconSvg?: T
+                    iconPosition?: T
+                    linkColor?: T
+                    linkVariant?: T
+                    buttonColor?: T
+                    buttonVariant?: T
+                    asLink?: T
+                    openInNewTab?: T
+                  }
               disclosure?:
                 | T
                 | {
-                    title?: T;
-                    info?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+                    title?: T
+                    info?: T
+                  }
+              id?: T
+              blockName?: T
+            }
         listBlock?:
           | T
           | {
-              title?: T;
-              subtitle?: T;
+              title?: T
+              subtitle?: T
               list?:
                 | T
                 | {
-                    image?: T;
-                    title?: T;
-                    description?: T;
-                    url?: T;
-                    asTop?: T;
-                    id?: T;
-                  };
+                    image?: T
+                    title?: T
+                    description?: T
+                    url?: T
+                    asTop?: T
+                    id?: T
+                  }
               action?:
                 | T
                 | {
-                    actionType?: T;
-                    text?: T;
-                    url?: T;
-                    iconSvg?: T;
-                    iconPosition?: T;
-                    linkColor?: T;
-                    linkVariant?: T;
-                    buttonColor?: T;
-                    buttonVariant?: T;
-                    asLink?: T;
-                    openInNewTab?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+                    actionType?: T
+                    text?: T
+                    url?: T
+                    iconSvg?: T
+                    iconPosition?: T
+                    linkColor?: T
+                    linkVariant?: T
+                    buttonColor?: T
+                    buttonVariant?: T
+                    asLink?: T
+                    openInNewTab?: T
+                  }
+              id?: T
+              blockName?: T
+            }
         tabsBlock?:
           | T
           | {
-              title?: T;
-              subtitle?: T;
+              title?: T
+              subtitle?: T
               tabs?:
                 | T
                 | {
-                    label?: T;
-                    icon?: T;
-                    title?: T;
-                    image?: T;
+                    label?: T
+                    icon?: T
+                    title?: T
+                    image?: T
                     items?:
                       | T
                       | {
-                          icon?: T;
-                          description?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+                          icon?: T
+                          description?: T
+                          id?: T
+                        }
+                    id?: T
+                  }
+              id?: T
+              blockName?: T
+            }
         feedbackBlock?:
           | T
           | {
-              title?: T;
-              subtitle?: T;
+              title?: T
+              subtitle?: T
               formField?:
                 | T
                 | {
-                    fieldType?: T;
-                    fieldLabel?: T;
-                    fieldPlaceholder?: T;
-                    fieldIsRequired?: T;
-                    fieldInfoMessage?: T;
-                    fieldErrorMessage?: T;
+                    fieldType?: T
+                    fieldLabel?: T
+                    fieldPlaceholder?: T
+                    fieldIsRequired?: T
+                    fieldInfoMessage?: T
+                    fieldErrorMessage?: T
                     fieldOptions?:
                       | T
                       | {
-                          fieldOptionLabel?: T;
-                          fieldOptionValue?: T;
-                          id?: T;
-                        };
-                  };
+                          fieldOptionLabel?: T
+                          fieldOptionValue?: T
+                          id?: T
+                        }
+                  }
               formAction?:
                 | T
                 | {
-                    actionType?: T;
-                    text?: T;
-                    url?: T;
-                    iconSvg?: T;
-                    iconPosition?: T;
-                    linkColor?: T;
-                    linkVariant?: T;
-                    buttonColor?: T;
-                    buttonVariant?: T;
-                    asLink?: T;
-                    openInNewTab?: T;
-                  };
-              showSubmitButton?: T;
-              id?: T;
-              blockName?: T;
-            };
-      };
+                    actionType?: T
+                    text?: T
+                    url?: T
+                    iconSvg?: T
+                    iconPosition?: T
+                    linkColor?: T
+                    linkVariant?: T
+                    buttonColor?: T
+                    buttonVariant?: T
+                    asLink?: T
+                    openInNewTab?: T
+                  }
+              showSubmitButton?: T
+              id?: T
+              blockName?: T
+            }
+      }
   meta?:
     | T
     | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  blocksInfo?: T;
-  seoInfo?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
+        title?: T
+        description?: T
+        image?: T
+      }
+  blocksInfo?: T
+  seoInfo?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
-  alt?: T;
-  prefix?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
+  alt?: T
+  prefix?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  name?: T;
-  role?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  name?: T
+  role?: T
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
   sessions?:
     | T
     | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+        id?: T
+        createdAt?: T
+        expiresAt?: T
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "layout".
  */
 export interface Layout {
-  id: string;
+  id: string
   blocks?:
     | (
         | {
             actions?:
               | {
-                  actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
-                  text?: string | null;
-                  url?: string | null;
+                  actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly'
+                  text?: string | null
+                  url?: string | null
                   /**
                    * Copy and paste the icon svg code from: https://lucide.dev/icons
                    */
-                  iconSvg?: string | null;
-                  iconPosition?: ('left' | 'right') | null;
-                  linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
-                  linkVariant: 'default' | 'underline';
-                  buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-                  buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
-                  asLink?: boolean | null;
-                  openInNewTab?: boolean | null;
-                  id?: string | null;
+                  iconSvg?: string | null
+                  iconPosition?: ('left' | 'right') | null
+                  linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning'
+                  linkVariant: 'default' | 'underline'
+                  buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
+                  buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered'
+                  asLink?: boolean | null
+                  openInNewTab?: boolean | null
+                  id?: string | null
                 }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'headerBlock';
+              | null
+            id?: string | null
+            blockName?: string | null
+            blockType: 'headerBlock'
           }
         | {
             columns?:
               | {
-                  title: string;
+                  title: string
                   links?:
                     | {
-                        actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
-                        text?: string | null;
-                        url?: string | null;
+                        actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly'
+                        text?: string | null
+                        url?: string | null
                         /**
                          * Copy and paste the icon svg code from: https://lucide.dev/icons
                          */
-                        iconSvg?: string | null;
-                        iconPosition?: ('left' | 'right') | null;
-                        linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
-                        linkVariant: 'default' | 'underline';
-                        buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-                        buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
-                        asLink?: boolean | null;
-                        openInNewTab?: boolean | null;
-                        id?: string | null;
+                        iconSvg?: string | null
+                        iconPosition?: ('left' | 'right') | null
+                        linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning'
+                        linkVariant: 'default' | 'underline'
+                        buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
+                        buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered'
+                        asLink?: boolean | null
+                        openInNewTab?: boolean | null
+                        id?: string | null
                       }[]
-                    | null;
-                  id?: string | null;
+                    | null
+                  id?: string | null
                 }[]
-              | null;
+              | null
             copyright: {
-              text: string;
-              textAlignment: 'left' | 'center' | 'right';
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'footerBlock';
+              text: string
+              textAlignment: 'left' | 'center' | 'right'
+            }
+            id?: string | null
+            blockName?: string | null
+            blockType: 'footerBlock'
           }
       )[]
-    | null;
+    | null
   branding: {
-    logoImage?: (string | null) | Image;
+    logoImage?: (string | null) | Image
     /**
      * Copy and paste the icon svg code
      */
-    logoIconSvg?: string | null;
-    logoAsIconSvg?: boolean | null;
-    favicon: string | Image;
+    logoIconSvg?: string | null
+    logoAsIconSvg?: boolean | null
+    favicon: string | Image
     socialMediaLinks?:
       | {
           socialPlatform:
@@ -731,27 +731,27 @@ export interface Layout {
             | 'telegram'
             | 'whatsapp'
             | 'skype'
-            | 'viber';
-          socialUrl: string;
+            | 'viber'
+          socialUrl: string
           /**
            * Copy and paste the icon svg code
            */
-          socialIconSvg?: string | null;
-          id?: string | null;
+          socialIconSvg?: string | null
+          id?: string | null
         }[]
-      | null;
-  };
+      | null
+  }
   meta?: {
-    title?: string | null;
-    description?: string | null;
+    title?: string | null
+    description?: string | null
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Image;
-  };
-  _status?: ('draft' | 'published') | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+    image?: (string | null) | Image
+  }
+  _status?: ('draft' | 'published') | null
+  updatedAt?: string | null
+  createdAt?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -767,93 +767,92 @@ export interface LayoutSelect<T extends boolean = true> {
               actions?:
                 | T
                 | {
-                    actionType?: T;
-                    text?: T;
-                    url?: T;
-                    iconSvg?: T;
-                    iconPosition?: T;
-                    linkColor?: T;
-                    linkVariant?: T;
-                    buttonColor?: T;
-                    buttonVariant?: T;
-                    asLink?: T;
-                    openInNewTab?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+                    actionType?: T
+                    text?: T
+                    url?: T
+                    iconSvg?: T
+                    iconPosition?: T
+                    linkColor?: T
+                    linkVariant?: T
+                    buttonColor?: T
+                    buttonVariant?: T
+                    asLink?: T
+                    openInNewTab?: T
+                    id?: T
+                  }
+              id?: T
+              blockName?: T
+            }
         footerBlock?:
           | T
           | {
               columns?:
                 | T
                 | {
-                    title?: T;
+                    title?: T
                     links?:
                       | T
                       | {
-                          actionType?: T;
-                          text?: T;
-                          url?: T;
-                          iconSvg?: T;
-                          iconPosition?: T;
-                          linkColor?: T;
-                          linkVariant?: T;
-                          buttonColor?: T;
-                          buttonVariant?: T;
-                          asLink?: T;
-                          openInNewTab?: T;
-                          id?: T;
-                        };
-                    id?: T;
-                  };
+                          actionType?: T
+                          text?: T
+                          url?: T
+                          iconSvg?: T
+                          iconPosition?: T
+                          linkColor?: T
+                          linkVariant?: T
+                          buttonColor?: T
+                          buttonVariant?: T
+                          asLink?: T
+                          openInNewTab?: T
+                          id?: T
+                        }
+                    id?: T
+                  }
               copyright?:
                 | T
                 | {
-                    text?: T;
-                    textAlignment?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-      };
+                    text?: T
+                    textAlignment?: T
+                  }
+              id?: T
+              blockName?: T
+            }
+      }
   branding?:
     | T
     | {
-        logoImage?: T;
-        logoIconSvg?: T;
-        logoAsIconSvg?: T;
-        favicon?: T;
+        logoImage?: T
+        logoIconSvg?: T
+        logoAsIconSvg?: T
+        favicon?: T
         socialMediaLinks?:
           | T
           | {
-              socialPlatform?: T;
-              socialUrl?: T;
-              socialIconSvg?: T;
-              id?: T;
-            };
-      };
+              socialPlatform?: T
+              socialUrl?: T
+              socialIconSvg?: T
+              id?: T
+            }
+      }
   meta?:
     | T
     | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  _status?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        title?: T
+        description?: T
+        image?: T
+      }
+  _status?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [k: string]: unknown
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}
