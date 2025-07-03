@@ -64,6 +64,18 @@ const eslintConfig = [
           caughtErrorsIgnorePattern: '^(_|ignore)',
         },
       ],
+      'no-restricted-imports': [
+        'error',
+        {
+          name: 'next/link',
+          message: 'Please import from `@/pkg/library/locale/routing` instead.',
+        },
+        {
+          name: 'next/navigation',
+          importNames: ['redirect', 'permanentRedirect', 'useRouter', 'usePathname'],
+          message: 'Please import from `@/pkg/library/locale/routing` instead.',
+        },
+      ],
     },
   },
   {
