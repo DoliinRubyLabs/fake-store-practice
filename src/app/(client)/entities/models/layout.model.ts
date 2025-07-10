@@ -10,6 +10,11 @@ export enum ELayoutApi {
   API_LAYOUT = 'rest/globals/layout',
 }
 
+// query params
+export interface ILayoutQueryParams {
+  locale?: string
+}
+
 // menu column
 interface IMenuColumn {
   id: string

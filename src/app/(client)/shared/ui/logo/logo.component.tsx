@@ -33,7 +33,7 @@ const LogoComponent: FC<Readonly<IProps>> = (props) => {
       aria-label={'logo'}
     >
       {src && !isIconSvg ? (
-        <Image src={src} alt='logo' width={w} height={h} className='object-contain' />
+        <Image src={src} alt='logo' width={w} height={h} priority={true} className='object-contain' />
       ) : iconSvg ? (
         <span className={`[&_svg]:h-[${h}px] [&_svg]:w-[${w}px]`} dangerouslySetInnerHTML={{ __html: iconSvg }} />
       ) : (

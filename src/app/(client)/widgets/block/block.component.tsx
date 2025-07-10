@@ -1,0 +1,187 @@
+'use client'
+
+import { useParams } from 'next/navigation'
+import { useLocale } from 'next-intl'
+import { type FC, Fragment } from 'react'
+
+import { useQuery } from '@tanstack/react-query'
+
+import { pagesQueryOptions } from '@/client/entities/api/page'
+import { EPageKey } from '@/client/entities/models'
+import { ArticleBlockComponent } from '@/client/features/block/article-block'
+import { CategoriesBlockComponent } from '@/client/features/block/categories-block'
+import { ComparisonsBlockComponent } from '@/client/features/block/comparisons-block'
+import { FeedbackBlockComponent } from '@/client/features/block/feedback-block'
+import { HeroMainBlockComponent } from '@/client/features/block/hero-main-block'
+import { ImageScrollerBlockComponent } from '@/client/features/block/image-scroller-block'
+import { ListBlockComponent } from '@/client/features/block/list-block'
+import { RichTextBlockComponent } from '@/client/features/block/richtext-block'
+import { TabsBlockComponent } from '@/client/features/block/tabs-block'
+import { TitleBlockComponent } from '@/client/features/block/title-block'
+import { TitleComparisonBlockComponent } from '@/client/features/block/title-comparison-block'
+
+// interface
+interface IProps {
+  pageKey: EPageKey
+}
+
+// component
+const BlockComponent: FC<Readonly<IProps>> = (props) => {
+  const { pageKey } = props
+
+  const locale = useLocale()
+  const { category_slug } = useParams()
+
+  const { data, isLoading } = useQuery(pagesQueryOptions({ pageKey, locale, categorySlug: category_slug as string }))
+
+  // return
+  return (
+    <>
+      {data?.blocks?.map((block) => (
+        <Fragment key={`${block?.id}-block`}>
+          {block?.blockType === 'heroMainBlock' && (
+            <HeroMainBlockComponent key={`${block?.id}-${block?.blockType}-block`} data={block} isLoading={isLoading} />
+          )}
+
+          {block?.blockType === 'titleBlock' && (
+            <TitleBlockComponent key={`${block?.id}-${block?.blockType}-block`} data={block} isLoading={isLoading} />
+          )}
+
+          {block?.blockType === 'comparisonsTitleBlock' && (
+            <TitleComparisonBlockComponent
+              key={`${block?.id}-${block?.blockType}-block`}
+              data={block}
+              isLoading={isLoading}
+            />
+          )}
+
+          {block?.blockType === 'imageScrollerBlock' && (
+            <ImageScrollerBlockComponent
+              key={`${block?.id}-${block?.blockType}-block`}
+              data={block}
+              isLoading={isLoading}
+            />
+          )}
+
+          {block?.blockType === 'listBlock' && (
+            <ListBlockComponent key={`${block?.id}-${block?.blockType}-block`} data={block} isLoading={isLoading} />
+          )}
+
+          {block?.blockType === 'tabsBlock' && (
+            <TabsBlockComponent key={`${block?.id}-${block?.blockType}-block`} data={block} isLoading={isLoading} />
+          )}
+
+          {block?.blockType === 'richTextBlock' && (
+            <RichTextBlockComponent key={`${block?.id}-${block?.blockType}-block`} data={block} isLoading={isLoading} />
+          )}
+
+          {block?.blockType === 'feedbackBlock' && (
+            <FeedbackBlockComponent key={`${block?.id}-${block?.blockType}-block`} data={block} isLoading={isLoading} />
+          )}
+
+          {block?.blockType === 'categoriesBlock' && (
+            <CategoriesBlockComponent
+              key={`${block?.id}-${block?.blockType}-block`}
+              data={block}
+              isLoading={isLoading}
+            />
+          )}
+
+          {block?.blockType === 'articleBlock' && (
+            <ArticleBlockComponent
+              key={`${block?.id}-${block?.blockType}-block`}
+              data={block}
+              isLoading={isLoading}
+              // !ISSUE: fix this - we put only data no specific props
+              menu={data?.blocks?.map((item) => ({ id: item?.id, title: (item as { title?: string }).title ?? '' }))}
+            />
+          )}
+
+          {block?.blockType === 'productsBlock' && (
+            <ComparisonsBlockComponent
+              key={`${block?.id}-${block?.blockType}-block`}
+              data={block}
+              isLoading={isLoading}
+            />
+          )}
+
+          {block?.blockType === 'templateBlock' &&
+            block?.template?.blocks?.map((template) => (
+              <Fragment key={`${block?.id}-${template?.id}-${template?.blockType}-block`}>
+                {template?.blockType === 'heroMainBlock' && (
+                  <HeroMainBlockComponent
+                    key={`${template?.id}-${template?.blockType}-block`}
+                    data={template}
+                    isLoading={isLoading}
+                  />
+                )}
+
+                {template?.blockType === 'imageScrollerBlock' && (
+                  <ImageScrollerBlockComponent
+                    key={`${template?.id}-${template?.blockType}-block`}
+                    data={template}
+                    isLoading={isLoading}
+                  />
+                )}
+
+                {template?.blockType === 'listBlock' && (
+                  <ListBlockComponent
+                    key={`${template?.id}-${template?.blockType}-block`}
+                    data={template}
+                    isLoading={isLoading}
+                  />
+                )}
+
+                {template?.blockType === 'tabsBlock' && (
+                  <TabsBlockComponent
+                    key={`${template?.id}-${template?.blockType}-block`}
+                    data={template}
+                    isLoading={isLoading}
+                  />
+                )}
+
+                {template?.blockType === 'richTextBlock' && (
+                  <RichTextBlockComponent
+                    key={`${template?.id}-${template?.blockType}-block`}
+                    data={template}
+                    isLoading={isLoading}
+                  />
+                )}
+
+                {template?.blockType === 'feedbackBlock' && (
+                  <FeedbackBlockComponent
+                    key={`${template?.id}-${template?.blockType}-block`}
+                    data={template}
+                    isLoading={isLoading}
+                  />
+                )}
+
+                {template?.blockType === 'categoriesBlock' && (
+                  <CategoriesBlockComponent
+                    key={`${template?.id}-${template?.blockType}-block`}
+                    data={template}
+                    isLoading={isLoading}
+                  />
+                )}
+
+                {template?.blockType === 'articleBlock' && (
+                  <ArticleBlockComponent
+                    key={`${template?.id}-${template?.blockType}-block`}
+                    data={template}
+                    isLoading={isLoading}
+                    // !ISSUE: fix this - we put only data no specific props
+                    menu={block?.template?.blocks?.map((item) => ({
+                      id: item?.id,
+                      title: (item as { title?: string }).title ?? '',
+                    }))}
+                  />
+                )}
+              </Fragment>
+            ))}
+        </Fragment>
+      ))}
+    </>
+  )
+}
+
+export default BlockComponent

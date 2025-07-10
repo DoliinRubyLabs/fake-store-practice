@@ -13,9 +13,9 @@ export const LayoutGlobal: GlobalConfig = {
     update: authenticated,
   },
   admin: {
-    group: 'Content',
+    group: 'General',
     livePreview: {
-      url: (data) => `/${data.locale}`,
+      url: ({ locale }) => `/${locale.code}`,
     },
   },
   label: 'Layout',
@@ -24,7 +24,7 @@ export const LayoutGlobal: GlobalConfig = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Content',
+          label: 'Layout',
           fields: [
             {
               name: 'blocks',
@@ -55,7 +55,7 @@ export const LayoutGlobal: GlobalConfig = {
                       relationTo: 'images',
                       required: true,
                       admin: {
-                        condition: (_data, siblingData) => !siblingData.logoAsIconSvg,
+                        condition: (_, siblingData) => !siblingData.logoAsIconSvg,
                       },
                     },
                     {
@@ -63,7 +63,7 @@ export const LayoutGlobal: GlobalConfig = {
                       name: 'logoIconSvg',
                       label: 'Logo',
                       admin: {
-                        condition: (_data, siblingData) => siblingData.logoAsIconSvg,
+                        condition: (_, siblingData) => siblingData.logoAsIconSvg,
                         description: 'Copy and paste the icon svg code',
                       },
                     },

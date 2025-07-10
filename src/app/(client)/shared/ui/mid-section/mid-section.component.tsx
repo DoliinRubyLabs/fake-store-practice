@@ -1,0 +1,20 @@
+import { type FC, ReactNode } from 'react'
+
+// interface
+interface IProps {
+  children: ReactNode
+}
+
+// component
+const MidSectionComponent: FC<Readonly<IProps>> = (props) => {
+  const { children } = props
+
+  // return
+  return (
+    <div className='flex h-14 items-center justify-center gap-1 rounded-2xl border-1 border-primary-200 bg-primary-50 p-4 px-6 py-1 text-sm font-medium text-default-700'>
+      {children}
+    </div>
+  )
+}
+
+export default MidSectionComponent

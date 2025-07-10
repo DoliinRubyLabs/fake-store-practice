@@ -1,13 +1,14 @@
 import { type Block } from 'payload'
 
-import { actionFields } from '../../shared/fields/action'
+import { actionFields } from '@/payload/shared/fields/action'
+import { disclosureFields } from '@/payload/shared/fields/disclosure'
 
 // list block
 export const ListBlock: Block = {
   slug: 'listBlock',
   labels: {
-    singular: 'List block',
-    plural: 'List blocks',
+    singular: 'List Block',
+    plural: 'List Blocks',
   },
   fields: [
     {
@@ -22,9 +23,24 @@ export const ListBlock: Block = {
       label: 'Subtitle',
     },
     {
-      name: 'list',
+      type: 'checkbox',
+      name: 'showDisclosure',
+      label: 'Show disclosure',
+      defaultValue: false,
+    },
+    {
+      type: 'group',
+      name: 'disclosure',
+      label: 'Disclosure',
+      admin: {
+        condition: (_, siblingData) => siblingData?.showDisclosure,
+      },
+      fields: [...disclosureFields],
+    },
+    {
+      name: 'rows',
       type: 'array',
-      label: 'List',
+      label: 'Rows',
       minRows: 1,
       maxRows: 11,
       fields: [
@@ -53,12 +69,6 @@ export const ListBlock: Block = {
           label: 'URL',
           required: true,
         },
-        {
-          type: 'checkbox',
-          name: 'asTop',
-          label: 'Mark as top',
-          defaultValue: false,
-        },
       ],
     },
     {
@@ -66,9 +76,15 @@ export const ListBlock: Block = {
       name: 'action',
       label: 'Action',
       admin: {
-        className: 'group-last-container',
+        condition: (_, siblingData) => siblingData?.showAction,
       },
       fields: [...actionFields('button')],
+    },
+    {
+      type: 'checkbox',
+      name: 'showAction',
+      label: 'Show action',
+      defaultValue: true,
     },
   ],
 }

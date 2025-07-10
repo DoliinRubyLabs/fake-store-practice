@@ -1,11 +1,12 @@
 .group-last-container {
   border-bottom: none !important;
   padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .rich-text-container {
   overflow: auto;
-  max-height: 300px;
+  max-height: 340px;
 }
 
 .field-label {
@@ -34,12 +35,24 @@
   align-items: center;
 }
 
-.tabs-field__content-wrap {
-  padding-right: 40px;
+.group-field {
+  border-top: none;
+  border-bottom: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: var(--spacing-field);
 }
 
-@media (max-width: 768px) {
-  .tabs-field__content-wrap {
-    padding-right: 16px;
-  }
+.array-field {
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: var(--spacing-field);
+}
+
+.group-field__wrap {
+  padding-left: 16px;
+  border-left: 1px solid var(--theme-elevation-100);
 }

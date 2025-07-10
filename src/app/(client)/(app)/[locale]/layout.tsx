@@ -33,9 +33,11 @@ export function generateStaticParams() {
 }
 
 // metadata
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = async (props: IProps): Promise<Metadata> => {
+  const { locale } = await props.params
+
   const clientQuery = getQueryClient()
-  const data = await clientQuery.fetchQuery(layoutQueryOptions())
+  const data = await clientQuery.fetchQuery(layoutQueryOptions({ locale }))
 
   const favicon = data?.branding?.favicon?.url || EAssetImage.FAVICON
   const title = data?.meta?.title || 'Website'
@@ -47,7 +49,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     icons: { icon: favicon },
     title: {
       default: title,
-      template: `${title} | %s`,
+      template: `%s | ${title}`,
     },
     description: description,
     applicationName: title,
@@ -92,11 +94,11 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
   const direction = getLangDir(locale)
 
   const clientQuery = getQueryClient()
-  await clientQuery.prefetchQuery(layoutQueryOptions())
+  await clientQuery.prefetchQuery(layoutQueryOptions({ locale }))
 
   // return
   return (
-    <html lang={locale} dir={direction}>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
       {process.env.NODE_ENV !== 'production' && <ScanComponent />}
 
       <body className={`${mainFont.className} antialiased`} suppressHydrationWarning>

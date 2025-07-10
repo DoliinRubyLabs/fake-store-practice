@@ -1,14 +1,14 @@
 import { type Block } from 'payload'
 
-import { actionFields } from '../../shared/fields/action'
-import { formFields } from '../../shared/fields/form-field'
+import { actionFields } from '@/payload/shared/fields/action'
+import { formFields } from '@/payload/shared/fields/form-field'
 
 // feedback block
 export const FeedbackBlock: Block = {
   slug: 'feedbackBlock',
   labels: {
-    singular: 'Feedback block',
-    plural: 'Feedback blocks',
+    singular: 'Feedback Block',
+    plural: 'Feedback Blocks',
   },
   fields: [
     {
@@ -35,7 +35,7 @@ export const FeedbackBlock: Block = {
       name: 'formAction',
       fields: [...actionFields('button')],
       admin: {
-        condition: (_data, siblingData) => siblingData.showSubmitButton,
+        condition: (_, siblingData) => siblingData.showSubmitButton,
       },
     },
     {

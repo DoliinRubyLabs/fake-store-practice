@@ -5,6 +5,7 @@ import { type FC } from 'react'
 import { HydrationBoundary } from '@tanstack/react-query'
 import { dehydrate } from '@tanstack/react-query'
 
+import { EPageKey } from '@/app/(client)/entities/models'
 import { pagesQueryOptions } from '@/client/entities/api/page'
 import { HomeModule } from '@/client/modules/home'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
@@ -21,7 +22,7 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   setRequestLocale(locale)
 
   const clientQuery = getQueryClient()
-  await clientQuery.prefetchQuery(pagesQueryOptions())
+  await clientQuery.prefetchQuery(pagesQueryOptions({ pageKey: EPageKey.PAGES_QUERY_HOME_PAGE, locale }))
 
   // return
   return (

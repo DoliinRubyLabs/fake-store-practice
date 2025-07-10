@@ -5,7 +5,7 @@ import { routing } from '@/pkg/libraries/locale/routing'
 
 // middleware
 export async function middleware(req: NextRequest) {
-  const response = createMiddleware(routing)(req)
+  const i18nRes = createMiddleware(routing)(req)
 
   const country =
     req.headers.get('cf-ipcountry') ||
@@ -14,15 +14,15 @@ export async function middleware(req: NextRequest) {
     req.cookies.get('country')?.value ||
     'US'
 
-  response.headers.set('x-country', country)
-  response.cookies.set('x-country', country)
+  i18nRes.headers.set('x-country', country)
+  i18nRes.cookies.set('x-country', country)
 
-  return response
+  return i18nRes
 }
 
 // config
 export const config = {
   matcher: [
-    '/((?!api|trpc|_next|_next/static|_next/image|_vercel|static|.well-known|admin|fonts|sitemap|images|icons|robots|webmanifest|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.ico$|.*\\.svg$|.*\\.txt$|.*\\.js$).*)',
+    '/((?!api|trpc|_next|_next/static|_next/image|_vercel|static|.well-known|admin|fonts|sitemap|images|icons|robots|webmanifest|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.ico$|.*\\.svg$|.*\\.txt$|.*\\.js$|.*\\.css$).*)',
   ],
 }

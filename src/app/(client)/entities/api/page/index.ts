@@ -1,1 +1,1 @@
-export { pagesQueryOptions, usePagesQuery } from './page.hook'
+export { pagesQueryOptions } from './page.query'

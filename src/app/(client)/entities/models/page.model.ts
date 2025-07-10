@@ -1,100 +1,64 @@
-import { IActionField, IFormField, IImage, IMeta, TRichText } from './common.model'
+import {
+  IArticleBlock,
+  ICategoriesBlock,
+  IComparisonsTitleBlock,
+  IFeedbackBlock,
+  IHeroMainBlock,
+  IImageScrollerBlock,
+  IListBlock,
+  IProductsBlock,
+  IRichTextBlock,
+  ITabsBlock,
+  ITemplateBlock,
+  ITitleBlock,
+} from './block'
+import { IMeta, IPagination } from './common.model'
 
 // key
 export enum EPageKey {
   PAGES_QUERY_HOME_PAGE = 'home-page',
+  PAGES_QUERY_CATEGORIES_PAGE = 'categories',
+  PAGES_QUERY_PRIVACY_POLICY_PAGE = 'privacy-policy',
+  PAGES_QUERY_TERMS_OF_SERVICE_PAGE = 'terms-of-service',
 }
 
 // api
 export enum EPageApi {
   API_PAGES = 'rest/pages',
+  API_CATEGORIES = 'rest/categories',
 }
 
-// hero main block
-export interface IHeroMainBlock {
+// query params
+export interface IPageQueryParams {
+  pageKey: EPageKey
+  locale?: string
+  categorySlug?: string
+}
+
+// page
+export interface IPage {
   id: string
   name: string
   slug: string
   updatedAt: string
   createdAt: string
-  blockType: 'heroMainBlock'
-  title: string
-  subtitle?: string | null
-  image: IImage
-  action: IActionField
-  disclosure: {
-    title: string
-    info: TRichText
-  }
-}
-
-// comparisons block
-export interface IListBlock {
-  id: string
-  name: string
-  slug: string
-  updatedAt: string
-  createdAt: string
-  blockType: 'listBlock'
-  title: string
-  subtitle: string
-  list: {
-    image: IImage
-    title: string
-    description?: string | null
-    url: string
-    asTop: boolean
-  }[]
-  action: IActionField
-}
-
-// tabs block
-
-export interface ITabsBlock {
-  id: string
-  name: string
-  slug: string
-  updatedAt: string
-  createdAt: string
-  blockType: 'tabsBlock'
-  title: string
-  subtitle?: string | null
-  tabs?: {
-    id: string
-    label: string
-    icon: string
-    title: string
-    image: IImage
-    items: {
-      id: string
-      icon: string
-      description: string
-    }[]
-  }[]
-}
-
-// feedback block
-export interface IFeedbackBlock {
-  id: string
-  name: string
-  slug: string
-  updatedAt: string
-  createdAt: string
-  blockType: 'feedbackBlock'
-  title: string
-  description?: TRichText
-  formField: IFormField
-  formAction: IActionField
-  showSubmitButton: boolean
-}
-
-// home page response
-export interface IPageRes {
-  id: string
-  name: string
-  slug: string
-  updatedAt: string
-  createdAt: string
-  blocks: IFeedbackBlock[] | IHeroMainBlock[] | IListBlock[] | ITabsBlock[]
+  blocks:
+    | ITemplateBlock[]
+    | IFeedbackBlock[]
+    | IHeroMainBlock[]
+    | ITitleBlock[]
+    | IComparisonsTitleBlock[]
+    | IListBlock[]
+    | ITabsBlock[]
+    | IImageScrollerBlock[]
+    | ICategoriesBlock[]
+    | IRichTextBlock[]
+    | IArticleBlock[]
+    | IProductsBlock[]
   meta: IMeta
+}
+
+// page response
+export interface IPageRes extends IPagination {
+  docs: IPage[]
 }

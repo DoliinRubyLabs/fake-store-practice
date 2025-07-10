@@ -5,17 +5,19 @@ import { QueryFunctionContext } from '@tanstack/react-query'
 
 import { restApiFetcher } from '@/pkg/libraries/rest-api'
 
-import { ELayoutApi, IRootLayoutRes } from '../../models/layout.model'
+import { ELayoutApi, ILayoutQueryParams, IRootLayoutRes } from '../../models/layout.model'
 
 // api
-export const layoutQueryApi = async (opt: QueryFunctionContext) => {
-  const stringifiedQuery = stringify({ depth: 2, draft: false, locale: 'en' }, { addQueryPrefix: true })
+export const layoutQueryApi = async (opt: QueryFunctionContext, queryParams: ILayoutQueryParams) => {
+  const { locale = 'en' } = queryParams
+
+  const query = stringify({ depth: 2, draft: false, locale }, { addQueryPrefix: true })
 
   const res = await restApiFetcher
-    .get<IRootLayoutRes>(`${ELayoutApi.API_LAYOUT}${stringifiedQuery}`, {
+    .get<IRootLayoutRes>(`${ELayoutApi.API_LAYOUT}${query}`, {
       signal: opt.signal,
       cache: 'force-cache',
-      next: { revalidate: 120 },
+      next: { revalidate: 360, tags: ['layout', locale, query] },
     })
     .json()
 

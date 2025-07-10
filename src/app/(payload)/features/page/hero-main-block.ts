@@ -1,15 +1,22 @@
 import { type Block } from 'payload'
 
-import { actionFields } from '../../shared/fields/action'
+import { actionFields } from '@/payload/shared/fields/action'
 
 // hero main block
 export const HeroMainBlock: Block = {
   slug: 'heroMainBlock',
   labels: {
-    singular: 'Hero main block',
-    plural: 'Hero main blocks',
+    singular: 'Hero Main Block',
+    plural: 'Hero Main Blocks',
   },
   fields: [
+    {
+      type: 'upload',
+      name: 'image',
+      label: 'Image',
+      required: true,
+      relationTo: 'images',
+    },
     {
       type: 'text',
       name: 'title',
@@ -22,43 +29,13 @@ export const HeroMainBlock: Block = {
       label: 'Subtitle',
     },
     {
-      type: 'upload',
-      name: 'image',
-      label: 'Image',
-      required: true,
-      relationTo: 'images',
-    },
-    {
       type: 'group',
       name: 'action',
       label: 'Action',
-      fields: [...actionFields('button')],
-    },
-    {
-      type: 'group',
-      name: 'disclosure',
-      label: 'Disclosure',
-      required: true,
       admin: {
         className: 'group-last-container',
       },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          label: 'Title',
-          required: true,
-        },
-        {
-          name: 'info',
-          type: 'richText',
-          label: 'Info',
-          required: true,
-          admin: {
-            className: 'rich-text-container',
-          },
-        },
-      ],
+      fields: [...actionFields('button')],
     },
   ],
 }

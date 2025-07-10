@@ -4,5 +4,6 @@ import { Page } from '../../payload-types'
 
 // generate title
 export const generateTitle: GenerateTitle<Page> = ({ doc }) => {
-  return doc?.name ? `${doc.name}` : 'Website Title'
+  // @ts-expect-error - fullName is not defined in the Page type
+  return `${doc.name || doc.fullName || 'Website Title'}`
 }

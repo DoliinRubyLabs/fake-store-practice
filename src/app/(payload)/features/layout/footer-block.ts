@@ -1,7 +1,7 @@
 import { type Block } from 'payload'
 
-import { actionFields } from '../../shared/fields/action'
-import { textAlignmentField } from '../../shared/fields/alignment'
+import { actionFields } from '@/payload/shared/fields/action'
+import { textAlignmentField } from '@/payload/shared/fields/alignment'
 
 // footer block
 export const FooterBlock: Block = {

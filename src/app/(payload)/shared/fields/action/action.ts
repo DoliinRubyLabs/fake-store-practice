@@ -7,8 +7,8 @@ type IValue = 'link' | 'button'
 export const actionFields = (value?: IValue): Field[] => {
   return [
     {
-      name: 'actionType',
       type: 'select',
+      name: 'actionType',
       label: 'Action Type',
       required: true,
       options: [
@@ -40,23 +40,24 @@ export const actionFields = (value?: IValue): Field[] => {
       type: 'row',
       fields: [
         {
-          name: 'text',
           type: 'text',
+          name: 'text',
           label: 'Text',
           required: true,
           admin: {
-            condition: (_data, siblingData) => {
+            condition: (_, siblingData) => {
               return siblingData.actionType !== 'linkIconOnly' && siblingData.actionType !== 'buttonIconOnly'
             },
           },
         },
         {
-          name: 'url',
           type: 'text',
+          name: 'url',
           label: 'URL',
           required: true,
           admin: {
-            condition: (_data, siblingData) => siblingData.asLink || siblingData.actionType.includes('link'),
+            condition: (_, siblingData) => siblingData.asLink || siblingData.actionType.includes('link'),
+            width: '50%',
           },
         },
       ],
@@ -65,18 +66,18 @@ export const actionFields = (value?: IValue): Field[] => {
       type: 'row',
       fields: [
         {
-          name: 'iconSvg',
           type: 'text',
+          name: 'iconSvg',
           label: 'Icon SVG',
           required: true,
           admin: {
-            condition: (_data, siblingData) => siblingData.actionType !== 'button' && siblingData.actionType !== 'link',
+            condition: (_, siblingData) => siblingData.actionType !== 'button' && siblingData.actionType !== 'link',
             description: 'Copy and paste the icon svg code from: https://lucide.dev/icons',
           },
         },
         {
-          name: 'iconPosition',
           type: 'select',
+          name: 'iconPosition',
           label: 'Icon Position',
           required: true,
           defaultValue: 'left',
@@ -85,7 +86,7 @@ export const actionFields = (value?: IValue): Field[] => {
             { label: 'Icon Right', value: 'right' },
           ],
           admin: {
-            condition: (_data, siblingData) => siblingData.actionType !== 'link' && siblingData.actionType !== 'button',
+            condition: (_, siblingData) => siblingData.actionType !== 'link' && siblingData.actionType !== 'button',
           },
           dbName: 'icon_position',
           custom: { postgres: { type: 'text' } },
@@ -96,8 +97,8 @@ export const actionFields = (value?: IValue): Field[] => {
       type: 'row',
       fields: [
         {
-          name: 'linkColor',
           type: 'select',
+          name: 'linkColor',
           label: 'Link Color',
           required: true,
           options: [
@@ -112,8 +113,8 @@ export const actionFields = (value?: IValue): Field[] => {
           custom: { postgres: { type: 'text' } },
         },
         {
-          name: 'linkVariant',
           type: 'select',
+          name: 'linkVariant',
           label: 'Link Variant',
           required: true,
           options: [
@@ -126,15 +127,15 @@ export const actionFields = (value?: IValue): Field[] => {
         },
       ],
       admin: {
-        condition: (_data, siblingData) => siblingData.actionType.includes('link'),
+        condition: (_, siblingData) => siblingData.actionType.includes('link'),
       },
     },
     {
       type: 'row',
       fields: [
         {
-          name: 'buttonColor',
           type: 'select',
+          name: 'buttonColor',
           label: 'Color',
           required: true,
           options: [
@@ -150,10 +151,13 @@ export const actionFields = (value?: IValue): Field[] => {
           custom: { postgres: { type: 'text' } },
         },
         {
-          name: 'buttonVariant',
           type: 'select',
+          name: 'buttonVariant',
           label: 'Variant',
           required: true,
+          admin: {
+            width: '50%',
+          },
           options: [
             { label: 'Light', value: 'light' },
             { label: 'Solid', value: 'solid' },
@@ -169,25 +173,25 @@ export const actionFields = (value?: IValue): Field[] => {
         },
       ],
       admin: {
-        condition: (_data, siblingData) => siblingData.actionType.includes('button'),
+        condition: (_, siblingData) => siblingData.actionType.includes('button'),
       },
     },
     {
-      name: 'asLink',
       type: 'checkbox',
+      name: 'asLink',
       label: 'As Link?',
       defaultValue: false,
       admin: {
-        condition: (_data, siblingData) => siblingData.actionType.includes('button'),
+        condition: (_, siblingData) => siblingData.actionType.includes('button'),
       },
     },
     {
-      name: 'openInNewTab',
       type: 'checkbox',
+      name: 'openInNewTab',
       label: 'Open in New Tab',
       defaultValue: false,
       admin: {
-        condition: (_data, siblingData) =>
+        condition: (_, siblingData) =>
           siblingData.asLink ||
           siblingData.actionType === 'link' ||
           siblingData.actionType === 'linkIcon' ||

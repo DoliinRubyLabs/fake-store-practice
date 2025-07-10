@@ -1,8 +1,19 @@
 import type { CollectionConfig } from 'payload'
 
-import { FeedbackBlock, HeroMainBlock, ListBlock, TabsBlock } from '../features/page'
+import {
+  ArticleBlock,
+  CategoriesBlock,
+  FeedbackBlock,
+  HeroMainBlock,
+  ImageScrollerBlock,
+  ListBlock,
+  RichTextBlock,
+  TabsBlock,
+  TitleBlock,
+} from '../features/page'
+import { TemplateBlock } from '../features/template'
 import { seoFields } from '../shared/fields/seo'
-import { slugField } from '../shared/fields/slug'
+import { slugField } from '../shared/fields/slug/slug-field'
 import { versionField } from '../shared/fields/version'
 import { authenticated, authenticatedOrPublished } from '../shared/services'
 
@@ -20,7 +31,7 @@ export const Pages: CollectionConfig = {
     useAsTitle: 'name',
     group: 'Content',
     livePreview: {
-      url: (data) => (data.data.slug !== 'home-page' ? `/${data.locale}/${data.data.slug}` : `/${data.locale}`),
+      url: ({ locale }) => `/${locale.code}`,
     },
   },
   labels: {
@@ -40,7 +51,7 @@ export const Pages: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Content',
+          label: 'Page',
           fields: [
             {
               name: 'blocks',
@@ -50,7 +61,18 @@ export const Pages: CollectionConfig = {
                 singular: 'Block',
                 plural: 'Blocks',
               },
-              blocks: [HeroMainBlock, ListBlock, TabsBlock, FeedbackBlock],
+              blocks: [
+                TemplateBlock,
+                HeroMainBlock,
+                TitleBlock,
+                ImageScrollerBlock,
+                ListBlock,
+                TabsBlock,
+                RichTextBlock,
+                CategoriesBlock,
+                ArticleBlock,
+                FeedbackBlock,
+              ],
               minRows: 1,
               maxRows: 10,
             },

@@ -1,4 +1,7 @@
+'use client'
+
 import { ChevronRight } from 'lucide-react'
+import { useParams } from 'next/navigation'
 import { type FC } from 'react'
 
 import { BreadcrumbItem, Breadcrumbs } from '@heroui/breadcrumbs'
@@ -13,11 +16,12 @@ interface IProps {}
 // component
 const BreadcrumbsComponent: FC<Readonly<IProps>> = () => {
   const pathname = usePathname()
+  const { category_slug } = useParams()
 
   // return
   return (
-    <Breadcrumbs>
-      {!pathname.includes(ESiteRoute.BASE) && (
+    <Breadcrumbs className='hidden sm:block'>
+      {pathname !== ESiteRoute.BASE && (
         <BreadcrumbItem separator={<ChevronRight size={16} />} isDisabled={pathname === ESiteRoute.BASE}>
           <Link href={ESiteRoute.BASE} as={NextLink} className={'text-small text-foreground'}>
             Home
@@ -25,17 +29,24 @@ const BreadcrumbsComponent: FC<Readonly<IProps>> = () => {
         </BreadcrumbItem>
       )}
 
-      {/* INFO: add new breadcrumbs here */}
-      {/* {pathname.includes(ESiteRoute.VIEW) && (
+      {pathname.includes(ESiteRoute.CATEGORIES) && (
         <BreadcrumbItem
           separator={<ChevronRight size={16} />}
-          isDisabled={pathname.includes(ESiteRoute.VIEW)}
+          isDisabled={pathname.includes(ESiteRoute.CATEGORIES) && !category_slug}
         >
-          <Link href={ESiteRoute.VIEW} as={NextLink} className={'text-small text-foreground'}>
-            {slug}
+          <Link href={ESiteRoute.CATEGORIES} as={NextLink} className={'text-small text-foreground'}>
+            Categories
           </Link>
         </BreadcrumbItem>
-      )} */}
+      )}
+
+      {category_slug && (
+        <BreadcrumbItem separator={<ChevronRight size={16} />} isDisabled={pathname.includes(ESiteRoute.CATEGORIES)}>
+          <Link href={ESiteRoute.CATEGORIES} as={NextLink} className={'text-small capitalize text-foreground'}>
+            {category_slug?.toString()?.replace('--', ' & ')?.replace(/_/g, ' ')?.replace(/-/g, ' ')}
+          </Link>
+        </BreadcrumbItem>
+      )}
     </Breadcrumbs>
   )
 }

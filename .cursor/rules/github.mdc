@@ -1,0 +1,103 @@
+---
+alwaysApply: true
+description: GitHub conventions for commit messages and branch naming
+---
+
+# GitHub Conventions
+
+## Commit Message Format
+
+All commit messages should follow this structure:
+
+```
+[action]:[short description of what was done]
+
+[element/file/section]:[brief description of all changes]
+```
+
+### Action Types
+- **create**: When adding new features, files, or components
+- **update**: When modifying existing functionality
+- **fix**: When fixing bugs or issues
+- **mix**: When the commit contains multiple types of changes
+
+### Examples
+
+```
+create: add user authentication system
+
+auth.service.ts: implement login and logout methods
+auth.component.tsx: create login form component
+auth.store.ts: add authentication state management
+```
+
+```
+fix: resolve payment processing error
+
+payment.api.ts: fix API endpoint URL typo
+payment.component.tsx: add error handling for failed payments
+```
+
+```
+update: improve product card responsive design
+
+product-card.component.tsx: adjust layout for mobile devices
+product-card.service.ts: optimize image loading logic
+```
+
+```
+mix: enhance user profile functionality
+
+profile.component.tsx: add avatar upload feature
+profile.service.ts: fix profile update validation
+profile.store.ts: add new user preferences state
+```
+
+## Branch Naming Conventions
+
+### Feature Branches
+```
+feature/[short-description]
+```
+
+Examples:
+- `feature/user-authentication`
+- `feature/payment-integration`
+- `feature/product-comparison`
+- `feature/admin-dashboard`
+
+### Fix Branches
+```
+fix/[short-description]
+```
+
+Examples:
+- `fix/login-validation-error`
+- `fix/mobile-responsive-issues`
+- `fix/payment-gateway-timeout`
+- `fix/image-loading-performance`
+
+### Best Practices
+
+1. **Keep descriptions concise** - use hyphens to separate words
+2. **Use lowercase** - all branch names should be lowercase
+3. **Be descriptive** - the name should clearly indicate what the branch does
+4. **Avoid special characters** - stick to letters, numbers, and hyphens
+5. **Delete merged branches** - clean up after successful merges
+
+### Branch Workflow
+
+1. Create branch from `develop`: `git checkout -b feature/user-authentication`
+2. Work on your feature/fix
+3. Commit changes following the message format
+4. Push branch: `git push origin feature/user-authentication`
+5. Create Pull Request to `develop`
+6. After merge, delete the branch
+
+## Additional Guidelines
+
+- **Always write commit messages in English** (comments in code should also be in English)
+- **Reference issue numbers** when applicable: `fix: resolve login error (#123)`
+- **Use present tense** in commit messages: "add feature" not "added feature"
+- **Keep the first line under 50 characters** for better readability
+- **Use bullet points** for multiple changes in the description

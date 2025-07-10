@@ -3,8 +3,6 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 import { withPayload } from '@payloadcms/next/withPayload'
 
-import { envClient } from '@/config/env'
-
 // i18n
 const withNextIntl = createNextIntlPlugin({
   requestConfig: './src/pkg/libraries/locale/request.ts',
@@ -18,6 +16,7 @@ const nextConfig: NextConfig = {
   output: 'standalone',
 
   poweredByHeader: false,
+  cacheMaxMemorySize: 150 * 1024 * 1024,
 
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
@@ -61,6 +60,9 @@ const nextConfig: NextConfig = {
       'zustand',
       'framer-motion',
     ],
+    staticGenerationRetryCount: 1,
+    staticGenerationMaxConcurrency: 2,
+    staticGenerationMinPagesPerWorker: 25,
   },
 
   turbopack: {
@@ -87,30 +89,6 @@ const nextConfig: NextConfig = {
         source: `/:locale/admin/:path*`,
         destination: '/admin/:path*',
         permanent: true,
-      },
-      {
-        source: '/404',
-        destination: '/not-found',
-        permanent: true,
-      },
-    ]
-  },
-
-  async headers() {
-    return [
-      {
-        source: '/api/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: envClient.NEXT_PUBLIC_CLIENT_WEB_URL },
-          { key: 'Access-Control-Allow-Methods', value: 'GET,DELETE,PATCH,POST,PUT,OPTIONS' },
-          {
-            key: 'Access-Control-Allow-Headers',
-            value:
-              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
-          },
-          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-        ],
       },
     ]
   },

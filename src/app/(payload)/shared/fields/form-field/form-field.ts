@@ -7,8 +7,8 @@ type IValue = 'textInput' | 'emailInput' | 'phoneInput' | 'textareaInput' | 'sel
 export const formFields = (value?: IValue): Field[] => {
   return [
     {
-      name: 'fieldType',
       type: 'select',
+      name: 'fieldType',
       label: 'Field Type',
       required: true,
       options: [
@@ -38,8 +38,8 @@ export const formFields = (value?: IValue): Field[] => {
       type: 'row',
       fields: [
         {
-          name: 'fieldLabel',
           type: 'text',
+          name: 'fieldLabel',
           label: 'Label',
         },
         {
@@ -47,9 +47,10 @@ export const formFields = (value?: IValue): Field[] => {
           type: 'text',
           label: 'Placeholder',
           admin: {
-            condition: (_data, siblingData) => {
+            condition: (_, siblingData) => {
               return siblingData.fieldType !== 'radio' && siblingData.fieldType !== 'checkbox'
             },
+            width: '50%',
           },
         },
       ],
@@ -73,18 +74,19 @@ export const formFields = (value?: IValue): Field[] => {
           type: 'text',
           label: 'Error Message',
           admin: {
-            condition: (_data, siblingData) => siblingData.fieldIsRequired,
+            condition: (_, siblingData) => siblingData.fieldIsRequired,
+            width: '50%',
           },
         },
       ],
     },
     {
-      name: 'fieldOptions',
       type: 'array',
+      name: 'fieldOptions',
       label: 'Options',
       required: true,
       admin: {
-        condition: (_data, siblingData) => {
+        condition: (_, siblingData) => {
           return (
             siblingData.fieldType === 'select' ||
             siblingData.fieldType === 'radio' ||
@@ -94,8 +96,8 @@ export const formFields = (value?: IValue): Field[] => {
       },
       fields: [
         {
-          name: 'fieldOptionLabel',
           type: 'text',
+          name: 'fieldOptionLabel',
           label: 'Option Label',
           required: true,
         },

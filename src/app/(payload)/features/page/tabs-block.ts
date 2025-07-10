@@ -4,8 +4,8 @@ import { type Block } from 'payload'
 export const TabsBlock: Block = {
   slug: 'tabsBlock',
   labels: {
-    singular: 'Tabs block',
-    plural: 'Tabs blocks',
+    singular: 'Tabs Block',
+    plural: 'Tabs Blocks',
   },
   fields: [
     {
@@ -20,11 +20,14 @@ export const TabsBlock: Block = {
       label: 'Subtitle',
     },
     {
-      type: 'array',
       name: 'tabs',
+      type: 'array',
       label: 'Tabs',
       minRows: 1,
       maxRows: 3,
+      admin: {
+        className: 'group-last-container',
+      },
       fields: [
         {
           type: 'row',
@@ -41,7 +44,7 @@ export const TabsBlock: Block = {
               label: 'Icon',
               required: true,
               admin: {
-                description: 'Copy and paste the icon svg code',
+                description: 'Copy and paste the icon svg code from: https://lucide.dev/icons',
               },
             },
           ],
@@ -73,7 +76,7 @@ export const TabsBlock: Block = {
               label: 'Icon',
               required: true,
               admin: {
-                description: 'Copy and paste the icon svg code',
+                description: 'Copy and paste the icon svg code from: https://lucide.dev/icons',
               },
             },
             {

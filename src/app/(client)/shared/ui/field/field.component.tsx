@@ -53,6 +53,7 @@ const FieldComponent: FC<Readonly<IProps>> = (props) => {
                 isInvalid={invalid}
                 errorMessage={fieldErrorMessage || error?.message}
                 size={size}
+                labelPlacement='outside'
                 classNames={{ inputWrapper: cn(className) }}
                 placeholder={fieldPlaceholder}
                 isDisabled={isDisabled}

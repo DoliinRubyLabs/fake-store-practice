@@ -7,6 +7,18 @@ export interface IMeta {
   image?: { url: string; alt?: string }
 }
 
+// pagination
+export interface IPagination {
+  totalDocs: number
+  limit: number
+  totalPages: number
+  page: number
+  pagingCounter: number
+  hasPrevPage: boolean
+  hasNextPage: boolean
+  prevPage: number | null
+}
+
 // image
 export interface IImage {
   id: number
@@ -51,5 +63,44 @@ export interface IFormField {
   fieldOptions?: { label: string; value: string }[]
 }
 
+// alignment
 export type TAlignment = 'left' | 'center' | 'right'
+
+// rich text
 export type TRichText = SerializedEditorState
+
+// product
+export interface IProduct {
+  id: string
+  updatedAt: string
+  createdAt: string
+  slug: string
+  isBestChoice: boolean
+  isValueForMoney: boolean
+  hasDiscount: boolean
+  hasDetails: boolean
+  image: IImage
+  shortName: string
+  fullName: string
+  estimatedPrice: number
+  discountPercent: number
+  productLink: string
+  rank: {
+    value: number
+    label: string
+  }
+  details?: {
+    title: string
+    rows: {
+      iconSvg: string
+      label: string
+    }[]
+  }[]
+  meta: IMeta
+}
+
+// disclosure
+export interface IDisclosure {
+  title: string
+  info: TRichText
+}

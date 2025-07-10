@@ -1,10 +1,12 @@
 'use client'
 
+import { useLocale } from 'next-intl'
 import { type FC, Fragment } from 'react'
 
 import { Navbar, NavbarContent, NavbarMenuToggle } from '@heroui/navbar'
+import { useQuery } from '@tanstack/react-query'
 
-import { useLayoutQuery } from '@/client/entities/api/layout'
+import { layoutQueryOptions } from '@/client/entities/api/layout'
 import { useGlobalStore } from '@/client/shared/store/global.store'
 import { ActionComponent } from '@/client/shared/ui/action'
 import { LogoComponent } from '@/client/shared/ui/logo'
@@ -14,7 +16,9 @@ interface IProps {}
 
 // component
 const HeaderComponent: FC<Readonly<IProps>> = () => {
-  const { data } = useLayoutQuery()
+  const locale = useLocale()
+
+  const { data } = useQuery(layoutQueryOptions({ locale }))
 
   const headerBlock = data?.headerBlock
 
@@ -28,7 +32,7 @@ const HeaderComponent: FC<Readonly<IProps>> = () => {
       onMenuOpenChange={() => handleGlobalStore({ menu: !menu })}
       classNames={{
         base: `w-auto backdrop-blur-lg bg-background/55 transition-shadow transition-background border-b border-divider`,
-        wrapper: `z-49 grid max-w-screen-lg h-[60px] items-center grid-cols-[0.5fr_1fr_0.5fr] py-0 w-full px-6`,
+        wrapper: `z-49 grid max-w-screen-lg h-[60px] items-center grid-cols-[0.5fr_0.1fr_0.5fr] sm:grid-cols-[0.5fr_1fr_0.5fr] py-0 w-full px-6`,
       }}
     >
       <NavbarContent justify='start'>
@@ -36,8 +40,8 @@ const HeaderComponent: FC<Readonly<IProps>> = () => {
           src={data?.branding?.logoImage?.url}
           iconSvg={data?.branding?.logoIconSvg}
           isIconSvg={data?.branding?.logoAsIconSvg}
-          w={80}
-          h={30}
+          w={110}
+          h={50}
         />
       </NavbarContent>
 

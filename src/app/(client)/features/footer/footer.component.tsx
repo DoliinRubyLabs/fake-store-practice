@@ -1,11 +1,13 @@
 'use client'
 
+import { useLocale } from 'next-intl'
 import { FC } from 'react'
 
 import { Divider } from '@heroui/divider'
 import { cn } from '@heroui/react'
+import { useQuery } from '@tanstack/react-query'
 
-import { useLayoutQuery } from '@/client/entities/api/layout'
+import { layoutQueryOptions } from '@/client/entities/api/layout'
 import { ActionComponent } from '@/client/shared/ui/action'
 import { LogoComponent } from '@/client/shared/ui/logo'
 
@@ -14,14 +16,16 @@ interface IProps {}
 
 // component
 const FooterComponent: FC<Readonly<IProps>> = () => {
-  const { data } = useLayoutQuery()
+  const locale = useLocale()
+
+  const { data } = useQuery(layoutQueryOptions({ locale }))
 
   const footerBlock = data?.footerBlock
 
   // return
   return (
     <footer className='bg-content2 px-6 pb-8 pt-16 dark:bg-content1'>
-      <section className='mx-auto grid max-w-screen-lg gap-6 md:grid-cols-[auto_1fr] md:justify-items-end md:pb-10'>
+      <section className='mx-auto grid max-w-screen-lg gap-6 md:grid-cols-[auto_1fr] md:justify-items-end md:pb-10 lg:px-6'>
         <div className='grid content-start gap-6'>
           <LogoComponent
             src={data?.branding?.logoImage?.url}

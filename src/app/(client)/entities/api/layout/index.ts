@@ -1,1 +1,1 @@
-export { layoutQueryOptions, useLayoutQuery } from './layout.hook'
+export { layoutQueryOptions } from './layout.query'
