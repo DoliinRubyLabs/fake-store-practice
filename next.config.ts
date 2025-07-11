@@ -17,10 +17,12 @@ const nextConfig: NextConfig = {
 
   poweredByHeader: false,
   cacheMaxMemorySize: 150 * 1024 * 1024,
+  compress: true,
 
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
     minimumCacheTTL: 3600,
+    formats: ['image/webp', 'image/avif'],
   },
 
   serverExternalPackages: ['pino', 'pino-pretty'],

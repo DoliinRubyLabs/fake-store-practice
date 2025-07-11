@@ -32,6 +32,7 @@ export const Images: CollectionConfig = {
     mimeTypes: ['image/*'],
     formatOptions: {
       format: 'webp',
+      options: { quality: 75 },
     },
   },
 }

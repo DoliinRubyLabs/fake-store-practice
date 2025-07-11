@@ -8,7 +8,8 @@ RUN apk add --no-cache \
     libc6-compat \
     python3 \
     make \
-    g++
+    g++ \
+    gzip
 WORKDIR /app
 
 COPY package.json yarn.lock ./
