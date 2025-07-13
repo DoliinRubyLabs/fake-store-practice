@@ -1,15 +1,16 @@
 # Base stage
 FROM node:22-alpine AS base
 
-
-# Stage 1: Install dependencies
-FROM base AS deps
 RUN apk add --no-cache \
     libc6-compat \
     python3 \
     make \
     g++ \
     gzip
+
+
+# Stage 1: Install dependencies
+FROM base AS deps
 WORKDIR /app
 
 COPY package.json yarn.lock ./
