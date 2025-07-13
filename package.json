@@ -20,8 +20,8 @@
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "dev": "yarn docker:up && yarn generate:types && yarn generate:importmap && next dev --turbopack",
-    "build": "NODE_OPTIONS='--no-warnings' next build",
-    "start": "NODE_OPTIONS='--no-warnings' next start"
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@heroui/react": "^2.7.11",
