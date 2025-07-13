@@ -24,8 +24,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN --mount=type=cache,id=next-build-cache,target=/app/.next/cache \
     yarn build
@@ -38,19 +38,16 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
-
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
+COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS=--no-warnings
-ENV HOSTNAME="0.0.0.0"
 
 USER nextjs
 
-CMD ["node", "server.js"]
+CMD HOSTNAME="0.0.0.0" node server.js
