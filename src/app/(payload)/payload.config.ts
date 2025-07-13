@@ -54,6 +54,7 @@ export default buildConfig({
     pool: {
       connectionString: envServer.DATABASE_URI,
     },
+    readReplicas: envServer.DATABASE_URI_READ_ONLY ? [envServer.DATABASE_URI_READ_ONLY] : undefined,
   }),
   sharp,
   plugins,
