@@ -55,8 +55,10 @@ export default buildConfig({
       connectionString: envServer.DATABASE_URI,
     },
     readReplicas: envServer.DATABASE_URI_READ_ONLY ? [envServer.DATABASE_URI_READ_ONLY] : undefined,
+    push: false,
   }),
   sharp,
   plugins,
   localization: locales,
+  debug: envServer.NODE_ENV !== 'production',
 })

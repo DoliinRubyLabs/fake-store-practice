@@ -3,6 +3,8 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 import { withPayload } from '@payloadcms/next/withPayload'
 
+import { envServer } from '@/config/env'
+
 // i18n
 const withNextIntl = createNextIntlPlugin({
   requestConfig: './src/pkg/libraries/locale/request.ts',
@@ -18,10 +20,18 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   cacheMaxMemorySize: 150 * 1024 * 1024,
 
+  logging: {
+    fetches: {
+      fullUrl: envServer.NODE_ENV !== 'production',
+    },
+  },
+
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
     minimumCacheTTL: 3600,
     formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 1080, 1920, 3840],
+    imageSizes: [16, 64, 128, 384],
   },
 
   serverExternalPackages: ['pino', 'pino-pretty'],
