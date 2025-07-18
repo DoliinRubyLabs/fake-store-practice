@@ -312,17 +312,12 @@ Examples:
 
 ```bash
 # Update your branch with latest changes
-
 git checkout develop
-
 git pull origin develop
-
 git checkout feature/your-branch
-
 git rebase develop
 
 # If conflicts occur, resolve them and continue
-
 git add .
 git rebase --continue
 
@@ -384,11 +379,9 @@ Before merging to main branches, ensure:
 * Build succeeds
 * Documentation is updated
 
-### Automated Workflows
+### Automated Workflows (example)
 
 ```yaml
-# Example GitHub Actions workflow
-
 name: CI/CD Pipeline
 
 on:
