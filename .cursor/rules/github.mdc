@@ -3,13 +3,9 @@ alwaysApply: true
 description: GitHub conventions for commit messages and branch naming
 ---
 
-
-# GitHub Conventions
-
-
 ## Commit Message Format
 
-All commit messages should follow this structure:
+### All commit messages should follow this structure
 
 ```
 [action]:[short description of what was done]
@@ -85,15 +81,14 @@ webpack.config.js: add new build optimization
 
 ### Commit Message Best Practices
 
-
-1. **Use the imperative mood**: "add feature" not "added feature"
-2. **Keep the first line under 50 characters** for better readability
-3. **Capitalize the first letter** of the action type
-4. **No period at the end** of the subject line
-5. **Use present tense**: "change" not "changed" or "changes"
-6. **Reference issues when applicable**: `fix: resolve login error (#123)`
-7. **Be specific and descriptive** in the description
-8. **Separate subject from body** with a blank line if needed
+* **Use the imperative mood**: "add feature" not "added feature"
+* **Keep the first line under 50 characters** for better readability
+* **Capitalize the first letter** of the action type
+* **No period at the end** of the subject line
+* **Use present tense**: "change" not "changed" or "changes"
+* **Reference issues when applicable**: `fix: resolve login error (#123)`
+* **Be specific and descriptive** in the description
+* **Separate subject from body** with a blank line if needed
 
 ### Advanced Commit Examples
 
@@ -200,41 +195,37 @@ Examples:
 
 ### Best Practices
 
-
-1. **Keep descriptions concise** - use hyphens to separate words
-2. **Use lowercase** - all branch names should be lowercase
-3. **Be descriptive** - the name should clearly indicate what the branch does
-4. **Avoid special characters** - stick to letters, numbers, and hyphens
-5. **Delete merged branches** - clean up after successful merges
+* **Keep descriptions concise** - use hyphens to separate words
+* **Use lowercase** - all branch names should be lowercase
+* **Be descriptive** - the name should clearly indicate what the branch does
+* **Avoid special characters** - stick to letters, numbers, and hyphens
+* **Delete merged branches** - clean up after successful merges
 
 ### Branch Workflow
 
 #### Feature Development Workflow
 
-
-1. Create feature branch from `develop`: `git checkout -b feature/user-authentication`
-2. Work on your feature/fix
-3. Commit changes following the message format
-4. Push branch: `git push origin feature/user-authentication`
-5. Create Pull Request to `develop`
-6. After code review and merge, delete the branch
+* Create feature branch from `develop`: `git checkout -b feature/user-authentication`
+* Work on your feature/fix
+* Commit changes following the message format
+* Push branch: `git push origin feature/user-authentication`
+* Create Pull Request to `develop`
+* After code review and merge, delete the branch
 
 #### Release Workflow
 
-
-1. Create release from `develop` to `staging`
-2. Test thoroughly on staging environment
-3. If tests pass, create Pull Request from `staging` to `main`
-4. Deploy to production automatically after merge
+* Create release from `develop` to `staging`
+* Test thoroughly on staging environment
+* If tests pass, create Pull Request from `staging` to `main`
+* Deploy to production automatically after merge
 
 #### Hotfix Workflow
 
-
-1. Create hotfix branch from `main`: `git checkout -b hotfix/critical-fix`
-2. Fix the critical issue
-3. Create Pull Request to `main` for immediate production deployment
-4. Create Pull Request to `develop` to keep branches synchronized
-5. Delete hotfix branch after both merges
+* Create hotfix branch from `main`: `git checkout -b hotfix/critical-fix`
+* Fix the critical issue
+* Create Pull Request to `main` for immediate production deployment
+* Create Pull Request to `develop` to keep branches synchronized
+* Delete hotfix branch after both merges
 
 #### Branch Protection Rules
 
@@ -311,12 +302,11 @@ Examples:
 
 ### Handling Merge Conflicts
 
-
-1. **Pull latest changes** from target branch before creating PR
-2. **Resolve conflicts locally** using your preferred merge tool
-3. **Test after resolving** - ensure functionality still works
-4. **Commit conflict resolution** with clear message
-5. **Push resolved changes** and notify reviewers
+* **Pull latest changes** from target branch before creating PR
+* **Resolve conflicts locally** using your preferred merge tool
+* **Test after resolving** - ensure functionality still works
+* **Commit conflict resolution** with clear message
+* **Push resolved changes** and notify reviewers
 
 ### Conflict Resolution Commands
 
@@ -360,12 +350,11 @@ git push --force-with-lease origin feature/your-branch
 
 ### Common Issues
 
-
-1. **Branch behind main**: `git pull origin main` then resolve conflicts
-2. **Failed CI/CD**: Check logs, fix issues, push again
-3. **Merge conflicts**: Use `git mergetool` or IDE merge tools
-4. **Lost commits**: Use `git reflog` to recover
-5. **Wrong branch**: Use `git cherry-pick` to move commits
+* **Branch behind main**: `git pull origin main` then resolve conflicts
+* **Failed CI/CD**: Check logs, fix issues, push again
+* **Merge conflicts**: Use `git mergetool` or IDE merge tools
+* **Lost commits**: Use `git reflog` to recover
+* **Wrong branch**: Use `git cherry-pick` to move commits
 
 ### Emergency Procedures
 
@@ -389,11 +378,11 @@ git push --force-with-lease origin feature/your-branch
 
 Before merging to main branches, ensure:
 
-* ✅ All tests pass
-* ✅ Code quality checks pass
-* ✅ Security scan passes
-* ✅ Build succeeds
-* ✅ Documentation is updated
+* All tests pass
+* Code quality checks pass
+* Security scan passes
+* Build succeeds
+* Documentation is updated
 
 ### Automated Workflows
 
@@ -424,22 +413,21 @@ jobs:
 
 ### Review Checklist
 
-- [ ] **Code functionality** - Does it work as expected?
-- [ ] **Code quality** - Is it readable and maintainable?
-- [ ] **Performance** - Are there any performance implications?
-- [ ] **Security** - Are there any security concerns?
-- [ ] **Tests** - Are there adequate tests?
-- [ ] **Documentation** - Is documentation updated?
-- [ ] **Breaking changes** - Are breaking changes documented?
+* **Code functionality** - Does it work as expected?
+* **Code quality** - Is it readable and maintainable?
+* **Performance** - Are there any performance implications?
+* **Security** - Are there any security concerns?
+* **Tests** - Are there adequate tests?
+* **Documentation** - Is documentation updated?
+* **Breaking changes** - Are breaking changes documented?
 
 ### Review Process
 
-
-1. **Self-review** before requesting others
-2. **Request specific reviewers** based on expertise
-3. **Address feedback** constructively
-4. **Re-request review** after making changes
-5. **Merge only after approval** and passing checks
+* **Self-review** before requesting others
+* **Request specific reviewers** based on expertise
+* **Address feedback** constructively
+* **Re-request review** after making changes
+* **Merge only after approval** and passing checks
 
 ## Conclusion
 
