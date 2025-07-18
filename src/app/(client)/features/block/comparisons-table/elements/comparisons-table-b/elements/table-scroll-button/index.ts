@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const TableScrollButtonComponent = dynamic(() => import('./table-scroll-button.component'))
+export { default as TableScrollButtonComponent } from './table-scroll-button.component'

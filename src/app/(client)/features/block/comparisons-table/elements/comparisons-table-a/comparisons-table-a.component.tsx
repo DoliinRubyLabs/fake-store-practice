@@ -6,9 +6,9 @@ import { Divider } from '@heroui/divider'
 import { cn } from '@heroui/react'
 import { Skeleton } from '@heroui/skeleton'
 
+import { mockProducts } from '@/app/(client)/features/block/comparisons-table/constants'
+import { ProductCompareSlideComponent } from '@/app/(client)/features/block/comparisons-table/elements/comparisons-table-a/elements/product-compare-slide.tsx'
 import { IProduct } from '@/client/entities/models'
-import { mockProducts } from '@/client/features/block/comparisons-table/constants'
-import { ProductCompareSlideComponent } from '@/client/features/block/comparisons-table/elements/comparisons-table-a/elements/product-compare-slide.tsx'
 
 import { NavigationButton } from '../../../product-carousel-block/elements/navigation-btn'
 

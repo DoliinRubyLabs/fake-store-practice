@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
-import { ComparisonsTableAComponent } from './elements/comparisons-table-a'
-import { ComparisonsTableBComponent } from './elements/comparisons-table-b'
+import { ComparisonsTableAComponent, ComparisonsTableBComponent } from './elements'
 
 // interface
 interface IComparisonsTableProps {

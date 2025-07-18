@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const BreadcrumbsComponent = dynamic(() => import('./breadcrumbs.component'))
+export { default as BreadcrumbsComponent } from './breadcrumbs.component'

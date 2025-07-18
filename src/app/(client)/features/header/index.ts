@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const HeaderComponent = dynamic(() => import('./header.component'))
+export { default as HeaderComponent } from './header.component'

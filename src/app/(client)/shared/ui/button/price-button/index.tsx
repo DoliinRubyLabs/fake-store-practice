@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const PriceButtonComponent = dynamic(() => import('./price-button.component'))
+export { default as PriceButtonComponent } from './price-button.component'

@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const InfoModalComponent = dynamic(() => import('./info-modal.component'))
+export { default as InfoModalComponent } from './info-modal.component'

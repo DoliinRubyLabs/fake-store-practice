@@ -1,1 +1,1 @@
-export { EAssetImage } from './asset.interface'
+export * from './asset.interface'

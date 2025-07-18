@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const RichTextBlockComponent = dynamic(() => import('./richtext-block.component'))
+export { default as RichTextBlockComponent } from './richtext-block.component'

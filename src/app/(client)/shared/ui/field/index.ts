@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const FieldComponent = dynamic(() => import('./field.component'))
+export { default as FieldComponent } from './field.component'

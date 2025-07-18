@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const DiscountBadgeComponent = dynamic(() => import('./discount-badge.component'))
+export { default as DiscountBadgeComponent } from './discount-badge.component'

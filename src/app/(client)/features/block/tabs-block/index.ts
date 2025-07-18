@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const TabsBlockComponent = dynamic(() => import('./tabs-block.component'))
+export { default as TabsBlockComponent } from './tabs-block.component'

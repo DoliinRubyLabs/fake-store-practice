@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const UserClicksCountComponent = dynamic(() => import('./user-clicks-count.component'))
+export { default as UserClicksCountComponent } from './user-clicks-count.component'

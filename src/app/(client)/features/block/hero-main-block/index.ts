@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const HeroMainBlockComponent = dynamic(() => import('./hero-main-block.component'))
+export { default as HeroMainBlockComponent } from './hero-main-block.component'

@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const ProductCardComponent = dynamic(() => import('./product-card.component'))
+export { default as ProductCardComponent } from './product-card.component'

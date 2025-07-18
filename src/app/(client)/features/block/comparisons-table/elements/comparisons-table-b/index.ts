@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const ComparisonsTableBComponent = dynamic(() => import('./comparisons-table-b.component'))
+export { default as ComparisonsTableBComponent } from './comparisons-table-b.component'

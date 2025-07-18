@@ -9,7 +9,7 @@ import { TopChoiceBadgeComponent } from '@/client/shared/ui/badge/top-choice-bad
 import { PriceButtonComponent } from '@/client/shared/ui/button/price-button'
 import { Link } from '@/pkg/libraries/locale'
 
-import { TableTextComponent } from './elements/table-text'
+import { TableTextComponent } from './elements'
 
 // interface
 interface IProps {

@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const ContainerComponent = dynamic(() => import('./container.component'))
+export { default as ContainerComponent } from './container.component'

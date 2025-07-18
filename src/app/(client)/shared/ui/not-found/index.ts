@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const NotFoundComponent = dynamic(() => import('./not-found.component'))
+export { default as NotFoundComponent } from './not-found.component'

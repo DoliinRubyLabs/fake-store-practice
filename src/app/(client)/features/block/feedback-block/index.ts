@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const FeedbackBlockComponent = dynamic(() => import('./feedback-block.component'))
+export { default as FeedbackBlockComponent } from './feedback-block.component'

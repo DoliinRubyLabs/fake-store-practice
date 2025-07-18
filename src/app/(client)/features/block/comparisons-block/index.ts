@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const ComparisonsBlockComponent = dynamic(() => import('./comparisons-block.component'))
+export { default as ComparisonsBlockComponent } from './comparisons-block.component'

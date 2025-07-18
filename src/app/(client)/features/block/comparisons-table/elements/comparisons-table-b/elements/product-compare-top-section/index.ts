@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const ProductCompareTopSectionComponent = dynamic(() => import('./product-compare-top-section.component'))
+export { default as ProductCompareTopSectionComponent } from './product-compare-top-section.component'

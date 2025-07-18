@@ -5,7 +5,7 @@ import { Button, useDisclosure } from '@heroui/react'
 
 import { IDisclosure } from '@/app/(client)/entities/models'
 
-import { InfoModalComponent } from './elements/info-modal'
+import { InfoModalComponent } from './elements'
 
 // interface
 interface IProps {

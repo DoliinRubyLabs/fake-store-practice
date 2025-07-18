@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const RankInfoModalComponent = dynamic(() => import('./rank-info-modal.component'))
+export { default as RankInfoModalComponent } from './rank-info-modal.component'

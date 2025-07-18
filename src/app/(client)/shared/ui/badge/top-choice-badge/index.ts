@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const TopChoiceBadgeComponent = dynamic(() => import('./top-choice-badge.component'))
+export { default as TopChoiceBadgeComponent } from './top-choice-badge.component'

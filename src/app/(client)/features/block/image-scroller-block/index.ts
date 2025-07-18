@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const ImageScrollerBlockComponent = dynamic(() => import('./image-scroller-block.component'))
+export { default as ImageScrollerBlockComponent } from './image-scroller-block.component'

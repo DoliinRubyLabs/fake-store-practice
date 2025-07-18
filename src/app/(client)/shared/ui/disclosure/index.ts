@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const DisclosureComponent = dynamic(() => import('./disclosure.component'))
+export { default as DisclosureComponent } from './disclosure.component'

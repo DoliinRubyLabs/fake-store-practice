@@ -11,8 +11,7 @@ import { IProductsBlock } from '@/app/(client)/entities/models'
 import { MidSectionComponent } from '@/app/(client)/shared/ui/mid-section'
 import { Link } from '@/pkg/libraries/locale'
 
-import { ProductCardComponent } from './elements/product-card'
-import { RankInfoModalComponent } from './elements/rank-info-modal'
+import { ProductCardComponent, RankInfoModalComponent } from './elements'
 
 // interface
 interface IProps {

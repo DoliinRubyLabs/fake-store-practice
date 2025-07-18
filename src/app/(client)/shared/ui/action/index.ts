@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const ActionComponent = dynamic(() => import('./action.component'))
+export { default as ActionComponent } from './action.component'

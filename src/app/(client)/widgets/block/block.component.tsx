@@ -1,5 +1,6 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { type FC, Fragment } from 'react'
@@ -8,17 +9,26 @@ import { useQuery } from '@tanstack/react-query'
 
 import { pagesQueryOptions } from '@/client/entities/api/page'
 import { EPageKey } from '@/client/entities/models'
-import { ArticleBlockComponent } from '@/client/features/block/article-block'
-import { CategoriesBlockComponent } from '@/client/features/block/categories-block'
-import { ComparisonsBlockComponent } from '@/client/features/block/comparisons-block'
-import { FeedbackBlockComponent } from '@/client/features/block/feedback-block'
-import { HeroMainBlockComponent } from '@/client/features/block/hero-main-block'
-import { ImageScrollerBlockComponent } from '@/client/features/block/image-scroller-block'
-import { ListBlockComponent } from '@/client/features/block/list-block'
-import { RichTextBlockComponent } from '@/client/features/block/richtext-block'
-import { TabsBlockComponent } from '@/client/features/block/tabs-block'
-import { TitleBlockComponent } from '@/client/features/block/title-block'
-import { TitleComparisonBlockComponent } from '@/client/features/block/title-comparison-block'
+
+const ArticleBlockComponent = dynamic(() => import('@/client/features/block').then((m) => m.ArticleBlockComponent))
+const CategoriesBlockComponent = dynamic(() =>
+  import('@/client/features/block').then((m) => m.CategoriesBlockComponent),
+)
+const ComparisonsBlockComponent = dynamic(() =>
+  import('@/client/features/block').then((m) => m.ComparisonsBlockComponent),
+)
+const FeedbackBlockComponent = dynamic(() => import('@/client/features/block').then((m) => m.FeedbackBlockComponent))
+const HeroMainBlockComponent = dynamic(() => import('@/client/features/block').then((m) => m.HeroMainBlockComponent))
+const ImageScrollerBlockComponent = dynamic(() =>
+  import('@/client/features/block').then((m) => m.ImageScrollerBlockComponent),
+)
+const ListBlockComponent = dynamic(() => import('@/client/features/block').then((m) => m.ListBlockComponent))
+const RichTextBlockComponent = dynamic(() => import('@/client/features/block').then((m) => m.RichTextBlockComponent))
+const TabsBlockComponent = dynamic(() => import('@/client/features/block').then((m) => m.TabsBlockComponent))
+const TitleBlockComponent = dynamic(() => import('@/client/features/block').then((m) => m.TitleBlockComponent))
+const TitleComparisonBlockComponent = dynamic(() =>
+  import('@/client/features/block').then((m) => m.TitleComparisonBlockComponent),
+)
 
 // interface
 interface IProps {

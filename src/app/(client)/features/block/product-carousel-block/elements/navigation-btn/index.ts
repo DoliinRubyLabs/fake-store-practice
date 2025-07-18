@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const NavigationButton = dynamic(() => import('./navigation-btn.component'))
+export { default as NavigationButtonComponent } from './navigation-btn.component'

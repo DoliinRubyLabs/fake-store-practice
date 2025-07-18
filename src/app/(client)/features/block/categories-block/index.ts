@@ -1,3 +1,1 @@
-import dynamic from 'next/dynamic'
-
-export const CategoriesBlockComponent = dynamic(() => import('./categories-block.component'))
+export { default as CategoriesBlockComponent } from './categories-block.component'
