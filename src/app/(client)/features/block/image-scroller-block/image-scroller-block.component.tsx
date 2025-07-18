@@ -25,7 +25,7 @@ const ImageScrollerBlockComponent: FC<Readonly<ILogoScrollerProps>> = (props) =>
           .map((item, idx) => (
             <div
               key={`partner-logo-${item?.id}-${idx}`}
-              className='relative flex h-6 min-w-[80px] items-center justify-center text-foreground'
+              className='text-foreground relative flex h-6 min-w-[80px] items-center justify-center'
             >
               <Image src={item?.image?.url} alt={item?.image?.alt} fill className='object-contain' />
             </div>

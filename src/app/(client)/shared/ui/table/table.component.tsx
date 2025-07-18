@@ -82,7 +82,7 @@ const TableComponent: FC<Readonly<IProps>> = (props) => {
         <TableBody
           items={data || []}
           loadingContent={
-            <div className={'flex h-full w-full items-center justify-center bg-background/60 pt-10'}>
+            <div className={'bg-background/60 flex h-full w-full items-center justify-center pt-10'}>
               <Spinner variant={'wave'} />
             </div>
           }
@@ -96,7 +96,7 @@ const TableComponent: FC<Readonly<IProps>> = (props) => {
               className={'transition-background hover:bg-zinc-500/10'}
             >
               {(columnKey) => (
-                <TableCell className={cn('align-middle text-small', cellClassName?.(columnKey as string))}>
+                <TableCell className={cn('text-small align-middle', cellClassName?.(columnKey as string))}>
                   {getKeyValue(item, columnKey)}
                 </TableCell>
               )}

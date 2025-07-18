@@ -20,10 +20,10 @@ const TitleBlockComponent: FC<Readonly<IProps>> = (props) => {
     <Skeleton isLoaded={!isLoading} as='section' classNames={{ base: '!mt-0' }} id={data?.id}>
       {data?.showDisclosure && data?.disclosure && <DisclosureComponent data={data?.disclosure} />}
 
-      <h2 className='mt-6 flex items-center gap-2 text-3xl font-bold text-primary-900 md:text-4xl'>{data.title}</h2>
+      <h2 className='text-primary-900 mt-6 flex items-center gap-2 text-3xl font-bold md:text-4xl'>{data.title}</h2>
 
       {data?.subtitle && (
-        <p className='xl:text-xl mb-6 mt-2 text-foreground/70 sm:text-xl md:text-lg'>{data.subtitle}</p>
+        <p className='text-foreground/70 mt-2 mb-6 sm:text-xl md:text-lg xl:text-xl'>{data.subtitle}</p>
       )}
     </Skeleton>
   )

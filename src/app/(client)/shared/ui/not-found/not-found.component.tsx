@@ -26,11 +26,11 @@ const NotFoundComponent: FC<Readonly<IProps>> = (props) => {
   // return
   return (
     <div className='grid h-fit w-fit place-items-center items-center gap-4'>
-      <CircleAlert className='size-10 text-primary' />
+      <CircleAlert className='text-primary size-10' />
 
       <h1 className='text-2xl font-bold'>{title || t('not_found_title')}</h1>
 
-      <p className='text-sm text-foreground/70'>{description || t('not_found_description')}</p>
+      <p className='text-foreground/70 text-sm'>{description || t('not_found_description')}</p>
 
       <Button variant='flat' className='w-fit' color='primary' onPress={() => router.back()}>
         {buttonText || t('not_found_button')}

@@ -32,7 +32,7 @@ const ArticleBlockComponent: FC<Readonly<IProps>> = (props) => {
       <div className='px-4 md:px-8'>
         <h2 className='mb-2 flex items-center gap-2 text-3xl font-bold md:text-4xl'>{data?.title}</h2>
 
-        {data?.subtitle && <p className='xl:text-xl text-foreground/70 sm:text-xl md:text-lg'>{data?.subtitle}</p>}
+        {data?.subtitle && <p className='text-foreground/70 sm:text-xl md:text-lg xl:text-xl'>{data?.subtitle}</p>}
       </div>
 
       <Divider className='mx-auto mt-4 max-w-[95%]' />
@@ -44,12 +44,12 @@ const ArticleBlockComponent: FC<Readonly<IProps>> = (props) => {
               {/* TODO add translations */}
               <h2 className='mb-2 text-lg font-bold'>Table of content</h2>
 
-              <ul className='space-y-2 border-l-[3px] border-primary-400 pl-2 text-sm'>
+              <ul className='border-primary-400 space-y-2 border-l-[3px] pl-2 text-sm'>
                 {menu?.map((item) => (
                   <li key={item?.id}>
                     <div
                       onClick={() => handleScrollToSection(item?.id)}
-                      className='cursor-pointer transition-colors hover:text-primary-400'
+                      className='hover:text-primary-400 cursor-pointer transition-colors'
                     >
                       {item?.title ?? 'Section'}
                     </div>

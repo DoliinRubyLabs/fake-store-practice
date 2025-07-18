@@ -26,7 +26,7 @@ const DisclosureComponent: FC<Readonly<IProps>> = (props) => {
         variant='light'
         disableAnimation
         disableRipple
-        className='p-0 text-xs font-light text-default-500 underline underline-offset-4 data-[hover=true]:bg-transparent sm:text-sm'
+        className='text-default-500 p-0 text-xs font-light underline underline-offset-4 data-[hover=true]:bg-transparent sm:text-sm'
       >
         <Info size={16} /> {data?.title ?? 'Additional info'}
       </Button>

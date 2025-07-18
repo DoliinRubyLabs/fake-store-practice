@@ -49,7 +49,7 @@ const BackToTopComponent: FC<IProps> = (props) => {
     <div
       onClick={handleClick}
       className={cn(
-        'fixed bottom-5 right-5 z-20 flex cursor-pointer items-center gap-2 rounded-full bg-white p-3',
+        'fixed right-5 bottom-5 z-20 flex cursor-pointer items-center gap-2 rounded-full bg-white p-3',
         'opacity-0 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg',
         { 'opacity-100': isVisible },
         className,

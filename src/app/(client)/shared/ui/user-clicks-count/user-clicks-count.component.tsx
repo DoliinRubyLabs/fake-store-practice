@@ -17,7 +17,7 @@ const UserClicksCountComponent: FC<Readonly<IProps>> = (props) => {
 
   // return
   return (
-    <div className={cn(className, 'items-center gap-1 text-sm text-default-500 [&_svg]:h-4 [&_svg]:w-4')}>
+    <div className={cn(className, 'text-default-500 items-center gap-1 text-sm [&_svg]:h-4 [&_svg]:w-4')}>
       <MousePointerClick />
 
       <span>{t('user_clicks_count', { amount: 456 })}</span>

@@ -36,7 +36,7 @@ const CategoriesBlockComponent: FC<Readonly<IProps>> = (props) => {
             <p className='mt-6 flex items-center gap-2 text-3xl font-bold md:text-4xl'>{data?.title}</p>
 
             {data?.subtitle && (
-              <p className='xl:text-xl mt-2 text-foreground/70 sm:text-xl md:text-lg'>{data.subtitle}</p>
+              <p className='text-foreground/70 mt-2 sm:text-xl md:text-lg xl:text-xl'>{data.subtitle}</p>
             )}
           </div>
 
@@ -64,7 +64,7 @@ const CategoriesBlockComponent: FC<Readonly<IProps>> = (props) => {
                   )}
                 </span>
 
-                <span className={'p-4 text-lg font-bold transition-colors duration-300 group-hover/card:text-primary'}>
+                <span className={'group-hover/card:text-primary p-4 text-lg font-bold transition-colors duration-300'}>
                   {category?.name}
                 </span>
               </Link>
@@ -78,10 +78,10 @@ const CategoriesBlockComponent: FC<Readonly<IProps>> = (props) => {
           <div>
             <p className='mb-2 flex items-center gap-2 text-3xl font-bold md:text-4xl'>{data?.title}</p>
 
-            {data?.subtitle && <p className='xl:text-xl text-foreground/70 sm:text-xl md:text-lg'>{data?.subtitle}</p>}
+            {data?.subtitle && <p className='text-foreground/70 sm:text-xl md:text-lg xl:text-xl'>{data?.subtitle}</p>}
           </div>
 
-          <Divider className='mx-auto mb-8 mt-4' />
+          <Divider className='mx-auto mt-4 mb-8' />
 
           <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4'>
             {data?.categories.map((category) => (

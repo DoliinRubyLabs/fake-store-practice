@@ -47,7 +47,7 @@ const ComparisonsBlockComponent: FC<Readonly<IProps>> = (props) => {
                     disableRipple
                     color='primary'
                     size='lg'
-                    className='gap-2 font-medium text-primary-600 underline data-[hover=true]:bg-transparent'
+                    className='text-primary-600 gap-2 font-medium underline data-[hover=true]:bg-transparent'
                     startContent={<Lightbulb size={20} />}
                   >
                     How do we rank?
@@ -63,7 +63,7 @@ const ComparisonsBlockComponent: FC<Readonly<IProps>> = (props) => {
 
           <span>Discover top deals and categories on Amazon</span>
 
-          <Link href='/' className='ml-1 text-sm text-primary-600 underline'>
+          <Link href='/' className='text-primary-600 ml-1 text-sm underline'>
             Check Deals
           </Link>
         </MidSectionComponent>

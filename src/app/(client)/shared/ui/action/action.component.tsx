@@ -139,7 +139,7 @@ const ActionComponent: FC<Readonly<IProps>> = (props) => {
           )}
 
           {linkVariant === 'underline' && (
-            <Divider className='absolute bottom-0 left-0 right-0 -mb-0.5 bg-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+            <Divider className='bg-foreground absolute right-0 bottom-0 left-0 -mb-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
           )}
         </Link>
       )}

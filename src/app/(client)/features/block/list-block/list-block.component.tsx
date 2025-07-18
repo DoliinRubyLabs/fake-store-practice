@@ -34,13 +34,13 @@ const ListBlockComponent: FC<Readonly<IProps>> = (props) => {
     >
       {data?.showDisclosure && data?.disclosure && <DisclosureComponent data={data?.disclosure} />}
 
-      <h2 className='mb-1 flex items-center gap-2 text-3xl font-bold text-primary-900 md:text-4xl'>{data.title}</h2>
+      <h2 className='text-primary-900 mb-1 flex items-center gap-2 text-3xl font-bold md:text-4xl'>{data.title}</h2>
 
-      {data?.subtitle && <p className='xl:text-xl mb-6 text-foreground/70 sm:text-xl md:text-lg'>{data.subtitle}</p>}
+      {data?.subtitle && <p className='text-foreground/70 mb-6 sm:text-xl md:text-lg xl:text-xl'>{data.subtitle}</p>}
 
       {data.rows?.slice(0, 1)?.map((item, index) => (
         <div key={`${item.title}-${index}-top`} className='mb-6 flex flex-col gap-6 md:flex-row'>
-          <div className='h-[180px] w-full flex-shrink-0 overflow-hidden rounded-xl bg-default-100 md:w-[320px]'>
+          <div className='bg-default-100 h-[180px] w-full flex-shrink-0 overflow-hidden rounded-xl md:w-[320px]'>
             <Image
               src={item.image?.url}
               alt={item.image?.alt}
@@ -54,10 +54,10 @@ const ListBlockComponent: FC<Readonly<IProps>> = (props) => {
           <div className='flex flex-1 flex-col justify-center'>
             <h3 className='mb-2 text-2xl font-bold'>{item.title}</h3>
 
-            <div className='mb-2 text-base text-foreground/70 md:text-lg'>
-              <p className='mb-1 text-sm text-foreground/70 md:text-base'>
+            <div className='text-foreground/70 mb-2 text-base md:text-lg'>
+              <p className='text-foreground/70 mb-1 text-sm md:text-base'>
                 {item.description}{' '}
-                <Link href={item.url} className='ml-1 text-primary-600 underline'>
+                <Link href={item.url} className='text-primary-600 ml-1 underline'>
                   {t('show_more')}
                 </Link>
               </p>
@@ -71,7 +71,7 @@ const ListBlockComponent: FC<Readonly<IProps>> = (props) => {
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
         {data.rows?.slice(1)?.map((item, index) => (
           <div key={`${item.title}-${index}-additional`} className='flex items-start gap-4'>
-            <div className='h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-default-100'>
+            <div className='bg-default-100 h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg'>
               <Image
                 src={item.image.url}
                 alt={item.image.alt}
@@ -84,7 +84,7 @@ const ListBlockComponent: FC<Readonly<IProps>> = (props) => {
             <div className='flex-1'>
               <h4 className='mb-1 text-lg font-bold'>{item.title}</h4>
 
-              <p className='mb-1 text-sm text-foreground/70 md:text-base'>{item.description}</p>
+              <p className='text-foreground/70 mb-1 text-sm md:text-base'>{item.description}</p>
             </div>
           </div>
         ))}

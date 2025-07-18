@@ -42,7 +42,7 @@ const BreadcrumbsComponent: FC<Readonly<IProps>> = () => {
 
       {category_slug && (
         <BreadcrumbItem separator={<ChevronRight size={16} />} isDisabled={pathname.includes(ESiteRoute.CATEGORIES)}>
-          <Link href={ESiteRoute.CATEGORIES} as={NextLink} className={'text-small capitalize text-foreground'}>
+          <Link href={ESiteRoute.CATEGORIES} as={NextLink} className={'text-small text-foreground capitalize'}>
             {category_slug?.toString()?.replace('--', ' & ')?.replace(/_/g, ' ')?.replace(/-/g, ' ')}
           </Link>
         </BreadcrumbItem>

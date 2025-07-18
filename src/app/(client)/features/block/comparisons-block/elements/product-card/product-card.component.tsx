@@ -40,8 +40,8 @@ const ProductCardComponent: FC<Readonly<IProps>> = (props) => {
   return (
     <div
       className={cn(
-        'group/product-card relative grid rounded-3xl border border-default-100 shadow-md',
-        'transition-all duration-300 hover:border-default-200 hover:shadow-lg sm:grid sm:grid-cols-[1fr_260px]',
+        'group/product-card border-default-100 relative grid rounded-3xl border shadow-md',
+        'hover:border-default-200 transition-all duration-300 hover:shadow-lg sm:grid sm:grid-cols-[1fr_260px]',
         'md:grid-cols-3 md:grid-rows-1 md:gap-x-6 md:pb-0',
         {
           'sm:grid-cols-[1fr_260px]': Boolean(product?.details?.length),
@@ -74,8 +74,8 @@ const ProductCardComponent: FC<Readonly<IProps>> = (props) => {
       {order && (
         <div
           className={cn(
-            'absolute -left-4 top-16 flex h-8 w-8 items-center justify-center rounded-full border bg-white',
-            'transition-all duration-300 group-hover/product-card:border-default-200',
+            'absolute top-16 -left-4 flex h-8 w-8 items-center justify-center rounded-full border bg-white',
+            'group-hover/product-card:border-default-200 transition-all duration-300',
             { 'border-primary-100 group-hover/product-card:border-primary-200': product?.isBestChoice },
           )}
         >
@@ -100,7 +100,7 @@ const ProductCardComponent: FC<Readonly<IProps>> = (props) => {
         />
 
         <Link href={product?.productLink} className='order-1 sm:order-3' target='_blank'>
-          <div className='grid justify-items-center gap-2 sm:pb-2 sm:pr-5 sm:pt-5 md:px-0 md:pb-5'>
+          <div className='grid justify-items-center gap-2 sm:pt-5 sm:pr-5 sm:pb-2 md:px-0 md:pb-5'>
             <Image
               src={product?.image?.url}
               alt={product?.image?.alt}
@@ -116,8 +116,8 @@ const ProductCardComponent: FC<Readonly<IProps>> = (props) => {
 
       <div
         className={cn(
-          'flex flex-col justify-between gap-5 border-default-100 pt-4 transition-colors',
-          'duration-300 group-hover:border-default-100 sm:col-span-full sm:row-[2] sm:border-t',
+          'border-default-100 flex flex-col justify-between gap-5 pt-4 transition-colors',
+          'group-hover:border-default-100 duration-300 sm:col-span-full sm:row-[2] sm:border-t',
           'sm:px-5 sm:pb-5 md:col-[2] md:row-[1] md:border-none md:p-5',
           { 'border-primary-100 group-hover/product-card:border-primary-200': product?.isBestChoice },
         )}
@@ -135,7 +135,7 @@ const ProductCardComponent: FC<Readonly<IProps>> = (props) => {
         </Link>
 
         {product?.hasDetails && (
-          <div className={cn('absolute bottom-4 left-5 right-5 z-10 sm:bottom-5 sm:w-fit md:static md:z-auto')}>
+          <div className={cn('absolute right-5 bottom-4 left-5 z-10 sm:bottom-5 sm:w-fit md:static md:z-auto')}>
             <Button
               onPress={handleMoreInfo}
               endContent={
@@ -157,7 +157,7 @@ const ProductCardComponent: FC<Readonly<IProps>> = (props) => {
       <div
         className={cn(
           'flex items-center justify-center px-5 py-4 transition-colors duration-300 sm:bg-[#fbfcfd]',
-          'sm:col-[2] sm:row-[1] sm:rounded-tr-3xl sm:border-l md:col-[3] md:rounded-br-3xl md:rounded-tr-3xl',
+          'sm:col-[2] sm:row-[1] sm:rounded-tr-3xl sm:border-l md:col-[3] md:rounded-tr-3xl md:rounded-br-3xl',
           {
             'border-primary-100 group-hover/product-card:border-primary-200': product?.isBestChoice,
             'border-default-100 group-hover/product-card:border-default-200': !product?.isBestChoice,
@@ -179,7 +179,7 @@ const ProductCardComponent: FC<Readonly<IProps>> = (props) => {
           <div
             className={cn(
               'grid overflow-hidden transition-all duration-500 sm:grid-cols-2 md:grid-cols-3',
-              'border-default-100 border-opacity-0 px-5 group-hover/product-card:border-default-200',
+              'border-default-100 border-opacity-0 group-hover/product-card:border-default-200 px-5',
               {
                 'border-opacity-100': moreIsOpen,
                 'border-primary-100 group-hover/product-card:border-primary-200': product?.isBestChoice,
@@ -188,7 +188,7 @@ const ProductCardComponent: FC<Readonly<IProps>> = (props) => {
           >
             <Divider
               className={cn(
-                'absolute left-0 right-0 top-0 order-2 bg-gray-100 opacity-0 transition-all duration-300 group-hover/product-card:bg-gray-200',
+                'absolute top-0 right-0 left-0 order-2 bg-gray-100 opacity-0 transition-all duration-300 group-hover/product-card:bg-gray-200',
                 {
                   'bg-primary-100 group-hover/product-card:bg-primary-200': product?.isBestChoice,
                   'opacity-100': moreIsOpen,

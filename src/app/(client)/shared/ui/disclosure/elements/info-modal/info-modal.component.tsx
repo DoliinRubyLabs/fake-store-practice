@@ -23,7 +23,7 @@ const InfoModalComponent: FC<Readonly<IProps>> = (props) => {
       <ModalContent>
         <ModalHeader className='flex flex-col'>{title}</ModalHeader>
 
-        <ModalBody className='pb-6 pt-0'>{info && <RichText data={info} />}</ModalBody>
+        <ModalBody className='pt-0 pb-6'>{info && <RichText data={info} />}</ModalBody>
       </ModalContent>
     </Modal>
   )

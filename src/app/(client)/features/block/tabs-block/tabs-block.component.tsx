@@ -25,7 +25,7 @@ const TabsBlockComponent: FC<Readonly<IProps>> = (props) => {
       <div className='px-4 md:px-8'>
         <h2 className='mb-2 flex items-center gap-2 text-3xl font-bold md:text-4xl'>{data?.title}</h2>
 
-        <p className='xl:text-xl text-foreground/70 sm:text-xl md:text-lg'>{data?.subtitle}</p>
+        <p className='text-foreground/70 sm:text-xl md:text-lg xl:text-xl'>{data?.subtitle}</p>
       </div>
 
       <Divider className='mx-auto mt-4 max-w-[95%]' />
@@ -47,11 +47,11 @@ const TabsBlockComponent: FC<Readonly<IProps>> = (props) => {
               >
                 <p className='mb-2 text-base font-bold md:text-lg'>{tab?.title}</p>
 
-                <ul className='space-y-3 text-foreground/70'>
+                <ul className='text-foreground/70 space-y-3'>
                   {tab?.items?.map((item, index) => (
                     <li key={`${item?.id}-${index}-list`} className='grid grid-cols-[auto_1fr] gap-2'>
                       <span
-                        className='mt-1 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:fill-success'
+                        className='[&_svg]:fill-success mt-1 [&_svg]:h-4 [&_svg]:w-4'
                         dangerouslySetInnerHTML={{ __html: item.icon }}
                       />
 
@@ -65,7 +65,7 @@ const TabsBlockComponent: FC<Readonly<IProps>> = (props) => {
         </div>
 
         <div className='flex flex-shrink-0 items-center justify-center'>
-          <div className='relative aspect-[446/242] h-full w-full overflow-hidden rounded-xl bg-default-100 md:h-[300px] md:w-[446px] lg:w-[500px]'>
+          <div className='bg-default-100 relative aspect-[446/242] h-full w-full overflow-hidden rounded-xl md:h-[300px] md:w-[446px] lg:w-[500px]'>
             <Image
               src={data?.tabs?.find((tab) => tab?.id === activeTab)?.image?.url || ''}
               alt={data?.tabs?.find((tab) => tab?.id === activeTab)?.image?.alt || ''}

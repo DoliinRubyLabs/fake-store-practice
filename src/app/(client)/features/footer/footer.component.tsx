@@ -24,7 +24,7 @@ const FooterComponent: FC<Readonly<IProps>> = () => {
 
   // return
   return (
-    <footer className='bg-content2 px-6 pb-8 pt-16 dark:bg-content1'>
+    <footer className='bg-content2 dark:bg-content1 px-6 pt-16 pb-8'>
       <section className='mx-auto grid max-w-screen-lg gap-6 md:grid-cols-[auto_1fr] md:justify-items-end md:pb-10 lg:px-6'>
         <div className='grid content-start gap-6'>
           <LogoComponent

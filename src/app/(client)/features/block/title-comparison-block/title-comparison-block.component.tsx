@@ -26,7 +26,7 @@ const TitleComparisonBlockComponent: FC<Readonly<IProps>> = (props) => {
       <div>
         <div className='flex items-center justify-between gap-2'>
           {data?.showSubtitle ? (
-            <div className='flex items-center gap-1 text-xs text-default-500 sm:text-sm'>
+            <div className='text-default-500 flex items-center gap-1 text-xs sm:text-sm'>
               <span
                 className='[&_svg]:h-4 [&_svg]:w-4'
                 dangerouslySetInnerHTML={{ __html: data?.subtitle?.iconSvg || '' }}
@@ -49,7 +49,7 @@ const TitleComparisonBlockComponent: FC<Readonly<IProps>> = (props) => {
       <div className='grid grid-cols-[auto_1fr] justify-between gap-2 py-1.5 sm:grid-cols-[auto_auto]'>
         {data?.showBadge ? (
           <Chip variant='flat' color='default' size='lg' radius='sm' className='bg-default-100 text-sm'>
-            {data?.badge?.label} <span className='font-semibold text-warning-400'>{data?.badge?.value}</span>
+            {data?.badge?.label} <span className='text-warning-400 font-semibold'>{data?.badge?.value}</span>
           </Chip>
         ) : (
           <span />

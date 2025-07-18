@@ -24,7 +24,7 @@ const TopChoiceBadgeComponent: FC<Readonly<IProps>> = (props) => {
         'absolute z-10 grid grid-cols-[auto_1fr] items-center gap-2 rounded-full border-1 bg-white font-semibold transition-colors duration-300',
         {
           '-top-5 left-5 px-4 py-1.5 text-sm [&_svg]:h-5 [&_svg]:w-5': size === 'lg',
-          'left-2 top-2 px-2 py-1 text-xs shadow-md [&_svg]:h-4 [&_svg]:w-4': size === 'sm',
+          'top-2 left-2 px-2 py-1 text-xs shadow-md [&_svg]:h-4 [&_svg]:w-4': size === 'sm',
         },
       )}
     >

@@ -59,7 +59,7 @@ const FieldComponent: FC<Readonly<IProps>> = (props) => {
                 isDisabled={isDisabled}
               />
 
-              {fieldInfoMessage && !error && <p className='p-[4px] text-tiny text-foreground/60'>{fieldInfoMessage}</p>}
+              {fieldInfoMessage && !error && <p className='text-tiny text-foreground/60 p-[4px]'>{fieldInfoMessage}</p>}
             </div>
           )}
           rules={{ required: fieldIsRequired }}

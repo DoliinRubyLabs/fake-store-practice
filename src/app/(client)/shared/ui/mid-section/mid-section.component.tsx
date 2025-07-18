@@ -11,7 +11,7 @@ const MidSectionComponent: FC<Readonly<IProps>> = (props) => {
 
   // return
   return (
-    <div className='flex h-14 items-center justify-center gap-1 rounded-2xl border-1 border-primary-200 bg-primary-50 p-4 px-6 py-1 text-sm font-medium text-default-700'>
+    <div className='border-primary-200 bg-primary-50 text-default-700 flex h-14 items-center justify-center gap-1 rounded-2xl border-1 p-4 px-6 py-1 text-sm font-medium'>
       {children}
     </div>
   )
