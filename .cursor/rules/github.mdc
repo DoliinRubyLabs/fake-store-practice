@@ -3,7 +3,9 @@ alwaysApply: true
 description: GitHub conventions for commit messages and branch naming
 ---
 
+
 # GitHub Conventions
+
 
 ## Commit Message Format
 
@@ -16,17 +18,18 @@ All commit messages should follow this structure:
 ```
 
 ### Action Types
-- **feat**: When adding new features, files, or components
-- **fix**: When fixing bugs or issues
-- **docs**: When updating documentation
-- **style**: When formatting code, adding semicolons, etc (no production code change)
-- **refactor**: When refactoring production code, renaming variables, etc
-- **test**: When adding or modifying tests
-- **chore**: When updating build tasks, package manager configs, etc
-- **perf**: When improving performance
-- **ci**: When changing CI/CD configuration files and scripts
-- **build**: When changing build system or external dependencies
-- **revert**: When reverting a previous commit
+
+* **feat**: When adding new features, files, or components
+* **fix**: When fixing bugs or issues
+* **docs**: When updating documentation
+* **style**: When formatting code, adding semicolons, etc (no production code change)
+* **refactor**: When refactoring production code, renaming variables, etc
+* **test**: When adding or modifying tests
+* **chore**: When updating build tasks, package manager configs, etc
+* **perf**: When improving performance
+* **ci**: When changing CI/CD configuration files and scripts
+* **build**: When changing build system or external dependencies
+* **revert**: When reverting a previous commit
 
 ### Examples
 
@@ -34,7 +37,9 @@ All commit messages should follow this structure:
 feat: add user authentication system
 
 auth.service.ts: implement login and logout methods
+
 auth.component.tsx: create login form component
+
 auth.store.ts: add authentication state management
 ```
 
@@ -42,6 +47,7 @@ auth.store.ts: add authentication state management
 fix: resolve payment processing error
 
 payment.api.ts: fix API endpoint URL typo
+
 payment.component.tsx: add error handling for failed payments
 ```
 
@@ -49,6 +55,7 @@ payment.component.tsx: add error handling for failed payments
 refactor: improve product card responsive design
 
 product-card.component.tsx: adjust layout for mobile devices
+
 product-card.service.ts: optimize image loading logic
 ```
 
@@ -56,6 +63,7 @@ product-card.service.ts: optimize image loading logic
 docs: update API documentation
 
 README.md: add authentication endpoints documentation
+
 api.md: update payment flow examples
 ```
 
@@ -63,6 +71,7 @@ api.md: update payment flow examples
 test: add user authentication tests
 
 auth.service.spec.ts: add login/logout test cases
+
 auth.component.spec.ts: add form validation tests
 ```
 
@@ -70,10 +79,12 @@ auth.component.spec.ts: add form validation tests
 chore: update build configuration
 
 package.json: update dependencies to latest versions
+
 webpack.config.js: add new build optimization
 ```
 
 ### Commit Message Best Practices
+
 
 1. **Use the imperative mood**: "add feature" not "added feature"
 2. **Keep the first line under 50 characters** for better readability
@@ -90,7 +101,9 @@ webpack.config.js: add new build optimization
 feat!: add breaking changes to user API
 
 BREAKING CHANGE: user endpoint now requires authentication
+
 user.api.ts: add authentication middleware
+
 user.service.ts: update method signatures
 ```
 
@@ -98,6 +111,7 @@ user.service.ts: update method signatures
 fix(auth): resolve token expiration handling
 
 auth.service.ts: fix token refresh logic
+
 auth.interceptor.ts: add proper error handling
 ```
 
@@ -105,9 +119,12 @@ auth.interceptor.ts: add proper error handling
 perf(images): optimize image loading performance
 
 image.component.tsx: implement lazy loading
+
 image.service.ts: add image compression
+
 image.util.ts: add caching mechanism
 ```
+
 
 ## Branch Structure
 
@@ -116,63 +133,73 @@ image.util.ts: add caching mechanism
 These branches should always exist and never be deleted:
 
 #### `main`
-- **Purpose**: Production-ready code
-- **Environment**: Production
-- **Deployment**: Automatically deployed to production
-- **Protection**: Requires pull request reviews, no direct pushes
-- **Merge from**: `staging` branch only
+
+* **Purpose**: Production-ready code
+* **Environment**: Production
+* **Deployment**: Automatically deployed to production
+* **Protection**: Requires pull request reviews, no direct pushes
+* **Merge from**: `staging` branch only
 
 #### `staging`
-- **Purpose**: Stable code for testing
-- **Environment**: Staging/Testing
-- **Deployment**: Automatically deployed to staging environment
-- **Protection**: Requires pull request reviews
-- **Merge from**: `develop` branch and hotfix branches
-- **Merge to**: `main` branch after testing
+
+* **Purpose**: Stable code for testing
+* **Environment**: Staging/Testing
+* **Deployment**: Automatically deployed to staging environment
+* **Protection**: Requires pull request reviews
+* **Merge from**: `develop` branch and hotfix branches
+* **Merge to**: `main` branch after testing
 
 #### `develop`
-- **Purpose**: Integration branch for features
-- **Environment**: Development
-- **Deployment**: Automatically deployed to development environment
-- **Protection**: Requires pull request reviews
-- **Merge from**: Feature branches, bugfix branches
-- **Merge to**: `staging` branch
+
+* **Purpose**: Integration branch for features
+* **Environment**: Development
+* **Deployment**: Automatically deployed to development environment
+* **Protection**: Requires pull request reviews
+* **Merge from**: Feature branches, bugfix branches
+* **Merge to**: `staging` branch
 
 #### Feature Branches
+
 ```
 feature/[short-description]
 ```
 
 Examples:
-- `feature/user-authentication`
-- `feature/payment-integration`
-- `feature/product-comparison`
-- `feature/admin-dashboard`
+
+* `feature/user-authentication`
+* `feature/payment-integration`
+* `feature/product-comparison`
+* `feature/admin-dashboard`
 
 #### Fix Branches
+
 ```
 fix/[short-description]
 ```
 
 Examples:
-- `fix/login-validation-error`
-- `fix/mobile-responsive-issues`
-- `fix/payment-gateway-timeout`
-- `fix/image-loading-performance`
+
+* `fix/login-validation-error`
+* `fix/mobile-responsive-issues`
+* `fix/payment-gateway-timeout`
+* `fix/image-loading-performance`
 
 #### Hotfix Branches
+
 ```
 hotfix/[short-description]
 ```
 
 Examples:
-- `hotfix/critical-security-patch`
-- `hotfix/payment-gateway-outage`
-- `hotfix/database-connection-issue`
+
+* `hotfix/critical-security-patch`
+* `hotfix/payment-gateway-outage`
+* `hotfix/database-connection-issue`
 
 **Note**: Hotfix branches are created from `main` and merged back to both `main` and `develop`
 
 ### Best Practices
+
 
 1. **Keep descriptions concise** - use hyphens to separate words
 2. **Use lowercase** - all branch names should be lowercase
@@ -183,6 +210,8 @@ Examples:
 ### Branch Workflow
 
 #### Feature Development Workflow
+
+
 1. Create feature branch from `develop`: `git checkout -b feature/user-authentication`
 2. Work on your feature/fix
 3. Commit changes following the message format
@@ -191,12 +220,16 @@ Examples:
 6. After code review and merge, delete the branch
 
 #### Release Workflow
+
+
 1. Create release from `develop` to `staging`
 2. Test thoroughly on staging environment
 3. If tests pass, create Pull Request from `staging` to `main`
 4. Deploy to production automatically after merge
 
 #### Hotfix Workflow
+
+
 1. Create hotfix branch from `main`: `git checkout -b hotfix/critical-fix`
 2. Fix the critical issue
 3. Create Pull Request to `main` for immediate production deployment
@@ -204,18 +237,20 @@ Examples:
 5. Delete hotfix branch after both merges
 
 #### Branch Protection Rules
-- **main**: Requires 1 approvals, status checks must pass
-- **staging**: Requires 1 approval, status checks must pass
-- **develop**: Requires 1 approval, status checks must pass
-- No direct pushes to main branches allowed
+
+* **main**: Requires 1 approvals, status checks must pass
+* **staging**: Requires 1 approval, status checks must pass
+* **develop**: Requires 1 approval, status checks must pass
+* No direct pushes to main branches allowed
+
 
 ## Environment Mapping
 
 | Branch | Environment | URL | Auto-Deploy | Purpose |
-|--------|-------------|-----|-------------|---------|
-| `main` | Production | https://domain.com | ✅ | Live application for end users |
-| `staging` | Staging | https://staging.domain.com | ✅ | Final testing before production |
-| `develop` | Development | https://develop.domain.com | ✅ | Feature integration and testing |
+|----|----|----|----|----|
+| `main` | Production | <https://domain.com> | ✅ | Live application for end users |
+| `staging` | Staging | <https://staging.domain.com> | ✅ | Final testing before production |
+| `develop` | Development | <https://develop.domain.com> | ✅ | Feature integration and testing |
 
 ## Workflow Diagram
 
@@ -233,42 +268,49 @@ Examples:
 └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
+
 ## Important Rules
 
 ### Branch Management
-- **Never delete main branches** (`main`, `staging`, `develop`)
-- **Always create PR** - no direct pushes to main branches
-- **Test before merging** - ensure all tests pass in CI/CD
-- **Keep branches up to date** - regularly sync with parent branch
-- **Delete merged branches** - clean up feature/fix branches after merge
-- **Rebase before merging** - keep commit history clean
-- **Squash related commits** - combine small fixes into logical units
-- **Use descriptive branch names** - make the purpose clear
+
+* **Never delete main branches** (`main`, `staging`, `develop`)
+* **Always create PR** - no direct pushes to main branches
+* **Test before merging** - ensure all tests pass in CI/CD
+* **Keep branches up to date** - regularly sync with parent branch
+* **Delete merged branches** - clean up feature/fix branches after merge
+* **Rebase before merging** - keep commit history clean
+* **Squash related commits** - combine small fixes into logical units
+* **Use descriptive branch names** - make the purpose clear
 
 ### Code Quality
-- **Always write commit messages in English** (comments in code should also be in English)
-- **Reference issue numbers** when applicable: `fix: resolve login error (#123)`
-- **Use present tense** in commit messages: "add feature" not "added feature"
-- **Keep the first line under 50 characters** for better readability
-- **Use bullet points** for multiple changes in the description
+
+* **Always write commit messages in English** (comments in code should also be in English)
+* **Reference issue numbers** when applicable: `fix: resolve login error (#123)`
+* **Use present tense** in commit messages: "add feature" not "added feature"
+* **Keep the first line under 50 characters** for better readability
+* **Use bullet points** for multiple changes in the description
 
 ### Emergency Procedures
-- **Production hotfixes** must be created from `main` branch
-- **Critical fixes** require immediate review and deployment
-- **Rollback plan** must be prepared for production deployments
-- **Staging tests** are mandatory before production release
+
+* **Production hotfixes** must be created from `main` branch
+* **Critical fixes** require immediate review and deployment
+* **Rollback plan** must be prepared for production deployments
+* **Staging tests** are mandatory before production release
 
 ### Team Workflow
-- **Code reviews** are mandatory for all Pull Requests
-- **Approval required** from at least one team member
-- **Status checks** must pass before merging
-- **Documentation** should be updated with significant changes
-- **Assign reviewers** based on code expertise
-- **Address feedback** before requesting re-review
+
+* **Code reviews** are mandatory for all Pull Requests
+* **Approval required** from at least one team member
+* **Status checks** must pass before merging
+* **Documentation** should be updated with significant changes
+* **Assign reviewers** based on code expertise
+* **Address feedback** before requesting re-review
+
 
 ## Conflict Resolution
 
 ### Handling Merge Conflicts
+
 
 1. **Pull latest changes** from target branch before creating PR
 2. **Resolve conflicts locally** using your preferred merge tool
@@ -280,12 +322,17 @@ Examples:
 
 ```bash
 # Update your branch with latest changes
+
 git checkout develop
+
 git pull origin develop
+
 git checkout feature/your-branch
+
 git rebase develop
 
 # If conflicts occur, resolve them and continue
+
 git add .
 git rebase --continue
 
@@ -295,22 +342,24 @@ git push --force-with-lease origin feature/your-branch
 
 ## Security Guidelines
 
-- **Never commit sensitive data** (passwords, API keys, secrets)
-- **Use environment variables** for configuration
-- **Review dependencies** before adding new packages
-- **Scan for vulnerabilities** regularly
-- **Follow security best practices** in code reviews
+* **Never commit sensitive data** (passwords, API keys, secrets)
+* **Use environment variables** for configuration
+* **Review dependencies** before adding new packages
+* **Scan for vulnerabilities** regularly
+* **Follow security best practices** in code reviews
 
 ## Performance Considerations
 
-- **Keep commits atomic** - one logical change per commit
-- **Avoid large binary files** - use Git LFS if necessary
-- **Regular cleanup** - remove unused branches and files
-- **Monitor repository size** - consider splitting large repos
+* **Keep commits atomic** - one logical change per commit
+* **Avoid large binary files** - use Git LFS if necessary
+* **Regular cleanup** - remove unused branches and files
+* **Monitor repository size** - consider splitting large repos
+
 
 ## Troubleshooting
 
 ### Common Issues
+
 
 1. **Branch behind main**: `git pull origin main` then resolve conflicts
 2. **Failed CI/CD**: Check logs, fix issues, push again
@@ -320,35 +369,39 @@ git push --force-with-lease origin feature/your-branch
 
 ### Emergency Procedures
 
-- **Broken production**: Create hotfix from `main` immediately
-- **Accidental push**: Use `git revert` for safe rollback
-- **Corrupted branch**: Create new branch from last stable commit
-- **CI/CD failure**: Investigate logs, fix configuration, redeploy
+* **Broken production**: Create hotfix from `main` immediately
+* **Accidental push**: Use `git revert` for safe rollback
+* **Corrupted branch**: Create new branch from last stable commit
+* **CI/CD failure**: Investigate logs, fix configuration, redeploy
+
 
 ## Automation & Integration
 
 ### GitHub Actions Integration
 
-- **Automated testing** on every PR
-- **Code quality checks** (ESLint, TypeScript, etc.)
-- **Security scanning** for vulnerabilities
-- **Automatic deployment** to staging/production
-- **Dependency updates** via Dependabot
+* **Automated testing** on every PR
+* **Code quality checks** (ESLint, TypeScript, etc.)
+* **Security scanning** for vulnerabilities
+* **Automatic deployment** to staging/production
+* **Dependency updates** via Dependabot
 
 ### Required Status Checks
 
 Before merging to main branches, ensure:
-- ✅ All tests pass
-- ✅ Code quality checks pass
-- ✅ Security scan passes
-- ✅ Build succeeds
-- ✅ Documentation is updated
+
+* ✅ All tests pass
+* ✅ Code quality checks pass
+* ✅ Security scan passes
+* ✅ Build succeeds
+* ✅ Documentation is updated
 
 ### Automated Workflows
 
 ```yaml
 # Example GitHub Actions workflow
+
 name: CI/CD Pipeline
+
 on:
   pull_request:
     branches: [main, staging, develop]
@@ -366,6 +419,7 @@ jobs:
         run: npm run lint
 ```
 
+
 ## Code Review Guidelines
 
 ### Review Checklist
@@ -380,6 +434,7 @@ jobs:
 
 ### Review Process
 
+
 1. **Self-review** before requesting others
 2. **Request specific reviewers** based on expertise
 3. **Address feedback** constructively
@@ -389,10 +444,11 @@ jobs:
 ## Conclusion
 
 Following these conventions ensures:
-- **Consistent code quality** across the team
-- **Clear project history** and easier debugging
-- **Efficient collaboration** and code reviews
-- **Stable deployments** with proper testing
-- **Maintainable codebase** for future development
+
+* **Consistent code quality** across the team
+* **Clear project history** and easier debugging
+* **Efficient collaboration** and code reviews
+* **Stable deployments** with proper testing
+* **Maintainable codebase** for future development
 
 Remember: These are guidelines to help the team work together effectively. When in doubt, prioritize clarity and communication over strict adherence to rules.
