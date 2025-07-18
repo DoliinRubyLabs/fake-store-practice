@@ -1,7 +1,6 @@
 import { type Block } from 'payload'
 
 import { actionFields } from '@/payload/shared/fields/action'
-import { disclosureFields } from '@/payload/shared/fields/disclosure'
 
 // list block
 export const ListBlock: Block = {
@@ -21,21 +20,6 @@ export const ListBlock: Block = {
       name: 'subtitle',
       type: 'text',
       label: 'Subtitle',
-    },
-    {
-      type: 'checkbox',
-      name: 'showDisclosure',
-      label: 'Show disclosure',
-      defaultValue: false,
-    },
-    {
-      type: 'group',
-      name: 'disclosure',
-      label: 'Disclosure',
-      admin: {
-        condition: (_, siblingData) => siblingData?.showDisclosure,
-      },
-      fields: [...disclosureFields],
     },
     {
       name: 'rows',

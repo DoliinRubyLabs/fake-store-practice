@@ -1,11 +1,13 @@
 import { type Block } from 'payload'
 
-// article block
-export const ArticleBlock: Block = {
-  slug: 'articleBlock',
+import { contentAlignmentField, textAlignmentField } from '../../shared/fields/alignment'
+
+// section block
+export const SectionBlock: Block = {
+  slug: 'sectionBlock',
   labels: {
-    singular: 'Article Block',
-    plural: 'Article Blocks',
+    singular: 'Section Block',
+    plural: 'Section Blocks',
   },
   fields: [
     {
@@ -25,5 +27,7 @@ export const ArticleBlock: Block = {
       label: 'Content',
       required: true,
     },
+    contentAlignmentField,
+    textAlignmentField,
   ],
 }

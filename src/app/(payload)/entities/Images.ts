@@ -14,7 +14,7 @@ export const Images: CollectionConfig = {
   admin: {
     defaultColumns: ['filename', 'mimeType', 'createdAt'],
     useAsTitle: 'filename',
-    group: 'Storage',
+    group: 'Bucket',
   },
   labels: {
     singular: 'Image',
@@ -22,8 +22,8 @@ export const Images: CollectionConfig = {
   },
   fields: [
     {
-      name: 'alt',
       type: 'text',
+      name: 'alt',
       defaultValue: 'image',
       required: true,
     },

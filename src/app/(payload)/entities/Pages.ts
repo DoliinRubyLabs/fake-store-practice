@@ -1,15 +1,14 @@
 import type { CollectionConfig } from 'payload'
 
 import {
-  ArticleBlock,
   CategoriesBlock,
   FeedbackBlock,
-  HeroMainBlock,
+  HeroBlock,
   ImageScrollerBlock,
   ListBlock,
   RichTextBlock,
+  SectionBlock,
   TabsBlock,
-  TitleBlock,
 } from '../features/page'
 import { TemplateBlock } from '../features/template'
 import { seoFields } from '../shared/fields/seo'
@@ -63,14 +62,13 @@ export const Pages: CollectionConfig = {
               },
               blocks: [
                 TemplateBlock,
-                HeroMainBlock,
-                TitleBlock,
+                HeroBlock,
+                SectionBlock,
                 ImageScrollerBlock,
                 ListBlock,
                 TabsBlock,
                 RichTextBlock,
                 CategoriesBlock,
-                ArticleBlock,
                 FeedbackBlock,
               ],
               minRows: 1,

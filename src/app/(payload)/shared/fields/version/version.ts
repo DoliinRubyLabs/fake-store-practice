@@ -7,5 +7,5 @@ export const versionField: IncomingCollectionVersions = {
       interval: 30000,
     },
   },
-  maxPerDoc: 10,
+  maxPerDoc: 11,
 }

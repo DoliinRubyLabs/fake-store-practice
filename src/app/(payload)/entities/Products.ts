@@ -27,7 +27,7 @@ export const Products: CollectionConfig = {
       'createdAt',
     ],
     useAsTitle: 'shortName',
-    group: 'Product',
+    group: 'Content',
   },
   labels: {
     singular: 'Product',

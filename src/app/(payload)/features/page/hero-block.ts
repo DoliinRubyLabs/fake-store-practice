@@ -2,12 +2,12 @@ import { type Block } from 'payload'
 
 import { actionFields } from '@/payload/shared/fields/action'
 
-// hero main block
-export const HeroMainBlock: Block = {
-  slug: 'heroMainBlock',
+// hero block
+export const HeroBlock: Block = {
+  slug: 'heroBlock',
   labels: {
-    singular: 'Hero Main Block',
-    plural: 'Hero Main Blocks',
+    singular: 'Hero Block',
+    plural: 'Hero Blocks',
   },
   fields: [
     {

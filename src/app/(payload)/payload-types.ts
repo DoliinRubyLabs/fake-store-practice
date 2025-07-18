@@ -68,8 +68,8 @@ export interface Config {
   blocks: {};
   collections: {
     pages: Page;
-    products: Product;
     categories: Category;
+    products: Product;
     templates: Template;
     images: Image;
     users: User;
@@ -84,8 +84,8 @@ export interface Config {
   };
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
-    products: ProductsSelect<false> | ProductsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     templates: TemplatesSelect<false> | TemplatesSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -168,33 +168,31 @@ export interface Page {
             };
             id?: string | null;
             blockName?: string | null;
-            blockType: 'heroMainBlock';
+            blockType: 'heroBlock';
           }
         | {
             title: string;
             subtitle?: string | null;
-            disclosure?: {
-              title: string;
-              info: {
-                root: {
+            content: {
+              root: {
+                type: string;
+                children: {
                   type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
                   version: number;
-                };
-                [k: string]: unknown;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
               };
+              [k: string]: unknown;
             };
-            showDisclosure?: boolean | null;
+            contentAlignment: 'left' | 'center' | 'right';
+            textAlignment: 'left' | 'center' | 'right';
             id?: string | null;
             blockName?: string | null;
-            blockType: 'titleBlock';
+            blockType: 'sectionBlock';
           }
         | {
             list: {
@@ -208,25 +206,6 @@ export interface Page {
         | {
             title: string;
             subtitle?: string | null;
-            showDisclosure?: boolean | null;
-            disclosure?: {
-              title: string;
-              info: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              };
-            };
             rows?:
               | {
                   image: string | Image;
@@ -310,25 +289,6 @@ export interface Page {
             title: string;
             subtitle?: string | null;
             cardBlockType: 'cards' | 'list';
-            showDisclosure?: boolean | null;
-            disclosure?: {
-              title: string;
-              info: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              };
-            };
             categories?:
               | {
                   category: string | Category;
@@ -338,28 +298,6 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'categoriesBlock';
-          }
-        | {
-            title: string;
-            subtitle?: string | null;
-            content: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'articleBlock';
           }
         | {
             title: string;
@@ -463,7 +401,31 @@ export interface Template {
             };
             id?: string | null;
             blockName?: string | null;
-            blockType: 'heroMainBlock';
+            blockType: 'heroBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            contentAlignment: 'left' | 'center' | 'right';
+            textAlignment: 'left' | 'center' | 'right';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'sectionBlock';
           }
         | {
             list: {
@@ -497,25 +459,6 @@ export interface Template {
         | {
             title: string;
             subtitle?: string | null;
-            showDisclosure?: boolean | null;
-            disclosure?: {
-              title: string;
-              info: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              };
-            };
             rows?:
               | {
                   image: string | Image;
@@ -632,25 +575,6 @@ export interface Template {
             title: string;
             subtitle?: string | null;
             cardBlockType: 'cards' | 'list';
-            showDisclosure?: boolean | null;
-            disclosure?: {
-              title: string;
-              info: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              };
-            };
             categories?:
               | {
                   category: string | Category;
@@ -712,50 +636,52 @@ export interface Category {
             blockType: 'templateBlock';
           }
         | {
+            image: string | Image;
             title: string;
-            showSubtitle?: boolean | null;
-            subtitle?: {
+            subtitle?: string | null;
+            action: {
+              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
+              text?: string | null;
+              url?: string | null;
               /**
                * Copy and paste the icon svg code from: https://lucide.dev/icons
                */
-              iconSvg: string;
-              label: string;
-            };
-            showBadge?: boolean | null;
-            badge?: {
-              label: string;
-              value: string;
-            };
-            showSortBy?: boolean | null;
-            sortBy?:
-              | {
-                  label: string;
-                  value: string;
-                  id?: string | null;
-                }[]
-              | null;
-            showDisclosure?: boolean | null;
-            disclosure?: {
-              title: string;
-              info: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              };
+              iconSvg?: string | null;
+              iconPosition?: ('left' | 'right') | null;
+              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
+              linkVariant: 'default' | 'underline';
+              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
+              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
+              asLink?: boolean | null;
+              openInNewTab?: boolean | null;
             };
             id?: string | null;
             blockName?: string | null;
-            blockType: 'comparisonsTitleBlock';
+            blockType: 'heroBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            contentAlignment: 'left' | 'center' | 'right';
+            textAlignment: 'left' | 'center' | 'right';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'sectionBlock';
           }
         | {
             includeProducts: 'bySlug';
@@ -815,28 +741,6 @@ export interface Category {
             id?: string | null;
             blockName?: string | null;
             blockType: 'feedbackBlock';
-          }
-        | {
-            title: string;
-            subtitle?: string | null;
-            content: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'articleBlock';
           }
       )[]
     | null;
@@ -942,12 +846,12 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
-        relationTo: 'products';
-        value: string | Product;
-      } | null)
-    | ({
         relationTo: 'categories';
         value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: string | Product;
       } | null)
     | ({
         relationTo: 'templates';
@@ -1021,7 +925,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        heroMainBlock?:
+        heroBlock?:
           | T
           | {
               image?: T;
@@ -1045,18 +949,14 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        titleBlock?:
+        sectionBlock?:
           | T
           | {
               title?: T;
               subtitle?: T;
-              disclosure?:
-                | T
-                | {
-                    title?: T;
-                    info?: T;
-                  };
-              showDisclosure?: T;
+              content?: T;
+              contentAlignment?: T;
+              textAlignment?: T;
               id?: T;
               blockName?: T;
             };
@@ -1077,13 +977,6 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               subtitle?: T;
-              showDisclosure?: T;
-              disclosure?:
-                | T
-                | {
-                    title?: T;
-                    info?: T;
-                  };
               rows?:
                 | T
                 | {
@@ -1149,28 +1042,12 @@ export interface PagesSelect<T extends boolean = true> {
               title?: T;
               subtitle?: T;
               cardBlockType?: T;
-              showDisclosure?: T;
-              disclosure?:
-                | T
-                | {
-                    title?: T;
-                    info?: T;
-                  };
               categories?:
                 | T
                 | {
                     category?: T;
                     id?: T;
                   };
-              id?: T;
-              blockName?: T;
-            };
-        articleBlock?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              content?: T;
               id?: T;
               blockName?: T;
             };
@@ -1231,55 +1108,6 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "products_select".
- */
-export interface ProductsSelect<T extends boolean = true> {
-  _products_products_order?: T;
-  slug?: T;
-  slugLock?: T;
-  isBestChoice?: T;
-  isValueForMoney?: T;
-  hasDiscount?: T;
-  hasDetails?: T;
-  image?: T;
-  shortName?: T;
-  fullName?: T;
-  estimatedPrice?: T;
-  discountPercent?: T;
-  categories?: T;
-  productLink?: T;
-  rank?:
-    | T
-    | {
-        value?: T;
-        label?: T;
-      };
-  details?:
-    | T
-    | {
-        title?: T;
-        rows?:
-          | T
-          | {
-              iconSvg?: T;
-              label?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
@@ -1299,39 +1127,38 @@ export interface CategoriesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        comparisonsTitleBlock?:
+        heroBlock?:
+          | T
+          | {
+              image?: T;
+              title?: T;
+              subtitle?: T;
+              action?:
+                | T
+                | {
+                    actionType?: T;
+                    text?: T;
+                    url?: T;
+                    iconSvg?: T;
+                    iconPosition?: T;
+                    linkColor?: T;
+                    linkVariant?: T;
+                    buttonColor?: T;
+                    buttonVariant?: T;
+                    asLink?: T;
+                    openInNewTab?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        sectionBlock?:
           | T
           | {
               title?: T;
-              showSubtitle?: T;
-              subtitle?:
-                | T
-                | {
-                    iconSvg?: T;
-                    label?: T;
-                  };
-              showBadge?: T;
-              badge?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                  };
-              showSortBy?: T;
-              sortBy?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                    id?: T;
-                  };
-              showDisclosure?: T;
-              disclosure?:
-                | T
-                | {
-                    title?: T;
-                    info?: T;
-                  };
+              subtitle?: T;
+              content?: T;
+              contentAlignment?: T;
+              textAlignment?: T;
               id?: T;
               blockName?: T;
             };
@@ -1383,15 +1210,55 @@ export interface CategoriesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        articleBlock?:
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  _products_products_order?: T;
+  slug?: T;
+  slugLock?: T;
+  isBestChoice?: T;
+  isValueForMoney?: T;
+  hasDiscount?: T;
+  hasDetails?: T;
+  image?: T;
+  shortName?: T;
+  fullName?: T;
+  estimatedPrice?: T;
+  discountPercent?: T;
+  categories?: T;
+  productLink?: T;
+  rank?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+      };
+  details?:
+    | T
+    | {
+        title?: T;
+        rows?:
           | T
           | {
-              title?: T;
-              subtitle?: T;
-              content?: T;
+              iconSvg?: T;
+              label?: T;
               id?: T;
-              blockName?: T;
             };
+        id?: T;
       };
   meta?:
     | T
@@ -1415,7 +1282,7 @@ export interface TemplatesSelect<T extends boolean = true> {
   blocks?:
     | T
     | {
-        heroMainBlock?:
+        heroBlock?:
           | T
           | {
               image?: T;
@@ -1436,6 +1303,17 @@ export interface TemplatesSelect<T extends boolean = true> {
                     asLink?: T;
                     openInNewTab?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        sectionBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              content?: T;
+              contentAlignment?: T;
+              textAlignment?: T;
               id?: T;
               blockName?: T;
             };
@@ -1463,13 +1341,6 @@ export interface TemplatesSelect<T extends boolean = true> {
           | {
               title?: T;
               subtitle?: T;
-              showDisclosure?: T;
-              disclosure?:
-                | T
-                | {
-                    title?: T;
-                    info?: T;
-                  };
               rows?:
                 | T
                 | {
@@ -1569,13 +1440,6 @@ export interface TemplatesSelect<T extends boolean = true> {
               title?: T;
               subtitle?: T;
               cardBlockType?: T;
-              showDisclosure?: T;
-              disclosure?:
-                | T
-                | {
-                    title?: T;
-                    info?: T;
-                  };
               categories?:
                 | T
                 | {

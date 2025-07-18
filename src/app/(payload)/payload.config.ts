@@ -38,7 +38,7 @@ export default buildConfig({
     admin: '/admin',
     api: '/api/rest',
   },
-  collections: [Pages, Products, Categories, Templates, Images, Users],
+  collections: [Pages, Categories, Products, Templates, Images, Users],
   globals: [LayoutGlobal],
   editor: lexicalEditor(),
   secret: envServer.PAYLOAD_SECRET,

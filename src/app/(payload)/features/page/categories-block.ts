@@ -1,7 +1,5 @@
 import { type Block } from 'payload'
 
-import { disclosureFields } from '@/payload/shared/fields/disclosure'
-
 // categories block
 export const CategoriesBlock: Block = {
   slug: 'categoriesBlock',
@@ -33,21 +31,6 @@ export const CategoriesBlock: Block = {
       defaultValue: 'cards',
       dbName: 'card_block_type',
       custom: { postgres: { type: 'text' } },
-    },
-    {
-      type: 'checkbox',
-      name: 'showDisclosure',
-      label: 'Show disclosure',
-      defaultValue: false,
-    },
-    {
-      type: 'group',
-      name: 'disclosure',
-      label: 'Disclosure',
-      admin: {
-        condition: (_, siblingData) => siblingData?.showDisclosure,
-      },
-      fields: [...disclosureFields],
     },
     {
       type: 'array',

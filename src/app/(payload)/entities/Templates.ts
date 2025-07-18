@@ -3,10 +3,11 @@ import type { CollectionConfig } from 'payload'
 import {
   CategoriesBlock,
   FeedbackBlock,
-  HeroMainBlock,
+  HeroBlock,
   ImageScrollerBlock,
   ListBlock,
   RichTextBlock,
+  SectionBlock,
   TabsBlock,
 } from '../features/page'
 import { slugField } from '../shared/fields/slug/slug-field'
@@ -49,7 +50,16 @@ export const Templates: CollectionConfig = {
       },
       minRows: 1,
       maxRows: 3,
-      blocks: [HeroMainBlock, ImageScrollerBlock, RichTextBlock, ListBlock, TabsBlock, FeedbackBlock, CategoriesBlock],
+      blocks: [
+        HeroBlock,
+        SectionBlock,
+        ImageScrollerBlock,
+        RichTextBlock,
+        ListBlock,
+        TabsBlock,
+        FeedbackBlock,
+        CategoriesBlock,
+      ],
     },
   ],
   versions: versionField,

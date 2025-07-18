@@ -9,23 +9,24 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."link_variant" AS ENUM('default', 'underline');
   CREATE TYPE "public"."btn_color" AS ENUM('default', 'primary', 'secondary', 'success', 'danger', 'warning');
   CREATE TYPE "public"."btn_variant" AS ENUM('light', 'solid', 'ghost', 'faded', 'flat', 'shadow', 'bordered');
+  CREATE TYPE "public"."content_align" AS ENUM('left', 'center', 'right');
+  CREATE TYPE "public"."text_align" AS ENUM('left', 'center', 'right');
   CREATE TYPE "public"."card_block_type" AS ENUM('cards', 'list');
   CREATE TYPE "public"."field_type" AS ENUM('textInput', 'emailInput', 'phoneInput', 'textareaInput', 'select', 'checkbox', 'radio');
   CREATE TYPE "public"."enum_pages_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__pages_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__pages_v_published_locale" AS ENUM('en', 'de', 'ar');
-  CREATE TYPE "public"."enum_products_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__products_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__products_v_published_locale" AS ENUM('en', 'de', 'ar');
   CREATE TYPE "public"."include_products" AS ENUM('bySlug');
   CREATE TYPE "public"."enum_categories_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__categories_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__categories_v_published_locale" AS ENUM('en', 'de', 'ar');
+  CREATE TYPE "public"."enum_products_status" AS ENUM('draft', 'published');
+  CREATE TYPE "public"."enum__products_v_version_status" AS ENUM('draft', 'published');
+  CREATE TYPE "public"."enum__products_v_published_locale" AS ENUM('en', 'de', 'ar');
   CREATE TYPE "public"."enum_templates_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__templates_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__templates_v_published_locale" AS ENUM('en', 'de', 'ar');
   CREATE TYPE "public"."role" AS ENUM('admin', 'root');
-  CREATE TYPE "public"."text_align" AS ENUM('left', 'center', 'right');
   CREATE TYPE "public"."social_platform" AS ENUM('facebook', 'instagram', 'x', 'linkedin', 'youtube', 'tiktok', 'pinterest', 'reddit', 'snapchat', 'twitch', 'discord', 'telegram', 'whatsapp', 'skype', 'viber');
   CREATE TYPE "public"."enum_layout_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__layout_v_version_status" AS ENUM('draft', 'published');
@@ -39,7 +40,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE "pages_blocks_hero_main_block" (
+  CREATE TABLE "pages_blocks_hero_block" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
@@ -61,16 +62,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE "pages_blocks_title_block" (
+  CREATE TABLE "pages_blocks_section_block" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"subtitle" varchar,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
-  	"show_disclosure" boolean DEFAULT false,
+  	"content" jsonb,
+  	"content_alignment" "content_align" DEFAULT 'left',
+  	"text_alignment" text_align DEFAULT 'left',
   	"block_name" varchar
   );
   
@@ -106,9 +107,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"subtitle" varchar,
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
   	"action_action_type" "action_type" DEFAULT 'button',
   	"action_text" varchar,
   	"action_url" varchar,
@@ -176,20 +174,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"subtitle" varchar,
   	"card_block_type" "card_block_type" DEFAULT 'cards',
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "pages_blocks_article_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"title" varchar,
-  	"subtitle" varchar,
-  	"content" jsonb,
   	"block_name" varchar
   );
   
@@ -260,7 +244,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE "_pages_v_blocks_hero_main_block" (
+  CREATE TABLE "_pages_v_blocks_hero_block" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
@@ -283,16 +267,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE "_pages_v_blocks_title_block" (
+  CREATE TABLE "_pages_v_blocks_section_block" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"subtitle" varchar,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
-  	"show_disclosure" boolean DEFAULT false,
+  	"content" jsonb,
+  	"content_alignment" "content_align" DEFAULT 'left',
+  	"text_alignment" text_align DEFAULT 'left',
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -332,9 +316,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"subtitle" varchar,
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
   	"action_action_type" "action_type" DEFAULT 'button',
   	"action_text" varchar,
   	"action_url" varchar,
@@ -408,21 +389,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"subtitle" varchar,
   	"card_block_type" "card_block_type" DEFAULT 'cards',
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
-  	"_uuid" varchar,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "_pages_v_blocks_article_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"title" varchar,
-  	"subtitle" varchar,
-  	"content" jsonb,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -485,6 +451,239 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   );
   
   CREATE TABLE "_pages_v_locales" (
+  	"version_meta_title" varchar,
+  	"version_meta_description" varchar,
+  	"version_meta_image_id" uuid,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
+  CREATE TABLE "categories_blocks_template_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"template_id" uuid,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "categories_blocks_hero_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"image_id" uuid,
+  	"title" varchar,
+  	"subtitle" varchar,
+  	"action_action_type" "action_type" DEFAULT 'button',
+  	"action_text" varchar,
+  	"action_url" varchar,
+  	"action_icon_svg" varchar,
+  	"action_icon_position" "icon_position" DEFAULT 'left',
+  	"action_link_color" "link_color" DEFAULT 'foreground',
+  	"action_link_variant" "link_variant" DEFAULT 'underline',
+  	"action_button_color" "btn_color" DEFAULT 'primary',
+  	"action_button_variant" "btn_variant" DEFAULT 'solid',
+  	"action_as_link" boolean DEFAULT false,
+  	"action_open_in_new_tab" boolean DEFAULT false,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "categories_blocks_section_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"title" varchar,
+  	"subtitle" varchar,
+  	"content" jsonb,
+  	"content_alignment" "content_align" DEFAULT 'left',
+  	"text_alignment" text_align DEFAULT 'left',
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "categories_blocks_products_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"include_products" "include_products" DEFAULT 'bySlug',
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "categories_blocks_feedback_block_form_field_field_options" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" varchar NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"field_option_label" varchar,
+  	"field_option_value" varchar
+  );
+  
+  CREATE TABLE "categories_blocks_feedback_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"title" varchar,
+  	"subtitle" jsonb,
+  	"form_field_field_type" "field_type" DEFAULT 'emailInput',
+  	"form_field_field_label" varchar,
+  	"form_field_field_placeholder" varchar,
+  	"form_field_field_is_required" boolean DEFAULT false,
+  	"form_field_field_info_message" varchar,
+  	"form_field_field_error_message" varchar,
+  	"form_action_action_type" "action_type" DEFAULT 'button',
+  	"form_action_text" varchar,
+  	"form_action_url" varchar,
+  	"form_action_icon_svg" varchar,
+  	"form_action_icon_position" "icon_position" DEFAULT 'left',
+  	"form_action_link_color" "link_color" DEFAULT 'foreground',
+  	"form_action_link_variant" "link_variant" DEFAULT 'underline',
+  	"form_action_button_color" "btn_color" DEFAULT 'primary',
+  	"form_action_button_variant" "btn_variant" DEFAULT 'solid',
+  	"form_action_as_link" boolean DEFAULT false,
+  	"form_action_open_in_new_tab" boolean DEFAULT false,
+  	"show_submit_button" boolean DEFAULT true,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "categories" (
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"slug" varchar,
+  	"slug_lock" boolean DEFAULT true,
+  	"name" varchar,
+  	"image_id" uuid,
+  	"description" varchar,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"_status" "enum_categories_status" DEFAULT 'draft'
+  );
+  
+  CREATE TABLE "categories_locales" (
+  	"meta_title" varchar,
+  	"meta_description" varchar,
+  	"meta_image_id" uuid,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
+  CREATE TABLE "_categories_v_blocks_template_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"template_id" uuid,
+  	"_uuid" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "_categories_v_blocks_hero_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"image_id" uuid,
+  	"title" varchar,
+  	"subtitle" varchar,
+  	"action_action_type" "action_type" DEFAULT 'button',
+  	"action_text" varchar,
+  	"action_url" varchar,
+  	"action_icon_svg" varchar,
+  	"action_icon_position" "icon_position" DEFAULT 'left',
+  	"action_link_color" "link_color" DEFAULT 'foreground',
+  	"action_link_variant" "link_variant" DEFAULT 'underline',
+  	"action_button_color" "btn_color" DEFAULT 'primary',
+  	"action_button_variant" "btn_variant" DEFAULT 'solid',
+  	"action_as_link" boolean DEFAULT false,
+  	"action_open_in_new_tab" boolean DEFAULT false,
+  	"_uuid" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "_categories_v_blocks_section_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"title" varchar,
+  	"subtitle" varchar,
+  	"content" jsonb,
+  	"content_alignment" "content_align" DEFAULT 'left',
+  	"text_alignment" text_align DEFAULT 'left',
+  	"_uuid" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "_categories_v_blocks_products_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"include_products" "include_products" DEFAULT 'bySlug',
+  	"_uuid" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "_categories_v_blocks_feedback_block_form_field_field_options" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"field_option_label" varchar,
+  	"field_option_value" varchar,
+  	"_uuid" varchar
+  );
+  
+  CREATE TABLE "_categories_v_blocks_feedback_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"title" varchar,
+  	"subtitle" jsonb,
+  	"form_field_field_type" "field_type" DEFAULT 'emailInput',
+  	"form_field_field_label" varchar,
+  	"form_field_field_placeholder" varchar,
+  	"form_field_field_is_required" boolean DEFAULT false,
+  	"form_field_field_info_message" varchar,
+  	"form_field_field_error_message" varchar,
+  	"form_action_action_type" "action_type" DEFAULT 'button',
+  	"form_action_text" varchar,
+  	"form_action_url" varchar,
+  	"form_action_icon_svg" varchar,
+  	"form_action_icon_position" "icon_position" DEFAULT 'left',
+  	"form_action_link_color" "link_color" DEFAULT 'foreground',
+  	"form_action_link_variant" "link_variant" DEFAULT 'underline',
+  	"form_action_button_color" "btn_color" DEFAULT 'primary',
+  	"form_action_button_variant" "btn_variant" DEFAULT 'solid',
+  	"form_action_as_link" boolean DEFAULT false,
+  	"form_action_open_in_new_tab" boolean DEFAULT false,
+  	"show_submit_button" boolean DEFAULT true,
+  	"_uuid" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "_categories_v" (
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"parent_id" uuid,
+  	"version_slug" varchar,
+  	"version_slug_lock" boolean DEFAULT true,
+  	"version_name" varchar,
+  	"version_image_id" uuid,
+  	"version_description" varchar,
+  	"version_updated_at" timestamp(3) with time zone,
+  	"version_created_at" timestamp(3) with time zone,
+  	"version__status" "enum__categories_v_version_status" DEFAULT 'draft',
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"snapshot" boolean,
+  	"published_locale" "enum__categories_v_published_locale",
+  	"latest" boolean,
+  	"autosave" boolean
+  );
+  
+  CREATE TABLE "_categories_v_locales" (
   	"version_meta_title" varchar,
   	"version_meta_description" varchar,
   	"version_meta_image_id" uuid,
@@ -596,247 +795,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_parent_id" uuid NOT NULL
   );
   
-  CREATE TABLE "categories_blocks_template_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"template_id" uuid,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "categories_blocks_comparisons_title_block_sort_by" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" varchar NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"label" varchar,
-  	"value" varchar
-  );
-  
-  CREATE TABLE "categories_blocks_comparisons_title_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"title" varchar,
-  	"show_subtitle" boolean DEFAULT true,
-  	"subtitle_icon_svg" varchar,
-  	"subtitle_label" varchar,
-  	"show_badge" boolean DEFAULT true,
-  	"badge_label" varchar,
-  	"badge_value" varchar,
-  	"show_sort_by" boolean DEFAULT true,
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "categories_blocks_products_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"include_products" "include_products" DEFAULT 'bySlug',
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "categories_blocks_feedback_block_form_field_field_options" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" varchar NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"field_option_label" varchar,
-  	"field_option_value" varchar
-  );
-  
-  CREATE TABLE "categories_blocks_feedback_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"title" varchar,
-  	"subtitle" jsonb,
-  	"form_field_field_type" "field_type" DEFAULT 'emailInput',
-  	"form_field_field_label" varchar,
-  	"form_field_field_placeholder" varchar,
-  	"form_field_field_is_required" boolean DEFAULT false,
-  	"form_field_field_info_message" varchar,
-  	"form_field_field_error_message" varchar,
-  	"form_action_action_type" "action_type" DEFAULT 'button',
-  	"form_action_text" varchar,
-  	"form_action_url" varchar,
-  	"form_action_icon_svg" varchar,
-  	"form_action_icon_position" "icon_position" DEFAULT 'left',
-  	"form_action_link_color" "link_color" DEFAULT 'foreground',
-  	"form_action_link_variant" "link_variant" DEFAULT 'underline',
-  	"form_action_button_color" "btn_color" DEFAULT 'primary',
-  	"form_action_button_variant" "btn_variant" DEFAULT 'solid',
-  	"form_action_as_link" boolean DEFAULT false,
-  	"form_action_open_in_new_tab" boolean DEFAULT false,
-  	"show_submit_button" boolean DEFAULT true,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "categories_blocks_article_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"title" varchar,
-  	"subtitle" varchar,
-  	"content" jsonb,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "categories" (
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"slug" varchar,
-  	"slug_lock" boolean DEFAULT true,
-  	"name" varchar,
-  	"image_id" uuid,
-  	"description" varchar,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"_status" "enum_categories_status" DEFAULT 'draft'
-  );
-  
-  CREATE TABLE "categories_locales" (
-  	"meta_title" varchar,
-  	"meta_description" varchar,
-  	"meta_image_id" uuid,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"_locale" "_locales" NOT NULL,
-  	"_parent_id" uuid NOT NULL
-  );
-  
-  CREATE TABLE "_categories_v_blocks_template_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"template_id" uuid,
-  	"_uuid" varchar,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "_categories_v_blocks_comparisons_title_block_sort_by" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"label" varchar,
-  	"value" varchar,
-  	"_uuid" varchar
-  );
-  
-  CREATE TABLE "_categories_v_blocks_comparisons_title_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"title" varchar,
-  	"show_subtitle" boolean DEFAULT true,
-  	"subtitle_icon_svg" varchar,
-  	"subtitle_label" varchar,
-  	"show_badge" boolean DEFAULT true,
-  	"badge_label" varchar,
-  	"badge_value" varchar,
-  	"show_sort_by" boolean DEFAULT true,
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
-  	"_uuid" varchar,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "_categories_v_blocks_products_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"include_products" "include_products" DEFAULT 'bySlug',
-  	"_uuid" varchar,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "_categories_v_blocks_feedback_block_form_field_field_options" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"field_option_label" varchar,
-  	"field_option_value" varchar,
-  	"_uuid" varchar
-  );
-  
-  CREATE TABLE "_categories_v_blocks_feedback_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"title" varchar,
-  	"subtitle" jsonb,
-  	"form_field_field_type" "field_type" DEFAULT 'emailInput',
-  	"form_field_field_label" varchar,
-  	"form_field_field_placeholder" varchar,
-  	"form_field_field_is_required" boolean DEFAULT false,
-  	"form_field_field_info_message" varchar,
-  	"form_field_field_error_message" varchar,
-  	"form_action_action_type" "action_type" DEFAULT 'button',
-  	"form_action_text" varchar,
-  	"form_action_url" varchar,
-  	"form_action_icon_svg" varchar,
-  	"form_action_icon_position" "icon_position" DEFAULT 'left',
-  	"form_action_link_color" "link_color" DEFAULT 'foreground',
-  	"form_action_link_variant" "link_variant" DEFAULT 'underline',
-  	"form_action_button_color" "btn_color" DEFAULT 'primary',
-  	"form_action_button_variant" "btn_variant" DEFAULT 'solid',
-  	"form_action_as_link" boolean DEFAULT false,
-  	"form_action_open_in_new_tab" boolean DEFAULT false,
-  	"show_submit_button" boolean DEFAULT true,
-  	"_uuid" varchar,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "_categories_v_blocks_article_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"title" varchar,
-  	"subtitle" varchar,
-  	"content" jsonb,
-  	"_uuid" varchar,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "_categories_v" (
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"parent_id" uuid,
-  	"version_slug" varchar,
-  	"version_slug_lock" boolean DEFAULT true,
-  	"version_name" varchar,
-  	"version_image_id" uuid,
-  	"version_description" varchar,
-  	"version_updated_at" timestamp(3) with time zone,
-  	"version_created_at" timestamp(3) with time zone,
-  	"version__status" "enum__categories_v_version_status" DEFAULT 'draft',
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"snapshot" boolean,
-  	"published_locale" "enum__categories_v_published_locale",
-  	"latest" boolean,
-  	"autosave" boolean
-  );
-  
-  CREATE TABLE "_categories_v_locales" (
-  	"version_meta_title" varchar,
-  	"version_meta_description" varchar,
-  	"version_meta_image_id" uuid,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"_locale" "_locales" NOT NULL,
-  	"_parent_id" uuid NOT NULL
-  );
-  
-  CREATE TABLE "templates_blocks_hero_main_block" (
+  CREATE TABLE "templates_blocks_hero_block" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
@@ -855,6 +814,19 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"action_button_variant" "btn_variant" DEFAULT 'solid',
   	"action_as_link" boolean DEFAULT false,
   	"action_open_in_new_tab" boolean DEFAULT false,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "templates_blocks_section_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"title" varchar,
+  	"subtitle" varchar,
+  	"content" jsonb,
+  	"content_alignment" "content_align" DEFAULT 'left',
+  	"text_alignment" text_align DEFAULT 'left',
   	"block_name" varchar
   );
   
@@ -899,9 +871,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"subtitle" varchar,
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
   	"action_action_type" "action_type" DEFAULT 'button',
   	"action_text" varchar,
   	"action_url" varchar,
@@ -996,9 +965,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"subtitle" varchar,
   	"card_block_type" "card_block_type" DEFAULT 'cards',
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
   	"block_name" varchar
   );
   
@@ -1012,7 +978,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_status" "enum_templates_status" DEFAULT 'draft'
   );
   
-  CREATE TABLE "_templates_v_blocks_hero_main_block" (
+  CREATE TABLE "_templates_v_blocks_hero_block" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
@@ -1031,6 +997,20 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"action_button_variant" "btn_variant" DEFAULT 'solid',
   	"action_as_link" boolean DEFAULT false,
   	"action_open_in_new_tab" boolean DEFAULT false,
+  	"_uuid" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "_templates_v_blocks_section_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"title" varchar,
+  	"subtitle" varchar,
+  	"content" jsonb,
+  	"content_alignment" "content_align" DEFAULT 'left',
+  	"text_alignment" text_align DEFAULT 'left',
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -1080,9 +1060,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"subtitle" varchar,
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
   	"action_action_type" "action_type" DEFAULT 'button',
   	"action_text" varchar,
   	"action_url" varchar,
@@ -1184,9 +1161,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"subtitle" varchar,
   	"card_block_type" "card_block_type" DEFAULT 'cards',
-  	"show_disclosure" boolean DEFAULT false,
-  	"disclosure_title" varchar,
-  	"disclosure_info" jsonb,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -1261,8 +1235,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"parent_id" uuid NOT NULL,
   	"path" varchar NOT NULL,
   	"pages_id" uuid,
-  	"products_id" uuid,
   	"categories_id" uuid,
+  	"products_id" uuid,
   	"templates_id" uuid,
   	"images_id" uuid,
   	"users_id" uuid
@@ -1482,9 +1456,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   ALTER TABLE "pages_blocks_template_block" ADD CONSTRAINT "pages_blocks_template_block_template_id_templates_id_fk" FOREIGN KEY ("template_id") REFERENCES "public"."templates"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "pages_blocks_template_block" ADD CONSTRAINT "pages_blocks_template_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "pages_blocks_hero_main_block" ADD CONSTRAINT "pages_blocks_hero_main_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "pages_blocks_hero_main_block" ADD CONSTRAINT "pages_blocks_hero_main_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "pages_blocks_title_block" ADD CONSTRAINT "pages_blocks_title_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "pages_blocks_hero_block" ADD CONSTRAINT "pages_blocks_hero_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "pages_blocks_hero_block" ADD CONSTRAINT "pages_blocks_hero_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "pages_blocks_section_block" ADD CONSTRAINT "pages_blocks_section_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_image_scroller_block_list" ADD CONSTRAINT "pages_blocks_image_scroller_block_list_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "pages_blocks_image_scroller_block_list" ADD CONSTRAINT "pages_blocks_image_scroller_block_list_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_image_scroller_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_image_scroller_block" ADD CONSTRAINT "pages_blocks_image_scroller_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
@@ -1499,16 +1473,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "pages_blocks_categories_block_categories" ADD CONSTRAINT "pages_blocks_categories_block_categories_category_id_categories_id_fk" FOREIGN KEY ("category_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "pages_blocks_categories_block_categories" ADD CONSTRAINT "pages_blocks_categories_block_categories_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_categories_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_categories_block" ADD CONSTRAINT "pages_blocks_categories_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "pages_blocks_article_block" ADD CONSTRAINT "pages_blocks_article_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_feedback_block_form_field_field_options" ADD CONSTRAINT "pages_blocks_feedback_block_form_field_field_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_feedback_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_feedback_block" ADD CONSTRAINT "pages_blocks_feedback_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_locales" ADD CONSTRAINT "pages_locales_meta_image_id_images_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "pages_locales" ADD CONSTRAINT "pages_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_template_block" ADD CONSTRAINT "_pages_v_blocks_template_block_template_id_templates_id_fk" FOREIGN KEY ("template_id") REFERENCES "public"."templates"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_template_block" ADD CONSTRAINT "_pages_v_blocks_template_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_pages_v_blocks_hero_main_block" ADD CONSTRAINT "_pages_v_blocks_hero_main_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "_pages_v_blocks_hero_main_block" ADD CONSTRAINT "_pages_v_blocks_hero_main_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_pages_v_blocks_title_block" ADD CONSTRAINT "_pages_v_blocks_title_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_pages_v_blocks_hero_block" ADD CONSTRAINT "_pages_v_blocks_hero_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "_pages_v_blocks_hero_block" ADD CONSTRAINT "_pages_v_blocks_hero_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_pages_v_blocks_section_block" ADD CONSTRAINT "_pages_v_blocks_section_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_image_scroller_block_list" ADD CONSTRAINT "_pages_v_blocks_image_scroller_block_list_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_image_scroller_block_list" ADD CONSTRAINT "_pages_v_blocks_image_scroller_block_list_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v_blocks_image_scroller_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_image_scroller_block" ADD CONSTRAINT "_pages_v_blocks_image_scroller_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
@@ -1523,12 +1496,34 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "_pages_v_blocks_categories_block_categories" ADD CONSTRAINT "_pages_v_blocks_categories_block_categories_category_id_categories_id_fk" FOREIGN KEY ("category_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_categories_block_categories" ADD CONSTRAINT "_pages_v_blocks_categories_block_categories_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v_blocks_categories_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_categories_block" ADD CONSTRAINT "_pages_v_blocks_categories_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_pages_v_blocks_article_block" ADD CONSTRAINT "_pages_v_blocks_article_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_feedback_block_form_field_field_options" ADD CONSTRAINT "_pages_v_blocks_feedback_block_form_field_field_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v_blocks_feedback_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_feedback_block" ADD CONSTRAINT "_pages_v_blocks_feedback_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v" ADD CONSTRAINT "_pages_v_parent_id_pages_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."pages"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_pages_v_locales" ADD CONSTRAINT "_pages_v_locales_version_meta_image_id_images_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_pages_v_locales" ADD CONSTRAINT "_pages_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "categories_blocks_template_block" ADD CONSTRAINT "categories_blocks_template_block_template_id_templates_id_fk" FOREIGN KEY ("template_id") REFERENCES "public"."templates"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "categories_blocks_template_block" ADD CONSTRAINT "categories_blocks_template_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "categories_blocks_hero_block" ADD CONSTRAINT "categories_blocks_hero_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "categories_blocks_hero_block" ADD CONSTRAINT "categories_blocks_hero_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "categories_blocks_section_block" ADD CONSTRAINT "categories_blocks_section_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "categories_blocks_products_block" ADD CONSTRAINT "categories_blocks_products_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "categories_blocks_feedback_block_form_field_field_options" ADD CONSTRAINT "categories_blocks_feedback_block_form_field_field_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories_blocks_feedback_block"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "categories_blocks_feedback_block" ADD CONSTRAINT "categories_blocks_feedback_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "categories" ADD CONSTRAINT "categories_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "categories_locales" ADD CONSTRAINT "categories_locales_meta_image_id_images_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "categories_locales" ADD CONSTRAINT "categories_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_categories_v_blocks_template_block" ADD CONSTRAINT "_categories_v_blocks_template_block_template_id_templates_id_fk" FOREIGN KEY ("template_id") REFERENCES "public"."templates"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "_categories_v_blocks_template_block" ADD CONSTRAINT "_categories_v_blocks_template_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_categories_v_blocks_hero_block" ADD CONSTRAINT "_categories_v_blocks_hero_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "_categories_v_blocks_hero_block" ADD CONSTRAINT "_categories_v_blocks_hero_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_categories_v_blocks_section_block" ADD CONSTRAINT "_categories_v_blocks_section_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_categories_v_blocks_products_block" ADD CONSTRAINT "_categories_v_blocks_products_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_categories_v_blocks_feedback_block_form_field_field_options" ADD CONSTRAINT "_categories_v_blocks_feedback_block_form_field_field_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v_blocks_feedback_block"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_categories_v_blocks_feedback_block" ADD CONSTRAINT "_categories_v_blocks_feedback_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_categories_v" ADD CONSTRAINT "_categories_v_parent_id_categories_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "_categories_v" ADD CONSTRAINT "_categories_v_version_image_id_images_id_fk" FOREIGN KEY ("version_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "_categories_v_locales" ADD CONSTRAINT "_categories_v_locales_version_meta_image_id_images_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "_categories_v_locales" ADD CONSTRAINT "_categories_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products_details_rows" ADD CONSTRAINT "products_details_rows_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."products_details"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products_details" ADD CONSTRAINT "products_details_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products" ADD CONSTRAINT "products_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
@@ -1542,31 +1537,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "_products_v" ADD CONSTRAINT "_products_v_version_categories_id_categories_id_fk" FOREIGN KEY ("version_categories_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_products_v_locales" ADD CONSTRAINT "_products_v_locales_version_meta_image_id_images_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_products_v_locales" ADD CONSTRAINT "_products_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_products_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "categories_blocks_template_block" ADD CONSTRAINT "categories_blocks_template_block_template_id_templates_id_fk" FOREIGN KEY ("template_id") REFERENCES "public"."templates"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "categories_blocks_template_block" ADD CONSTRAINT "categories_blocks_template_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "categories_blocks_comparisons_title_block_sort_by" ADD CONSTRAINT "categories_blocks_comparisons_title_block_sort_by_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories_blocks_comparisons_title_block"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "categories_blocks_comparisons_title_block" ADD CONSTRAINT "categories_blocks_comparisons_title_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "categories_blocks_products_block" ADD CONSTRAINT "categories_blocks_products_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "categories_blocks_feedback_block_form_field_field_options" ADD CONSTRAINT "categories_blocks_feedback_block_form_field_field_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories_blocks_feedback_block"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "categories_blocks_feedback_block" ADD CONSTRAINT "categories_blocks_feedback_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "categories_blocks_article_block" ADD CONSTRAINT "categories_blocks_article_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "categories" ADD CONSTRAINT "categories_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "categories_locales" ADD CONSTRAINT "categories_locales_meta_image_id_images_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "categories_locales" ADD CONSTRAINT "categories_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_categories_v_blocks_template_block" ADD CONSTRAINT "_categories_v_blocks_template_block_template_id_templates_id_fk" FOREIGN KEY ("template_id") REFERENCES "public"."templates"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "_categories_v_blocks_template_block" ADD CONSTRAINT "_categories_v_blocks_template_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_categories_v_blocks_comparisons_title_block_sort_by" ADD CONSTRAINT "_categories_v_blocks_comparisons_title_block_sort_by_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v_blocks_comparisons_title_block"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_categories_v_blocks_comparisons_title_block" ADD CONSTRAINT "_categories_v_blocks_comparisons_title_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_categories_v_blocks_products_block" ADD CONSTRAINT "_categories_v_blocks_products_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_categories_v_blocks_feedback_block_form_field_field_options" ADD CONSTRAINT "_categories_v_blocks_feedback_block_form_field_field_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v_blocks_feedback_block"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_categories_v_blocks_feedback_block" ADD CONSTRAINT "_categories_v_blocks_feedback_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_categories_v_blocks_article_block" ADD CONSTRAINT "_categories_v_blocks_article_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_categories_v" ADD CONSTRAINT "_categories_v_parent_id_categories_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "_categories_v" ADD CONSTRAINT "_categories_v_version_image_id_images_id_fk" FOREIGN KEY ("version_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "_categories_v_locales" ADD CONSTRAINT "_categories_v_locales_version_meta_image_id_images_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "_categories_v_locales" ADD CONSTRAINT "_categories_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_categories_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "templates_blocks_hero_main_block" ADD CONSTRAINT "templates_blocks_hero_main_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "templates_blocks_hero_main_block" ADD CONSTRAINT "templates_blocks_hero_main_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."templates"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "templates_blocks_hero_block" ADD CONSTRAINT "templates_blocks_hero_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "templates_blocks_hero_block" ADD CONSTRAINT "templates_blocks_hero_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."templates"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "templates_blocks_section_block" ADD CONSTRAINT "templates_blocks_section_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."templates"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "templates_blocks_image_scroller_block_list" ADD CONSTRAINT "templates_blocks_image_scroller_block_list_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "templates_blocks_image_scroller_block_list" ADD CONSTRAINT "templates_blocks_image_scroller_block_list_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."templates_blocks_image_scroller_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "templates_blocks_image_scroller_block" ADD CONSTRAINT "templates_blocks_image_scroller_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."templates"("id") ON DELETE cascade ON UPDATE no action;
@@ -1583,8 +1556,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "templates_blocks_categories_block_categories" ADD CONSTRAINT "templates_blocks_categories_block_categories_category_id_categories_id_fk" FOREIGN KEY ("category_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "templates_blocks_categories_block_categories" ADD CONSTRAINT "templates_blocks_categories_block_categories_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."templates_blocks_categories_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "templates_blocks_categories_block" ADD CONSTRAINT "templates_blocks_categories_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."templates"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_templates_v_blocks_hero_main_block" ADD CONSTRAINT "_templates_v_blocks_hero_main_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "_templates_v_blocks_hero_main_block" ADD CONSTRAINT "_templates_v_blocks_hero_main_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_templates_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_templates_v_blocks_hero_block" ADD CONSTRAINT "_templates_v_blocks_hero_block_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "_templates_v_blocks_hero_block" ADD CONSTRAINT "_templates_v_blocks_hero_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_templates_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_templates_v_blocks_section_block" ADD CONSTRAINT "_templates_v_blocks_section_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_templates_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_templates_v_blocks_image_scroller_block_list" ADD CONSTRAINT "_templates_v_blocks_image_scroller_block_list_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_templates_v_blocks_image_scroller_block_list" ADD CONSTRAINT "_templates_v_blocks_image_scroller_block_list_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_templates_v_blocks_image_scroller_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_templates_v_blocks_image_scroller_block" ADD CONSTRAINT "_templates_v_blocks_image_scroller_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_templates_v"("id") ON DELETE cascade ON UPDATE no action;
@@ -1605,8 +1579,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "users_sessions" ADD CONSTRAINT "users_sessions_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_locked_documents"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_pages_fk" FOREIGN KEY ("pages_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_products_fk" FOREIGN KEY ("products_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_products_fk" FOREIGN KEY ("products_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_templates_fk" FOREIGN KEY ("templates_id") REFERENCES "public"."templates"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_images_fk" FOREIGN KEY ("images_id") REFERENCES "public"."images"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
@@ -1636,13 +1610,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "pages_blocks_template_block_parent_id_idx" ON "pages_blocks_template_block" USING btree ("_parent_id");
   CREATE INDEX "pages_blocks_template_block_path_idx" ON "pages_blocks_template_block" USING btree ("_path");
   CREATE INDEX "pages_blocks_template_block_template_idx" ON "pages_blocks_template_block" USING btree ("template_id");
-  CREATE INDEX "pages_blocks_hero_main_block_order_idx" ON "pages_blocks_hero_main_block" USING btree ("_order");
-  CREATE INDEX "pages_blocks_hero_main_block_parent_id_idx" ON "pages_blocks_hero_main_block" USING btree ("_parent_id");
-  CREATE INDEX "pages_blocks_hero_main_block_path_idx" ON "pages_blocks_hero_main_block" USING btree ("_path");
-  CREATE INDEX "pages_blocks_hero_main_block_image_idx" ON "pages_blocks_hero_main_block" USING btree ("image_id");
-  CREATE INDEX "pages_blocks_title_block_order_idx" ON "pages_blocks_title_block" USING btree ("_order");
-  CREATE INDEX "pages_blocks_title_block_parent_id_idx" ON "pages_blocks_title_block" USING btree ("_parent_id");
-  CREATE INDEX "pages_blocks_title_block_path_idx" ON "pages_blocks_title_block" USING btree ("_path");
+  CREATE INDEX "pages_blocks_hero_block_order_idx" ON "pages_blocks_hero_block" USING btree ("_order");
+  CREATE INDEX "pages_blocks_hero_block_parent_id_idx" ON "pages_blocks_hero_block" USING btree ("_parent_id");
+  CREATE INDEX "pages_blocks_hero_block_path_idx" ON "pages_blocks_hero_block" USING btree ("_path");
+  CREATE INDEX "pages_blocks_hero_block_image_idx" ON "pages_blocks_hero_block" USING btree ("image_id");
+  CREATE INDEX "pages_blocks_section_block_order_idx" ON "pages_blocks_section_block" USING btree ("_order");
+  CREATE INDEX "pages_blocks_section_block_parent_id_idx" ON "pages_blocks_section_block" USING btree ("_parent_id");
+  CREATE INDEX "pages_blocks_section_block_path_idx" ON "pages_blocks_section_block" USING btree ("_path");
   CREATE INDEX "pages_blocks_image_scroller_block_list_order_idx" ON "pages_blocks_image_scroller_block_list" USING btree ("_order");
   CREATE INDEX "pages_blocks_image_scroller_block_list_parent_id_idx" ON "pages_blocks_image_scroller_block_list" USING btree ("_parent_id");
   CREATE INDEX "pages_blocks_image_scroller_block_list_image_idx" ON "pages_blocks_image_scroller_block_list" USING btree ("image_id");
@@ -1672,9 +1646,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "pages_blocks_categories_block_order_idx" ON "pages_blocks_categories_block" USING btree ("_order");
   CREATE INDEX "pages_blocks_categories_block_parent_id_idx" ON "pages_blocks_categories_block" USING btree ("_parent_id");
   CREATE INDEX "pages_blocks_categories_block_path_idx" ON "pages_blocks_categories_block" USING btree ("_path");
-  CREATE INDEX "pages_blocks_article_block_order_idx" ON "pages_blocks_article_block" USING btree ("_order");
-  CREATE INDEX "pages_blocks_article_block_parent_id_idx" ON "pages_blocks_article_block" USING btree ("_parent_id");
-  CREATE INDEX "pages_blocks_article_block_path_idx" ON "pages_blocks_article_block" USING btree ("_path");
   CREATE INDEX "pages_blocks_feedback_block_form_field_field_options_order_idx" ON "pages_blocks_feedback_block_form_field_field_options" USING btree ("_order");
   CREATE INDEX "pages_blocks_feedback_block_form_field_field_options_parent_id_idx" ON "pages_blocks_feedback_block_form_field_field_options" USING btree ("_parent_id");
   CREATE INDEX "pages_blocks_feedback_block_order_idx" ON "pages_blocks_feedback_block" USING btree ("_order");
@@ -1690,13 +1661,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_pages_v_blocks_template_block_parent_id_idx" ON "_pages_v_blocks_template_block" USING btree ("_parent_id");
   CREATE INDEX "_pages_v_blocks_template_block_path_idx" ON "_pages_v_blocks_template_block" USING btree ("_path");
   CREATE INDEX "_pages_v_blocks_template_block_template_idx" ON "_pages_v_blocks_template_block" USING btree ("template_id");
-  CREATE INDEX "_pages_v_blocks_hero_main_block_order_idx" ON "_pages_v_blocks_hero_main_block" USING btree ("_order");
-  CREATE INDEX "_pages_v_blocks_hero_main_block_parent_id_idx" ON "_pages_v_blocks_hero_main_block" USING btree ("_parent_id");
-  CREATE INDEX "_pages_v_blocks_hero_main_block_path_idx" ON "_pages_v_blocks_hero_main_block" USING btree ("_path");
-  CREATE INDEX "_pages_v_blocks_hero_main_block_image_idx" ON "_pages_v_blocks_hero_main_block" USING btree ("image_id");
-  CREATE INDEX "_pages_v_blocks_title_block_order_idx" ON "_pages_v_blocks_title_block" USING btree ("_order");
-  CREATE INDEX "_pages_v_blocks_title_block_parent_id_idx" ON "_pages_v_blocks_title_block" USING btree ("_parent_id");
-  CREATE INDEX "_pages_v_blocks_title_block_path_idx" ON "_pages_v_blocks_title_block" USING btree ("_path");
+  CREATE INDEX "_pages_v_blocks_hero_block_order_idx" ON "_pages_v_blocks_hero_block" USING btree ("_order");
+  CREATE INDEX "_pages_v_blocks_hero_block_parent_id_idx" ON "_pages_v_blocks_hero_block" USING btree ("_parent_id");
+  CREATE INDEX "_pages_v_blocks_hero_block_path_idx" ON "_pages_v_blocks_hero_block" USING btree ("_path");
+  CREATE INDEX "_pages_v_blocks_hero_block_image_idx" ON "_pages_v_blocks_hero_block" USING btree ("image_id");
+  CREATE INDEX "_pages_v_blocks_section_block_order_idx" ON "_pages_v_blocks_section_block" USING btree ("_order");
+  CREATE INDEX "_pages_v_blocks_section_block_parent_id_idx" ON "_pages_v_blocks_section_block" USING btree ("_parent_id");
+  CREATE INDEX "_pages_v_blocks_section_block_path_idx" ON "_pages_v_blocks_section_block" USING btree ("_path");
   CREATE INDEX "_pages_v_blocks_image_scroller_block_list_order_idx" ON "_pages_v_blocks_image_scroller_block_list" USING btree ("_order");
   CREATE INDEX "_pages_v_blocks_image_scroller_block_list_parent_id_idx" ON "_pages_v_blocks_image_scroller_block_list" USING btree ("_parent_id");
   CREATE INDEX "_pages_v_blocks_image_scroller_block_list_image_idx" ON "_pages_v_blocks_image_scroller_block_list" USING btree ("image_id");
@@ -1726,9 +1697,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_pages_v_blocks_categories_block_order_idx" ON "_pages_v_blocks_categories_block" USING btree ("_order");
   CREATE INDEX "_pages_v_blocks_categories_block_parent_id_idx" ON "_pages_v_blocks_categories_block" USING btree ("_parent_id");
   CREATE INDEX "_pages_v_blocks_categories_block_path_idx" ON "_pages_v_blocks_categories_block" USING btree ("_path");
-  CREATE INDEX "_pages_v_blocks_article_block_order_idx" ON "_pages_v_blocks_article_block" USING btree ("_order");
-  CREATE INDEX "_pages_v_blocks_article_block_parent_id_idx" ON "_pages_v_blocks_article_block" USING btree ("_parent_id");
-  CREATE INDEX "_pages_v_blocks_article_block_path_idx" ON "_pages_v_blocks_article_block" USING btree ("_path");
   CREATE INDEX "_pages_v_blocks_feedback_block_form_field_field_options_order_idx" ON "_pages_v_blocks_feedback_block_form_field_field_options" USING btree ("_order");
   CREATE INDEX "_pages_v_blocks_feedback_block_form_field_field_options_parent_id_idx" ON "_pages_v_blocks_feedback_block_form_field_field_options" USING btree ("_parent_id");
   CREATE INDEX "_pages_v_blocks_feedback_block_order_idx" ON "_pages_v_blocks_feedback_block" USING btree ("_order");
@@ -1747,6 +1715,65 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_pages_v_autosave_idx" ON "_pages_v" USING btree ("autosave");
   CREATE INDEX "_pages_v_version_meta_version_meta_image_idx" ON "_pages_v_locales" USING btree ("version_meta_image_id","_locale");
   CREATE UNIQUE INDEX "_pages_v_locales_locale_parent_id_unique" ON "_pages_v_locales" USING btree ("_locale","_parent_id");
+  CREATE INDEX "categories_blocks_template_block_order_idx" ON "categories_blocks_template_block" USING btree ("_order");
+  CREATE INDEX "categories_blocks_template_block_parent_id_idx" ON "categories_blocks_template_block" USING btree ("_parent_id");
+  CREATE INDEX "categories_blocks_template_block_path_idx" ON "categories_blocks_template_block" USING btree ("_path");
+  CREATE INDEX "categories_blocks_template_block_template_idx" ON "categories_blocks_template_block" USING btree ("template_id");
+  CREATE INDEX "categories_blocks_hero_block_order_idx" ON "categories_blocks_hero_block" USING btree ("_order");
+  CREATE INDEX "categories_blocks_hero_block_parent_id_idx" ON "categories_blocks_hero_block" USING btree ("_parent_id");
+  CREATE INDEX "categories_blocks_hero_block_path_idx" ON "categories_blocks_hero_block" USING btree ("_path");
+  CREATE INDEX "categories_blocks_hero_block_image_idx" ON "categories_blocks_hero_block" USING btree ("image_id");
+  CREATE INDEX "categories_blocks_section_block_order_idx" ON "categories_blocks_section_block" USING btree ("_order");
+  CREATE INDEX "categories_blocks_section_block_parent_id_idx" ON "categories_blocks_section_block" USING btree ("_parent_id");
+  CREATE INDEX "categories_blocks_section_block_path_idx" ON "categories_blocks_section_block" USING btree ("_path");
+  CREATE INDEX "categories_blocks_products_block_order_idx" ON "categories_blocks_products_block" USING btree ("_order");
+  CREATE INDEX "categories_blocks_products_block_parent_id_idx" ON "categories_blocks_products_block" USING btree ("_parent_id");
+  CREATE INDEX "categories_blocks_products_block_path_idx" ON "categories_blocks_products_block" USING btree ("_path");
+  CREATE INDEX "categories_blocks_feedback_block_form_field_field_options_order_idx" ON "categories_blocks_feedback_block_form_field_field_options" USING btree ("_order");
+  CREATE INDEX "categories_blocks_feedback_block_form_field_field_options_parent_id_idx" ON "categories_blocks_feedback_block_form_field_field_options" USING btree ("_parent_id");
+  CREATE INDEX "categories_blocks_feedback_block_order_idx" ON "categories_blocks_feedback_block" USING btree ("_order");
+  CREATE INDEX "categories_blocks_feedback_block_parent_id_idx" ON "categories_blocks_feedback_block" USING btree ("_parent_id");
+  CREATE INDEX "categories_blocks_feedback_block_path_idx" ON "categories_blocks_feedback_block" USING btree ("_path");
+  CREATE UNIQUE INDEX "categories_slug_idx" ON "categories" USING btree ("slug");
+  CREATE INDEX "categories_image_idx" ON "categories" USING btree ("image_id");
+  CREATE INDEX "categories_updated_at_idx" ON "categories" USING btree ("updated_at");
+  CREATE INDEX "categories_created_at_idx" ON "categories" USING btree ("created_at");
+  CREATE INDEX "categories__status_idx" ON "categories" USING btree ("_status");
+  CREATE INDEX "categories_meta_meta_image_idx" ON "categories_locales" USING btree ("meta_image_id","_locale");
+  CREATE UNIQUE INDEX "categories_locales_locale_parent_id_unique" ON "categories_locales" USING btree ("_locale","_parent_id");
+  CREATE INDEX "_categories_v_blocks_template_block_order_idx" ON "_categories_v_blocks_template_block" USING btree ("_order");
+  CREATE INDEX "_categories_v_blocks_template_block_parent_id_idx" ON "_categories_v_blocks_template_block" USING btree ("_parent_id");
+  CREATE INDEX "_categories_v_blocks_template_block_path_idx" ON "_categories_v_blocks_template_block" USING btree ("_path");
+  CREATE INDEX "_categories_v_blocks_template_block_template_idx" ON "_categories_v_blocks_template_block" USING btree ("template_id");
+  CREATE INDEX "_categories_v_blocks_hero_block_order_idx" ON "_categories_v_blocks_hero_block" USING btree ("_order");
+  CREATE INDEX "_categories_v_blocks_hero_block_parent_id_idx" ON "_categories_v_blocks_hero_block" USING btree ("_parent_id");
+  CREATE INDEX "_categories_v_blocks_hero_block_path_idx" ON "_categories_v_blocks_hero_block" USING btree ("_path");
+  CREATE INDEX "_categories_v_blocks_hero_block_image_idx" ON "_categories_v_blocks_hero_block" USING btree ("image_id");
+  CREATE INDEX "_categories_v_blocks_section_block_order_idx" ON "_categories_v_blocks_section_block" USING btree ("_order");
+  CREATE INDEX "_categories_v_blocks_section_block_parent_id_idx" ON "_categories_v_blocks_section_block" USING btree ("_parent_id");
+  CREATE INDEX "_categories_v_blocks_section_block_path_idx" ON "_categories_v_blocks_section_block" USING btree ("_path");
+  CREATE INDEX "_categories_v_blocks_products_block_order_idx" ON "_categories_v_blocks_products_block" USING btree ("_order");
+  CREATE INDEX "_categories_v_blocks_products_block_parent_id_idx" ON "_categories_v_blocks_products_block" USING btree ("_parent_id");
+  CREATE INDEX "_categories_v_blocks_products_block_path_idx" ON "_categories_v_blocks_products_block" USING btree ("_path");
+  CREATE INDEX "_categories_v_blocks_feedback_block_form_field_field_options_order_idx" ON "_categories_v_blocks_feedback_block_form_field_field_options" USING btree ("_order");
+  CREATE INDEX "_categories_v_blocks_feedback_block_form_field_field_options_parent_id_idx" ON "_categories_v_blocks_feedback_block_form_field_field_options" USING btree ("_parent_id");
+  CREATE INDEX "_categories_v_blocks_feedback_block_order_idx" ON "_categories_v_blocks_feedback_block" USING btree ("_order");
+  CREATE INDEX "_categories_v_blocks_feedback_block_parent_id_idx" ON "_categories_v_blocks_feedback_block" USING btree ("_parent_id");
+  CREATE INDEX "_categories_v_blocks_feedback_block_path_idx" ON "_categories_v_blocks_feedback_block" USING btree ("_path");
+  CREATE INDEX "_categories_v_parent_idx" ON "_categories_v" USING btree ("parent_id");
+  CREATE INDEX "_categories_v_version_version_slug_idx" ON "_categories_v" USING btree ("version_slug");
+  CREATE INDEX "_categories_v_version_version_image_idx" ON "_categories_v" USING btree ("version_image_id");
+  CREATE INDEX "_categories_v_version_version_updated_at_idx" ON "_categories_v" USING btree ("version_updated_at");
+  CREATE INDEX "_categories_v_version_version_created_at_idx" ON "_categories_v" USING btree ("version_created_at");
+  CREATE INDEX "_categories_v_version_version__status_idx" ON "_categories_v" USING btree ("version__status");
+  CREATE INDEX "_categories_v_created_at_idx" ON "_categories_v" USING btree ("created_at");
+  CREATE INDEX "_categories_v_updated_at_idx" ON "_categories_v" USING btree ("updated_at");
+  CREATE INDEX "_categories_v_snapshot_idx" ON "_categories_v" USING btree ("snapshot");
+  CREATE INDEX "_categories_v_published_locale_idx" ON "_categories_v" USING btree ("published_locale");
+  CREATE INDEX "_categories_v_latest_idx" ON "_categories_v" USING btree ("latest");
+  CREATE INDEX "_categories_v_autosave_idx" ON "_categories_v" USING btree ("autosave");
+  CREATE INDEX "_categories_v_version_meta_version_meta_image_idx" ON "_categories_v_locales" USING btree ("version_meta_image_id","_locale");
+  CREATE UNIQUE INDEX "_categories_v_locales_locale_parent_id_unique" ON "_categories_v_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "products_details_rows_order_idx" ON "products_details_rows" USING btree ("_order");
   CREATE INDEX "products_details_rows_parent_id_idx" ON "products_details_rows" USING btree ("_parent_id");
   CREATE INDEX "products_details_order_idx" ON "products_details" USING btree ("_order");
@@ -1780,71 +1807,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_products_v_autosave_idx" ON "_products_v" USING btree ("autosave");
   CREATE INDEX "_products_v_version_meta_version_meta_image_idx" ON "_products_v_locales" USING btree ("version_meta_image_id","_locale");
   CREATE UNIQUE INDEX "_products_v_locales_locale_parent_id_unique" ON "_products_v_locales" USING btree ("_locale","_parent_id");
-  CREATE INDEX "categories_blocks_template_block_order_idx" ON "categories_blocks_template_block" USING btree ("_order");
-  CREATE INDEX "categories_blocks_template_block_parent_id_idx" ON "categories_blocks_template_block" USING btree ("_parent_id");
-  CREATE INDEX "categories_blocks_template_block_path_idx" ON "categories_blocks_template_block" USING btree ("_path");
-  CREATE INDEX "categories_blocks_template_block_template_idx" ON "categories_blocks_template_block" USING btree ("template_id");
-  CREATE INDEX "categories_blocks_comparisons_title_block_sort_by_order_idx" ON "categories_blocks_comparisons_title_block_sort_by" USING btree ("_order");
-  CREATE INDEX "categories_blocks_comparisons_title_block_sort_by_parent_id_idx" ON "categories_blocks_comparisons_title_block_sort_by" USING btree ("_parent_id");
-  CREATE INDEX "categories_blocks_comparisons_title_block_order_idx" ON "categories_blocks_comparisons_title_block" USING btree ("_order");
-  CREATE INDEX "categories_blocks_comparisons_title_block_parent_id_idx" ON "categories_blocks_comparisons_title_block" USING btree ("_parent_id");
-  CREATE INDEX "categories_blocks_comparisons_title_block_path_idx" ON "categories_blocks_comparisons_title_block" USING btree ("_path");
-  CREATE INDEX "categories_blocks_products_block_order_idx" ON "categories_blocks_products_block" USING btree ("_order");
-  CREATE INDEX "categories_blocks_products_block_parent_id_idx" ON "categories_blocks_products_block" USING btree ("_parent_id");
-  CREATE INDEX "categories_blocks_products_block_path_idx" ON "categories_blocks_products_block" USING btree ("_path");
-  CREATE INDEX "categories_blocks_feedback_block_form_field_field_options_order_idx" ON "categories_blocks_feedback_block_form_field_field_options" USING btree ("_order");
-  CREATE INDEX "categories_blocks_feedback_block_form_field_field_options_parent_id_idx" ON "categories_blocks_feedback_block_form_field_field_options" USING btree ("_parent_id");
-  CREATE INDEX "categories_blocks_feedback_block_order_idx" ON "categories_blocks_feedback_block" USING btree ("_order");
-  CREATE INDEX "categories_blocks_feedback_block_parent_id_idx" ON "categories_blocks_feedback_block" USING btree ("_parent_id");
-  CREATE INDEX "categories_blocks_feedback_block_path_idx" ON "categories_blocks_feedback_block" USING btree ("_path");
-  CREATE INDEX "categories_blocks_article_block_order_idx" ON "categories_blocks_article_block" USING btree ("_order");
-  CREATE INDEX "categories_blocks_article_block_parent_id_idx" ON "categories_blocks_article_block" USING btree ("_parent_id");
-  CREATE INDEX "categories_blocks_article_block_path_idx" ON "categories_blocks_article_block" USING btree ("_path");
-  CREATE UNIQUE INDEX "categories_slug_idx" ON "categories" USING btree ("slug");
-  CREATE INDEX "categories_image_idx" ON "categories" USING btree ("image_id");
-  CREATE INDEX "categories_updated_at_idx" ON "categories" USING btree ("updated_at");
-  CREATE INDEX "categories_created_at_idx" ON "categories" USING btree ("created_at");
-  CREATE INDEX "categories__status_idx" ON "categories" USING btree ("_status");
-  CREATE INDEX "categories_meta_meta_image_idx" ON "categories_locales" USING btree ("meta_image_id","_locale");
-  CREATE UNIQUE INDEX "categories_locales_locale_parent_id_unique" ON "categories_locales" USING btree ("_locale","_parent_id");
-  CREATE INDEX "_categories_v_blocks_template_block_order_idx" ON "_categories_v_blocks_template_block" USING btree ("_order");
-  CREATE INDEX "_categories_v_blocks_template_block_parent_id_idx" ON "_categories_v_blocks_template_block" USING btree ("_parent_id");
-  CREATE INDEX "_categories_v_blocks_template_block_path_idx" ON "_categories_v_blocks_template_block" USING btree ("_path");
-  CREATE INDEX "_categories_v_blocks_template_block_template_idx" ON "_categories_v_blocks_template_block" USING btree ("template_id");
-  CREATE INDEX "_categories_v_blocks_comparisons_title_block_sort_by_order_idx" ON "_categories_v_blocks_comparisons_title_block_sort_by" USING btree ("_order");
-  CREATE INDEX "_categories_v_blocks_comparisons_title_block_sort_by_parent_id_idx" ON "_categories_v_blocks_comparisons_title_block_sort_by" USING btree ("_parent_id");
-  CREATE INDEX "_categories_v_blocks_comparisons_title_block_order_idx" ON "_categories_v_blocks_comparisons_title_block" USING btree ("_order");
-  CREATE INDEX "_categories_v_blocks_comparisons_title_block_parent_id_idx" ON "_categories_v_blocks_comparisons_title_block" USING btree ("_parent_id");
-  CREATE INDEX "_categories_v_blocks_comparisons_title_block_path_idx" ON "_categories_v_blocks_comparisons_title_block" USING btree ("_path");
-  CREATE INDEX "_categories_v_blocks_products_block_order_idx" ON "_categories_v_blocks_products_block" USING btree ("_order");
-  CREATE INDEX "_categories_v_blocks_products_block_parent_id_idx" ON "_categories_v_blocks_products_block" USING btree ("_parent_id");
-  CREATE INDEX "_categories_v_blocks_products_block_path_idx" ON "_categories_v_blocks_products_block" USING btree ("_path");
-  CREATE INDEX "_categories_v_blocks_feedback_block_form_field_field_options_order_idx" ON "_categories_v_blocks_feedback_block_form_field_field_options" USING btree ("_order");
-  CREATE INDEX "_categories_v_blocks_feedback_block_form_field_field_options_parent_id_idx" ON "_categories_v_blocks_feedback_block_form_field_field_options" USING btree ("_parent_id");
-  CREATE INDEX "_categories_v_blocks_feedback_block_order_idx" ON "_categories_v_blocks_feedback_block" USING btree ("_order");
-  CREATE INDEX "_categories_v_blocks_feedback_block_parent_id_idx" ON "_categories_v_blocks_feedback_block" USING btree ("_parent_id");
-  CREATE INDEX "_categories_v_blocks_feedback_block_path_idx" ON "_categories_v_blocks_feedback_block" USING btree ("_path");
-  CREATE INDEX "_categories_v_blocks_article_block_order_idx" ON "_categories_v_blocks_article_block" USING btree ("_order");
-  CREATE INDEX "_categories_v_blocks_article_block_parent_id_idx" ON "_categories_v_blocks_article_block" USING btree ("_parent_id");
-  CREATE INDEX "_categories_v_blocks_article_block_path_idx" ON "_categories_v_blocks_article_block" USING btree ("_path");
-  CREATE INDEX "_categories_v_parent_idx" ON "_categories_v" USING btree ("parent_id");
-  CREATE INDEX "_categories_v_version_version_slug_idx" ON "_categories_v" USING btree ("version_slug");
-  CREATE INDEX "_categories_v_version_version_image_idx" ON "_categories_v" USING btree ("version_image_id");
-  CREATE INDEX "_categories_v_version_version_updated_at_idx" ON "_categories_v" USING btree ("version_updated_at");
-  CREATE INDEX "_categories_v_version_version_created_at_idx" ON "_categories_v" USING btree ("version_created_at");
-  CREATE INDEX "_categories_v_version_version__status_idx" ON "_categories_v" USING btree ("version__status");
-  CREATE INDEX "_categories_v_created_at_idx" ON "_categories_v" USING btree ("created_at");
-  CREATE INDEX "_categories_v_updated_at_idx" ON "_categories_v" USING btree ("updated_at");
-  CREATE INDEX "_categories_v_snapshot_idx" ON "_categories_v" USING btree ("snapshot");
-  CREATE INDEX "_categories_v_published_locale_idx" ON "_categories_v" USING btree ("published_locale");
-  CREATE INDEX "_categories_v_latest_idx" ON "_categories_v" USING btree ("latest");
-  CREATE INDEX "_categories_v_autosave_idx" ON "_categories_v" USING btree ("autosave");
-  CREATE INDEX "_categories_v_version_meta_version_meta_image_idx" ON "_categories_v_locales" USING btree ("version_meta_image_id","_locale");
-  CREATE UNIQUE INDEX "_categories_v_locales_locale_parent_id_unique" ON "_categories_v_locales" USING btree ("_locale","_parent_id");
-  CREATE INDEX "templates_blocks_hero_main_block_order_idx" ON "templates_blocks_hero_main_block" USING btree ("_order");
-  CREATE INDEX "templates_blocks_hero_main_block_parent_id_idx" ON "templates_blocks_hero_main_block" USING btree ("_parent_id");
-  CREATE INDEX "templates_blocks_hero_main_block_path_idx" ON "templates_blocks_hero_main_block" USING btree ("_path");
-  CREATE INDEX "templates_blocks_hero_main_block_image_idx" ON "templates_blocks_hero_main_block" USING btree ("image_id");
+  CREATE INDEX "templates_blocks_hero_block_order_idx" ON "templates_blocks_hero_block" USING btree ("_order");
+  CREATE INDEX "templates_blocks_hero_block_parent_id_idx" ON "templates_blocks_hero_block" USING btree ("_parent_id");
+  CREATE INDEX "templates_blocks_hero_block_path_idx" ON "templates_blocks_hero_block" USING btree ("_path");
+  CREATE INDEX "templates_blocks_hero_block_image_idx" ON "templates_blocks_hero_block" USING btree ("image_id");
+  CREATE INDEX "templates_blocks_section_block_order_idx" ON "templates_blocks_section_block" USING btree ("_order");
+  CREATE INDEX "templates_blocks_section_block_parent_id_idx" ON "templates_blocks_section_block" USING btree ("_parent_id");
+  CREATE INDEX "templates_blocks_section_block_path_idx" ON "templates_blocks_section_block" USING btree ("_path");
   CREATE INDEX "templates_blocks_image_scroller_block_list_order_idx" ON "templates_blocks_image_scroller_block_list" USING btree ("_order");
   CREATE INDEX "templates_blocks_image_scroller_block_list_parent_id_idx" ON "templates_blocks_image_scroller_block_list" USING btree ("_parent_id");
   CREATE INDEX "templates_blocks_image_scroller_block_list_image_idx" ON "templates_blocks_image_scroller_block_list" USING btree ("image_id");
@@ -1883,10 +1852,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "templates_updated_at_idx" ON "templates" USING btree ("updated_at");
   CREATE INDEX "templates_created_at_idx" ON "templates" USING btree ("created_at");
   CREATE INDEX "templates__status_idx" ON "templates" USING btree ("_status");
-  CREATE INDEX "_templates_v_blocks_hero_main_block_order_idx" ON "_templates_v_blocks_hero_main_block" USING btree ("_order");
-  CREATE INDEX "_templates_v_blocks_hero_main_block_parent_id_idx" ON "_templates_v_blocks_hero_main_block" USING btree ("_parent_id");
-  CREATE INDEX "_templates_v_blocks_hero_main_block_path_idx" ON "_templates_v_blocks_hero_main_block" USING btree ("_path");
-  CREATE INDEX "_templates_v_blocks_hero_main_block_image_idx" ON "_templates_v_blocks_hero_main_block" USING btree ("image_id");
+  CREATE INDEX "_templates_v_blocks_hero_block_order_idx" ON "_templates_v_blocks_hero_block" USING btree ("_order");
+  CREATE INDEX "_templates_v_blocks_hero_block_parent_id_idx" ON "_templates_v_blocks_hero_block" USING btree ("_parent_id");
+  CREATE INDEX "_templates_v_blocks_hero_block_path_idx" ON "_templates_v_blocks_hero_block" USING btree ("_path");
+  CREATE INDEX "_templates_v_blocks_hero_block_image_idx" ON "_templates_v_blocks_hero_block" USING btree ("image_id");
+  CREATE INDEX "_templates_v_blocks_section_block_order_idx" ON "_templates_v_blocks_section_block" USING btree ("_order");
+  CREATE INDEX "_templates_v_blocks_section_block_parent_id_idx" ON "_templates_v_blocks_section_block" USING btree ("_parent_id");
+  CREATE INDEX "_templates_v_blocks_section_block_path_idx" ON "_templates_v_blocks_section_block" USING btree ("_path");
   CREATE INDEX "_templates_v_blocks_image_scroller_block_list_order_idx" ON "_templates_v_blocks_image_scroller_block_list" USING btree ("_order");
   CREATE INDEX "_templates_v_blocks_image_scroller_block_list_parent_id_idx" ON "_templates_v_blocks_image_scroller_block_list" USING btree ("_parent_id");
   CREATE INDEX "_templates_v_blocks_image_scroller_block_list_image_idx" ON "_templates_v_blocks_image_scroller_block_list" USING btree ("image_id");
@@ -1947,8 +1919,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_locked_documents_rels_parent_idx" ON "payload_locked_documents_rels" USING btree ("parent_id");
   CREATE INDEX "payload_locked_documents_rels_path_idx" ON "payload_locked_documents_rels" USING btree ("path");
   CREATE INDEX "payload_locked_documents_rels_pages_id_idx" ON "payload_locked_documents_rels" USING btree ("pages_id");
-  CREATE INDEX "payload_locked_documents_rels_products_id_idx" ON "payload_locked_documents_rels" USING btree ("products_id");
   CREATE INDEX "payload_locked_documents_rels_categories_id_idx" ON "payload_locked_documents_rels" USING btree ("categories_id");
+  CREATE INDEX "payload_locked_documents_rels_products_id_idx" ON "payload_locked_documents_rels" USING btree ("products_id");
   CREATE INDEX "payload_locked_documents_rels_templates_id_idx" ON "payload_locked_documents_rels" USING btree ("templates_id");
   CREATE INDEX "payload_locked_documents_rels_images_id_idx" ON "payload_locked_documents_rels" USING btree ("images_id");
   CREATE INDEX "payload_locked_documents_rels_users_id_idx" ON "payload_locked_documents_rels" USING btree ("users_id");
@@ -2010,8 +1982,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    DROP TABLE "pages_blocks_template_block" CASCADE;
-  DROP TABLE "pages_blocks_hero_main_block" CASCADE;
-  DROP TABLE "pages_blocks_title_block" CASCADE;
+  DROP TABLE "pages_blocks_hero_block" CASCADE;
+  DROP TABLE "pages_blocks_section_block" CASCADE;
   DROP TABLE "pages_blocks_image_scroller_block_list" CASCADE;
   DROP TABLE "pages_blocks_image_scroller_block" CASCADE;
   DROP TABLE "pages_blocks_list_block_rows" CASCADE;
@@ -2022,14 +1994,13 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "pages_blocks_rich_text_block" CASCADE;
   DROP TABLE "pages_blocks_categories_block_categories" CASCADE;
   DROP TABLE "pages_blocks_categories_block" CASCADE;
-  DROP TABLE "pages_blocks_article_block" CASCADE;
   DROP TABLE "pages_blocks_feedback_block_form_field_field_options" CASCADE;
   DROP TABLE "pages_blocks_feedback_block" CASCADE;
   DROP TABLE "pages" CASCADE;
   DROP TABLE "pages_locales" CASCADE;
   DROP TABLE "_pages_v_blocks_template_block" CASCADE;
-  DROP TABLE "_pages_v_blocks_hero_main_block" CASCADE;
-  DROP TABLE "_pages_v_blocks_title_block" CASCADE;
+  DROP TABLE "_pages_v_blocks_hero_block" CASCADE;
+  DROP TABLE "_pages_v_blocks_section_block" CASCADE;
   DROP TABLE "_pages_v_blocks_image_scroller_block_list" CASCADE;
   DROP TABLE "_pages_v_blocks_image_scroller_block" CASCADE;
   DROP TABLE "_pages_v_blocks_list_block_rows" CASCADE;
@@ -2040,11 +2011,26 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_pages_v_blocks_rich_text_block" CASCADE;
   DROP TABLE "_pages_v_blocks_categories_block_categories" CASCADE;
   DROP TABLE "_pages_v_blocks_categories_block" CASCADE;
-  DROP TABLE "_pages_v_blocks_article_block" CASCADE;
   DROP TABLE "_pages_v_blocks_feedback_block_form_field_field_options" CASCADE;
   DROP TABLE "_pages_v_blocks_feedback_block" CASCADE;
   DROP TABLE "_pages_v" CASCADE;
   DROP TABLE "_pages_v_locales" CASCADE;
+  DROP TABLE "categories_blocks_template_block" CASCADE;
+  DROP TABLE "categories_blocks_hero_block" CASCADE;
+  DROP TABLE "categories_blocks_section_block" CASCADE;
+  DROP TABLE "categories_blocks_products_block" CASCADE;
+  DROP TABLE "categories_blocks_feedback_block_form_field_field_options" CASCADE;
+  DROP TABLE "categories_blocks_feedback_block" CASCADE;
+  DROP TABLE "categories" CASCADE;
+  DROP TABLE "categories_locales" CASCADE;
+  DROP TABLE "_categories_v_blocks_template_block" CASCADE;
+  DROP TABLE "_categories_v_blocks_hero_block" CASCADE;
+  DROP TABLE "_categories_v_blocks_section_block" CASCADE;
+  DROP TABLE "_categories_v_blocks_products_block" CASCADE;
+  DROP TABLE "_categories_v_blocks_feedback_block_form_field_field_options" CASCADE;
+  DROP TABLE "_categories_v_blocks_feedback_block" CASCADE;
+  DROP TABLE "_categories_v" CASCADE;
+  DROP TABLE "_categories_v_locales" CASCADE;
   DROP TABLE "products_details_rows" CASCADE;
   DROP TABLE "products_details" CASCADE;
   DROP TABLE "products" CASCADE;
@@ -2053,25 +2039,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_products_v_version_details" CASCADE;
   DROP TABLE "_products_v" CASCADE;
   DROP TABLE "_products_v_locales" CASCADE;
-  DROP TABLE "categories_blocks_template_block" CASCADE;
-  DROP TABLE "categories_blocks_comparisons_title_block_sort_by" CASCADE;
-  DROP TABLE "categories_blocks_comparisons_title_block" CASCADE;
-  DROP TABLE "categories_blocks_products_block" CASCADE;
-  DROP TABLE "categories_blocks_feedback_block_form_field_field_options" CASCADE;
-  DROP TABLE "categories_blocks_feedback_block" CASCADE;
-  DROP TABLE "categories_blocks_article_block" CASCADE;
-  DROP TABLE "categories" CASCADE;
-  DROP TABLE "categories_locales" CASCADE;
-  DROP TABLE "_categories_v_blocks_template_block" CASCADE;
-  DROP TABLE "_categories_v_blocks_comparisons_title_block_sort_by" CASCADE;
-  DROP TABLE "_categories_v_blocks_comparisons_title_block" CASCADE;
-  DROP TABLE "_categories_v_blocks_products_block" CASCADE;
-  DROP TABLE "_categories_v_blocks_feedback_block_form_field_field_options" CASCADE;
-  DROP TABLE "_categories_v_blocks_feedback_block" CASCADE;
-  DROP TABLE "_categories_v_blocks_article_block" CASCADE;
-  DROP TABLE "_categories_v" CASCADE;
-  DROP TABLE "_categories_v_locales" CASCADE;
-  DROP TABLE "templates_blocks_hero_main_block" CASCADE;
+  DROP TABLE "templates_blocks_hero_block" CASCADE;
+  DROP TABLE "templates_blocks_section_block" CASCADE;
   DROP TABLE "templates_blocks_image_scroller_block_list" CASCADE;
   DROP TABLE "templates_blocks_image_scroller_block" CASCADE;
   DROP TABLE "templates_blocks_rich_text_block" CASCADE;
@@ -2085,7 +2054,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "templates_blocks_categories_block_categories" CASCADE;
   DROP TABLE "templates_blocks_categories_block" CASCADE;
   DROP TABLE "templates" CASCADE;
-  DROP TABLE "_templates_v_blocks_hero_main_block" CASCADE;
+  DROP TABLE "_templates_v_blocks_hero_block" CASCADE;
+  DROP TABLE "_templates_v_blocks_section_block" CASCADE;
   DROP TABLE "_templates_v_blocks_image_scroller_block_list" CASCADE;
   DROP TABLE "_templates_v_blocks_image_scroller_block" CASCADE;
   DROP TABLE "_templates_v_blocks_rich_text_block" CASCADE;
@@ -2130,23 +2100,24 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."link_variant";
   DROP TYPE "public"."btn_color";
   DROP TYPE "public"."btn_variant";
+  DROP TYPE "public"."content_align";
+  DROP TYPE "public"."text_align";
   DROP TYPE "public"."card_block_type";
   DROP TYPE "public"."field_type";
   DROP TYPE "public"."enum_pages_status";
   DROP TYPE "public"."enum__pages_v_version_status";
   DROP TYPE "public"."enum__pages_v_published_locale";
-  DROP TYPE "public"."enum_products_status";
-  DROP TYPE "public"."enum__products_v_version_status";
-  DROP TYPE "public"."enum__products_v_published_locale";
   DROP TYPE "public"."include_products";
   DROP TYPE "public"."enum_categories_status";
   DROP TYPE "public"."enum__categories_v_version_status";
   DROP TYPE "public"."enum__categories_v_published_locale";
+  DROP TYPE "public"."enum_products_status";
+  DROP TYPE "public"."enum__products_v_version_status";
+  DROP TYPE "public"."enum__products_v_published_locale";
   DROP TYPE "public"."enum_templates_status";
   DROP TYPE "public"."enum__templates_v_version_status";
   DROP TYPE "public"."enum__templates_v_published_locale";
   DROP TYPE "public"."role";
-  DROP TYPE "public"."text_align";
   DROP TYPE "public"."social_platform";
   DROP TYPE "public"."enum_layout_status";
   DROP TYPE "public"."enum__layout_v_version_status";
