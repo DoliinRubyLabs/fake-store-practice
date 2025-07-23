@@ -34,14 +34,14 @@ export const Templates: CollectionConfig = {
   fields: [
     ...slugField(),
     {
-      name: 'name',
       type: 'text',
+      name: 'name',
       label: 'Name',
       required: true,
     },
     {
-      name: 'blocks',
       type: 'blocks',
+      name: 'blocks',
       label: 'Blocks',
       labels: {
         singular: 'Block',

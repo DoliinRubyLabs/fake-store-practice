@@ -6,8 +6,10 @@ import { type IPageQueryParams } from '../../models/page.model'
 
 // options
 export const pagesQueryOptions = (queryParams: IPageQueryParams) => {
+  const { pageSlug, locale = 'en' } = queryParams
+
   return queryOptions({
-    queryKey: [queryParams?.pageKey, queryParams?.locale ?? 'en', queryParams?.categorySlug ?? 'all'],
+    queryKey: [pageSlug, locale],
     queryFn: (params) => pagesQueryApi(params, queryParams),
   })
 }

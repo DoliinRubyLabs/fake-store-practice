@@ -116,15 +116,6 @@ export interface IFeedbackBlock {
   showSubmitButton: boolean
 }
 
-// products block
-export interface IProductsBlock {
-  id: string
-  blockType: 'productsBlock'
-  products?: {
-    docs: IProduct[]
-  }
-}
-
 // template block
 export interface ITemplateBlock {
   id: string
@@ -156,6 +147,15 @@ export interface ITemplateBlock {
       | ICategoriesBlock
       | IFeedbackBlock
     )[]
+  }
+}
+
+// products block
+export interface IProductsBlock {
+  id: string
+  blockType: 'productsBlock'
+  products?: {
+    docs: IProduct[]
   }
 }
 

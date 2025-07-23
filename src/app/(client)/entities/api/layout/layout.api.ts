@@ -17,7 +17,7 @@ export const layoutQueryApi = async (opt: QueryFunctionContext, queryParams: ILa
     .get<IRootLayoutRes>(`${ELayoutApi.API_LAYOUT}${query}`, {
       signal: opt.signal,
       cache: 'force-cache',
-      next: { revalidate: 360, tags: ['layout', locale, query] },
+      next: { revalidate: 360 },
     })
     .json()
 

@@ -27,8 +27,8 @@ export const LayoutGlobal: GlobalConfig = {
           label: 'Layout',
           fields: [
             {
-              name: 'blocks',
               type: 'blocks',
+              name: 'blocks',
               labels: {
                 singular: 'Block',
                 plural: 'Blocks',
@@ -85,16 +85,16 @@ export const LayoutGlobal: GlobalConfig = {
               ],
             },
             {
-              name: 'socialMediaLinks',
               type: 'array',
+              name: 'socialMediaLinks',
               label: 'Social Media Links',
               fields: [
                 {
                   type: 'row',
                   fields: [
                     {
-                      name: 'socialPlatform',
                       type: 'select',
+                      name: 'socialPlatform',
                       required: true,
                       defaultValue: 'facebook',
                       options: [
@@ -118,16 +118,16 @@ export const LayoutGlobal: GlobalConfig = {
                       custom: { postgres: { type: 'text' } },
                     },
                     {
-                      name: 'socialUrl',
                       type: 'text',
+                      name: 'socialUrl',
                       required: true,
                       label: 'URL',
                     },
                   ],
                 },
                 {
-                  name: 'socialIconSvg',
                   type: 'text',
+                  name: 'socialIconSvg',
                   label: 'Icon',
                   admin: {
                     description: 'Copy and paste the icon svg code',

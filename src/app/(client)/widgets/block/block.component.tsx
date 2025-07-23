@@ -1,14 +1,12 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { type FC, Fragment } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
 import { pagesQueryOptions } from '@/client/entities/api/page'
-import { EPageKey } from '@/client/entities/models'
 
 const CategoriesBlockComponent = dynamic(() =>
   import('@/client/features/block').then((m) => m.CategoriesBlockComponent),
@@ -24,17 +22,16 @@ const SectionBlockComponent = dynamic(() => import('@/client/features/block').th
 
 // interface
 interface IProps {
-  pageKey: EPageKey
+  pageSlug: string
 }
 
 // component
 const BlockComponent: FC<Readonly<IProps>> = (props) => {
-  const { pageKey } = props
+  const { pageSlug } = props
 
   const locale = useLocale()
-  const { category_slug } = useParams()
 
-  const { data, isLoading } = useQuery(pagesQueryOptions({ pageKey, locale, categorySlug: category_slug as string }))
+  const { data, isLoading } = useQuery(pagesQueryOptions({ pageSlug, locale }))
 
   // return
   return (

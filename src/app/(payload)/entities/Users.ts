@@ -30,15 +30,15 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
-      name: 'name',
       type: 'text',
+      name: 'name',
       admin: {
         position: 'sidebar',
       },
     },
     {
-      name: 'role',
       type: 'select',
+      name: 'role',
       options: [
         { label: 'Admin', value: 'admin' },
         { label: 'Super Admin', value: 'root' },

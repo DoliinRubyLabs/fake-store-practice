@@ -10,6 +10,10 @@ import { pagesQueryOptions } from '@/client/entities/api/page'
 import { HomeModule } from '@/client/modules/home'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 
+// cache
+export const dynamic = 'force-static'
+export const revalidate = 120
+
 // interface
 interface IProps {
   params: Promise<{ locale: Locale }>
@@ -22,12 +26,12 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   setRequestLocale(locale)
 
   const clientQuery = getQueryClient()
-  await clientQuery.prefetchQuery(pagesQueryOptions({ pageKey: EPageKey.PAGES_QUERY_HOME_PAGE, locale }))
+  await clientQuery.prefetchQuery(pagesQueryOptions({ pageSlug: EPageKey.PAGES_QUERY_HOME_PAGE, locale }))
 
   // return
   return (
     <HydrationBoundary state={dehydrate(clientQuery)}>
-      <HomeModule />
+      <HomeModule pageSlug={EPageKey.PAGES_QUERY_HOME_PAGE} />
     </HydrationBoundary>
   )
 }

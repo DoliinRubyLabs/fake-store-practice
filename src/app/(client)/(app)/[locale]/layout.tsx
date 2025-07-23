@@ -11,7 +11,7 @@ import { dehydrate } from '@tanstack/react-query'
 import { layoutQueryOptions } from '@/client/entities/api/layout'
 import { LayoutModule } from '@/client/modules/layout'
 import { EAssetImage } from '@/client/shared/assets/interface'
-import { envClient } from '@/config/env'
+import { envClient, envServer } from '@/config/env'
 import { mainFont } from '@/config/fonts'
 import { routing } from '@/pkg/libraries/locale/routing'
 import { RestApiProvider } from '@/pkg/libraries/rest-api'
@@ -99,7 +99,7 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
   // return
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
-      {process.env.NODE_ENV !== 'production' && <ScanComponent />}
+      {envServer.NODE_ENV !== 'production' && <ScanComponent />}
 
       <body className={`${mainFont.className} antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider>
