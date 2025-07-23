@@ -6,7 +6,6 @@ import {
   HeroBlock,
   ImageScrollerBlock,
   ListBlock,
-  ProductsBlock,
   SectionBlock,
   TabsBlock,
 } from '../features/page'

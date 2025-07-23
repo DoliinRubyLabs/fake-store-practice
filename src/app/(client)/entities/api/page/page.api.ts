@@ -22,11 +22,5 @@ export const pagesQueryApi = async (opt: QueryFunctionContext, queryParams: IPag
     })
     .json()
 
-  const data = res?.docs?.at(0)
-
-  if (!data) {
-    return notFound()
-  }
-
-  return data
+  return res?.docs?.at(0)
 }
