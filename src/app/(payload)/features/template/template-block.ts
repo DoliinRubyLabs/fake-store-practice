@@ -9,8 +9,8 @@ export const TemplateBlock: Block = {
   },
   fields: [
     {
-      name: 'template',
       type: 'relationship',
+      name: 'template',
       label: 'Template',
       required: true,
       relationTo: 'templates',

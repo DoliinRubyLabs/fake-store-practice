@@ -1,64 +1,45 @@
-import { IActionField, IDisclosure, IFormField, IImage, IMeta, IProduct, TRichText } from './common.model'
+import { IActionField, IFormField, IImage, IMeta, IProduct, TAlignment, TRichText } from './common.model'
 
-// hero main block
-export interface IHeroMainBlock {
+// hero block
+export interface IHeroBlock {
   id: string
   name: string
   slug: string
   updatedAt: string
   createdAt: string
-  blockType: 'heroMainBlock'
+  blockType: 'heroBlock'
   title: string
   subtitle?: string | null
   image: IImage
-  action: IActionField
+  action?: IActionField | null
 }
 
-// title block
-export interface ITitleBlock {
+// image scroller block
+export interface IImageScrollerBlock {
+  id: string
+  blockType: 'imageScrollerBlock'
+  rows: {
+    id: string
+    image: IImage
+  }[]
+}
+
+// section block
+export interface ISectionBlock {
   id: string
   name: string
   slug: string
   updatedAt: string
   createdAt: string
-  blockType: 'titleBlock'
+  blockType: 'sectionBlock'
   title: string
   subtitle?: string | null
-  disclosure?: IDisclosure
-  showDisclosure: boolean
+  content: TRichText
+  contentAlignment: TAlignment
+  textAlignment: TAlignment
 }
 
-// comparisons title block
-export interface IComparisonsTitleBlock {
-  id: string
-  name: string
-  slug: string
-  updatedAt: string
-  createdAt: string
-  blockType: 'comparisonsTitleBlock'
-  title: string
-  showSubtitle: boolean
-  showBadge: boolean
-  showSortBy: boolean
-  showDisclosure: boolean
-  subtitle?: {
-    iconSvg: string
-    label: string
-  } | null
-  badge?: {
-    label: string
-    value: string
-  } | null
-  sortBy?:
-    | {
-        label: string
-        value: string
-      }[]
-    | null
-  disclosure?: IDisclosure | null
-}
-
-// comparisons block
+// list block
 export interface IListBlock {
   id: string
   name: string
@@ -67,17 +48,16 @@ export interface IListBlock {
   createdAt: string
   blockType: 'listBlock'
   title: string
-  subtitle: string
-  disclosure?: IDisclosure
-  showDisclosure: boolean
+  subtitle?: string | null
   rows: {
+    id: string
     image: IImage
     title: string
-    description?: string | null
+    description: string
     url: string
-    asTop: boolean
   }[]
-  action: IActionField
+  action?: IActionField | null
+  showAction: boolean
 }
 
 // tabs block
@@ -96,7 +76,7 @@ export interface ITabsBlock {
     icon: string
     title: string
     image: IImage
-    items: {
+    rows: {
       id: string
       icon: string
       description: string
@@ -104,11 +84,21 @@ export interface ITabsBlock {
   }[]
 }
 
-// rich text block
-export interface IRichTextBlock {
+// categories card block
+export interface ICategoriesBlock {
   id: string
-  blockType: 'richTextBlock'
-  content: TRichText
+  slug: string
+  name: string
+  updatedAt: string
+  createdAt: string
+  blockType: 'categoriesBlock'
+  title: string
+  subtitle?: string | null
+  cardBlockType: 'cards' | 'list'
+  categories: {
+    id: string
+    category: ICategory
+  }[]
 }
 
 // feedback block
@@ -120,45 +110,10 @@ export interface IFeedbackBlock {
   createdAt: string
   blockType: 'feedbackBlock'
   title: string
-  description?: TRichText
+  subtitle?: TRichText | null
   formField: IFormField
-  formAction: IActionField
+  formAction?: IActionField | null
   showSubmitButton: boolean
-}
-
-// image scroller block
-export interface IImageScrollerBlock {
-  id: string
-  blockType: 'imageScrollerBlock'
-  list: {
-    id: string
-    image: IImage
-  }[]
-}
-
-// categories card block
-export interface ICategoriesBlock {
-  id: string
-  name: string
-  title: string
-  subtitle?: string | null
-  cardBlockType: 'cards' | 'list'
-  disclosure?: IDisclosure
-  showDisclosure: boolean
-  categories: {
-    id: string
-    category: ICategory
-  }[]
-  blockType: 'categoriesBlock'
-}
-
-// text with menu block
-export interface IArticleBlock {
-  id: string
-  title: string
-  subtitle?: string | null
-  content: TRichText
-  blockType: 'articleBlock'
 }
 
 // products block
@@ -185,22 +140,21 @@ export interface ITemplateBlock {
     updatedAt: string
     createdAt: string
     blockType:
+      | 'heroBlock'
+      | 'sectionBlock'
       | 'imageScrollerBlock'
       | 'listBlock'
-      | 'feedbackBlock'
-      | 'categoriesCardBlock'
-      | 'heroMainBlock'
       | 'tabsBlock'
-      | 'articleBlock'
+      | 'categoriesCardBlock'
+      | 'feedbackBlock'
     blocks: (
+      | IHeroBlock
+      | ISectionBlock
       | IImageScrollerBlock
       | IListBlock
-      | IFeedbackBlock
-      | ICategoriesBlock
-      | IHeroMainBlock
       | ITabsBlock
-      | IRichTextBlock
-      | IArticleBlock
+      | ICategoriesBlock
+      | IFeedbackBlock
     )[]
   }
 }
@@ -217,6 +171,6 @@ export interface ICategory {
   products: {
     docs: IProduct[]
   }
-  blocks: IFeedbackBlock[] | IComparisonsTitleBlock[] | IProductsBlock[]
+  blocks: IFeedbackBlock[] | IProductsBlock[]
   meta: IMeta
 }

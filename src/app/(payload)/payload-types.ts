@@ -171,6 +171,15 @@ export interface Page {
             blockType: 'heroBlock';
           }
         | {
+            rows: {
+              image: string | Image;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageScrollerBlock';
+          }
+        | {
             title: string;
             subtitle?: string | null;
             content: {
@@ -193,15 +202,6 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'sectionBlock';
-          }
-        | {
-            list: {
-              image: string | Image;
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'imageScrollerBlock';
           }
         | {
             title: string;
@@ -248,7 +248,7 @@ export interface Page {
                   icon: string;
                   title: string;
                   image: string | Image;
-                  items?:
+                  rows?:
                     | {
                         /**
                          * Copy and paste the icon svg code from: https://lucide.dev/icons
@@ -264,26 +264,6 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'tabsBlock';
-          }
-        | {
-            content?: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'richTextBlock';
           }
         | {
             title: string;
@@ -404,6 +384,15 @@ export interface Template {
             blockType: 'heroBlock';
           }
         | {
+            rows: {
+              image: string | Image;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageScrollerBlock';
+          }
+        | {
             title: string;
             subtitle?: string | null;
             content: {
@@ -426,35 +415,6 @@ export interface Template {
             id?: string | null;
             blockName?: string | null;
             blockType: 'sectionBlock';
-          }
-        | {
-            list: {
-              image: string | Image;
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'imageScrollerBlock';
-          }
-        | {
-            content?: {
-              root: {
-                type: string;
-                children: {
-                  type: string;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'richTextBlock';
           }
         | {
             title: string;
@@ -501,7 +461,7 @@ export interface Template {
                   icon: string;
                   title: string;
                   image: string | Image;
-                  items?:
+                  rows?:
                     | {
                         /**
                          * Copy and paste the icon svg code from: https://lucide.dev/icons
@@ -517,6 +477,20 @@ export interface Template {
             id?: string | null;
             blockName?: string | null;
             blockType: 'tabsBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            cardBlockType: 'cards' | 'list';
+            categories?:
+              | {
+                  category: string | Category;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'categoriesBlock';
           }
         | {
             title: string;
@@ -570,20 +544,6 @@ export interface Template {
             id?: string | null;
             blockName?: string | null;
             blockType: 'feedbackBlock';
-          }
-        | {
-            title: string;
-            subtitle?: string | null;
-            cardBlockType: 'cards' | 'list';
-            categories?:
-              | {
-                  category: string | Category;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'categoriesBlock';
           }
       )[]
     | null;
@@ -949,6 +909,18 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        imageScrollerBlock?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         sectionBlock?:
           | T
           | {
@@ -957,18 +929,6 @@ export interface PagesSelect<T extends boolean = true> {
               content?: T;
               contentAlignment?: T;
               textAlignment?: T;
-              id?: T;
-              blockName?: T;
-            };
-        imageScrollerBlock?:
-          | T
-          | {
-              list?:
-                | T
-                | {
-                    image?: T;
-                    id?: T;
-                  };
               id?: T;
               blockName?: T;
             };
@@ -1017,7 +977,7 @@ export interface PagesSelect<T extends boolean = true> {
                     icon?: T;
                     title?: T;
                     image?: T;
-                    items?:
+                    rows?:
                       | T
                       | {
                           icon?: T;
@@ -1026,13 +986,6 @@ export interface PagesSelect<T extends boolean = true> {
                         };
                     id?: T;
                   };
-              id?: T;
-              blockName?: T;
-            };
-        richTextBlock?:
-          | T
-          | {
-              content?: T;
               id?: T;
               blockName?: T;
             };
@@ -1306,21 +1259,10 @@ export interface TemplatesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        sectionBlock?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              content?: T;
-              contentAlignment?: T;
-              textAlignment?: T;
-              id?: T;
-              blockName?: T;
-            };
         imageScrollerBlock?:
           | T
           | {
-              list?:
+              rows?:
                 | T
                 | {
                     image?: T;
@@ -1329,10 +1271,14 @@ export interface TemplatesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        richTextBlock?:
+        sectionBlock?:
           | T
           | {
+              title?: T;
+              subtitle?: T;
               content?: T;
+              contentAlignment?: T;
+              textAlignment?: T;
               id?: T;
               blockName?: T;
             };
@@ -1381,13 +1327,28 @@ export interface TemplatesSelect<T extends boolean = true> {
                     icon?: T;
                     title?: T;
                     image?: T;
-                    items?:
+                    rows?:
                       | T
                       | {
                           icon?: T;
                           description?: T;
                           id?: T;
                         };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        categoriesBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              cardBlockType?: T;
+              categories?:
+                | T
+                | {
+                    category?: T;
                     id?: T;
                   };
               id?: T;
@@ -1431,21 +1392,6 @@ export interface TemplatesSelect<T extends boolean = true> {
                     openInNewTab?: T;
                   };
               showSubmitButton?: T;
-              id?: T;
-              blockName?: T;
-            };
-        categoriesBlock?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              cardBlockType?: T;
-              categories?:
-                | T
-                | {
-                    category?: T;
-                    id?: T;
-                  };
               id?: T;
               blockName?: T;
             };

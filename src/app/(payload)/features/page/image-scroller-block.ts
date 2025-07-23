@@ -9,16 +9,16 @@ export const ImageScrollerBlock: Block = {
   },
   fields: [
     {
-      name: 'list',
       type: 'array',
+      name: 'rows',
       label: 'Images',
       minRows: 1,
       maxRows: 10,
       required: true,
       fields: [
         {
-          name: 'image',
           type: 'upload',
+          name: 'image',
           label: 'Image',
           required: true,
           relationTo: 'images',

@@ -2,8 +2,8 @@ import { Field } from 'payload'
 
 // content alignment field
 export const contentAlignmentField: Field = {
-  name: 'contentAlignment',
   type: 'select',
+  name: 'contentAlignment',
   label: 'Content Alignment',
   required: true,
   options: [
@@ -18,8 +18,8 @@ export const contentAlignmentField: Field = {
 
 // text alignment field
 export const textAlignmentField: Field = {
-  name: 'textAlignment',
   type: 'select',
+  name: 'textAlignment',
   label: 'Text Alignment',
   required: true,
   options: [

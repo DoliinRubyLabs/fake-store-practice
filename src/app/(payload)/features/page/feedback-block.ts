@@ -12,8 +12,8 @@ export const FeedbackBlock: Block = {
   },
   fields: [
     {
-      name: 'title',
       type: 'text',
+      name: 'title',
       label: 'Title',
       required: true,
     },

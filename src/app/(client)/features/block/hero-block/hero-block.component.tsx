@@ -4,17 +4,17 @@ import { type FC } from 'react'
 import { cn } from '@heroui/react'
 import { Skeleton } from '@heroui/skeleton'
 
-import { type IHeroMainBlock } from '@/client/entities/models/block'
+import { type IHeroBlock } from '@/client/entities/models/block'
 import { ActionComponent } from '@/client/shared/ui/action'
 
 // interface
 interface IProps {
-  data: IHeroMainBlock
+  data: IHeroBlock
   isLoading?: boolean
 }
 
 // component
-const HeroMainBlockComponent: FC<Readonly<IProps>> = (props) => {
+const HeroBlockComponent: FC<Readonly<IProps>> = (props) => {
   const { data, isLoading } = props
 
   // return
@@ -71,4 +71,4 @@ const HeroMainBlockComponent: FC<Readonly<IProps>> = (props) => {
   )
 }
 
-export default HeroMainBlockComponent
+export default HeroBlockComponent

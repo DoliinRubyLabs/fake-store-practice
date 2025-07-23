@@ -37,13 +37,13 @@ const FeedbackBlockComponent: FC<Readonly<IProps>> = (props) => {
       id={data?.id}
       classNames={{
         content: cn(
-          'mx-auto grid w-full  gap-4 rounded-3xl bg-primary-50/50 p-6 align-middle sm:grid-cols-[1fr_auto] md:p-8',
+          'mx-auto grid w-full max-w-[1000px]  gap-4 rounded-3xl bg-primary-50/50 p-6 align-middle sm:grid-cols-[1fr_auto] md:p-8',
         ),
       }}
     >
       {data?.title && <h3 className='text-2xl font-semibold md:text-3xl'>{data?.title}</h3>}
 
-      {data?.description && <RichText data={data?.description} />}
+      {data?.subtitle && <RichText data={data?.subtitle} />}
 
       <div className='grid sm:w-[468px]'>
         <form onSubmit={onSubmit} className='align-center grid w-full sm:grid-cols-[1fr_auto]'>
@@ -56,7 +56,7 @@ const FeedbackBlockComponent: FC<Readonly<IProps>> = (props) => {
             className='bg-white sm:mr-2 sm:w-[360px]'
           />
 
-          {data?.showSubmitButton && (
+          {data?.showSubmitButton && data?.formAction && (
             <ActionComponent
               {...data?.formAction}
               isDisabled={isSubmitting}

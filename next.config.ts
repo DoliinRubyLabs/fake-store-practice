@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
   output: 'standalone',
 
   poweredByHeader: false,
-  cacheMaxMemorySize: 150 * 1024 * 1024,
+  cacheMaxMemorySize: 100 * 1024 * 1024,
 
   logging: {
     fetches: {

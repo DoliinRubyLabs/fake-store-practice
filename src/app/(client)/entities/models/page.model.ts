@@ -1,16 +1,12 @@
 import {
-  IArticleBlock,
   ICategoriesBlock,
-  IComparisonsTitleBlock,
   IFeedbackBlock,
-  IHeroMainBlock,
+  IHeroBlock,
   IImageScrollerBlock,
   IListBlock,
-  IProductsBlock,
-  IRichTextBlock,
+  ISectionBlock,
   ITabsBlock,
   ITemplateBlock,
-  ITitleBlock,
 } from './block'
 import { IMeta, IPagination } from './common.model'
 
@@ -44,17 +40,13 @@ export interface IPage {
   createdAt: string
   blocks:
     | ITemplateBlock[]
-    | IFeedbackBlock[]
-    | IHeroMainBlock[]
-    | ITitleBlock[]
-    | IComparisonsTitleBlock[]
+    | IHeroBlock[]
+    | ISectionBlock[]
+    | IImageScrollerBlock[]
     | IListBlock[]
     | ITabsBlock[]
-    | IImageScrollerBlock[]
     | ICategoriesBlock[]
-    | IRichTextBlock[]
-    | IArticleBlock[]
-    | IProductsBlock[]
+    | IFeedbackBlock[]
   meta: IMeta
 }
 

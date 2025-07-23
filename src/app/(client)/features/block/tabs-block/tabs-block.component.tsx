@@ -48,7 +48,7 @@ const TabsBlockComponent: FC<Readonly<IProps>> = (props) => {
                 <p className='mb-2 text-base font-bold md:text-lg'>{tab?.title}</p>
 
                 <ul className='text-foreground/70 space-y-3'>
-                  {tab?.items?.map((item, index) => (
+                  {tab?.rows?.map((item, index) => (
                     <li key={`${item?.id}-${index}-list`} className='grid grid-cols-[auto_1fr] gap-2'>
                       <span
                         className='[&_svg]:fill-success mt-1 [&_svg]:h-4 [&_svg]:w-4'

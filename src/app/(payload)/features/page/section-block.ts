@@ -27,7 +27,9 @@ export const SectionBlock: Block = {
       label: 'Content',
       required: true,
     },
-    contentAlignmentField,
-    textAlignmentField,
+    {
+      type: 'row',
+      fields: [contentAlignmentField, textAlignmentField],
+    },
   ],
 }

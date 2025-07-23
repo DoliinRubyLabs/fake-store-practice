@@ -7,7 +7,6 @@ import { cn } from '@heroui/react'
 import { Skeleton } from '@heroui/skeleton'
 
 import { ICategoriesBlock } from '@/app/(client)/entities/models'
-import { DisclosureComponent } from '@/app/(client)/shared/ui/disclosure'
 import { Link } from '@/pkg/libraries/locale'
 
 // interface
@@ -31,8 +30,6 @@ const CategoriesBlockComponent: FC<Readonly<IProps>> = (props) => {
       {data?.cardBlockType === 'list' && (
         <>
           <div>
-            {data?.showDisclosure && data?.disclosure && <DisclosureComponent data={data?.disclosure} />}
-
             <p className='mt-6 flex items-center gap-2 text-3xl font-bold md:text-4xl'>{data?.title}</p>
 
             {data?.subtitle && (

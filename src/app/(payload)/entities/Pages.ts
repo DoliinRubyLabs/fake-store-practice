@@ -6,7 +6,6 @@ import {
   HeroBlock,
   ImageScrollerBlock,
   ListBlock,
-  RichTextBlock,
   SectionBlock,
   TabsBlock,
 } from '../features/page'
@@ -39,8 +38,8 @@ export const Pages: CollectionConfig = {
   },
   fields: [
     {
-      name: 'name',
       type: 'text',
+      name: 'name',
       label: 'Name',
       required: true,
       defaultValue: 'Home Page',
@@ -53,8 +52,8 @@ export const Pages: CollectionConfig = {
           label: 'Page',
           fields: [
             {
-              name: 'blocks',
               type: 'blocks',
+              name: 'blocks',
               label: 'Blocks',
               labels: {
                 singular: 'Block',
@@ -63,11 +62,10 @@ export const Pages: CollectionConfig = {
               blocks: [
                 TemplateBlock,
                 HeroBlock,
-                SectionBlock,
                 ImageScrollerBlock,
+                SectionBlock,
                 ListBlock,
                 TabsBlock,
-                RichTextBlock,
                 CategoriesBlock,
                 FeedbackBlock,
               ],
@@ -84,8 +82,8 @@ export const Pages: CollectionConfig = {
       ],
     },
     {
-      name: 'blocksInfo',
       type: 'text',
+      name: 'blocksInfo',
       access: { read: ({ req }) => Boolean(req.user) },
       admin: {
         readOnly: true,
@@ -106,8 +104,8 @@ export const Pages: CollectionConfig = {
       },
     },
     {
-      name: 'seoInfo',
       type: 'text',
+      name: 'seoInfo',
       access: { read: ({ req }) => Boolean(req.user) },
       admin: {
         readOnly: true,

@@ -7,7 +7,6 @@ import { Skeleton } from '@heroui/skeleton'
 
 import { IListBlock } from '@/client/entities/models/block'
 import { ActionComponent } from '@/client/shared/ui/action'
-import { DisclosureComponent } from '@/client/shared/ui/disclosure'
 import { Link } from '@/pkg/libraries/locale'
 
 // interface
@@ -32,14 +31,12 @@ const ListBlockComponent: FC<Readonly<IProps>> = (props) => {
         content: 'rounded-3xl bg-primary-50/50 px-6 py-10 md:p-8',
       }}
     >
-      {data?.showDisclosure && data?.disclosure && <DisclosureComponent data={data?.disclosure} />}
-
       <h2 className='text-primary-900 mb-1 flex items-center gap-2 text-3xl font-bold md:text-4xl'>{data.title}</h2>
 
       {data?.subtitle && <p className='text-foreground/70 mb-6 sm:text-xl md:text-lg xl:text-xl'>{data.subtitle}</p>}
 
       {data.rows?.slice(0, 1)?.map((item, index) => (
-        <div key={`${item.title}-${index}-top`} className='mb-6 flex flex-col gap-6 md:flex-row'>
+        <div key={`${item?.id}-${index}-top`} className='mb-6 flex flex-col gap-6 md:flex-row'>
           <div className='bg-default-100 h-[180px] w-full flex-shrink-0 overflow-hidden rounded-xl md:w-[320px]'>
             <Image
               src={item.image?.url}
@@ -70,7 +67,7 @@ const ListBlockComponent: FC<Readonly<IProps>> = (props) => {
 
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
         {data.rows?.slice(1)?.map((item, index) => (
-          <div key={`${item.title}-${index}-additional`} className='flex items-start gap-4'>
+          <div key={`${item?.id}-${index}-additional`} className='flex items-start gap-4'>
             <div className='bg-default-100 h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg'>
               <Image
                 src={item.image.url}
@@ -90,9 +87,11 @@ const ListBlockComponent: FC<Readonly<IProps>> = (props) => {
         ))}
       </div>
 
-      <div className='mt-8 flex justify-center'>
-        <ActionComponent {...data.action} />
-      </div>
+      {data?.showAction && data?.action && (
+        <div className='mt-8 flex justify-center'>
+          <ActionComponent {...data?.action} />
+        </div>
+      )}
     </Skeleton>
   )
 }

@@ -11,45 +11,45 @@ export const ListBlock: Block = {
   },
   fields: [
     {
-      name: 'title',
       type: 'text',
+      name: 'title',
       label: 'Title',
       required: true,
     },
     {
-      name: 'subtitle',
       type: 'text',
+      name: 'subtitle',
       label: 'Subtitle',
     },
     {
-      name: 'rows',
       type: 'array',
+      name: 'rows',
       label: 'Rows',
       minRows: 1,
       maxRows: 11,
       fields: [
         {
-          name: 'image',
           type: 'upload',
+          name: 'image',
           label: 'Image',
           required: true,
           relationTo: 'images',
         },
         {
-          name: 'title',
           type: 'text',
+          name: 'title',
           label: 'Title',
           required: true,
         },
         {
-          name: 'description',
           type: 'text',
+          name: 'description',
           label: 'Description',
           required: true,
         },
         {
-          name: 'url',
           type: 'text',
+          name: 'url',
           label: 'URL',
           required: true,
         },

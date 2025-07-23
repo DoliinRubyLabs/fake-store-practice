@@ -98,9 +98,3 @@ export interface IProduct {
   }[]
   meta: IMeta
 }
-
-// disclosure
-export interface IDisclosure {
-  title: string
-  info: TRichText
-}

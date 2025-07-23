@@ -20,8 +20,8 @@ export const TabsBlock: Block = {
       label: 'Subtitle',
     },
     {
-      name: 'tabs',
       type: 'array',
+      name: 'tabs',
       label: 'Tabs',
       minRows: 1,
       maxRows: 3,
@@ -65,8 +65,8 @@ export const TabsBlock: Block = {
         },
         {
           type: 'array',
-          name: 'items',
-          label: 'Items',
+          name: 'rows',
+          label: 'Rows',
           minRows: 1,
           maxRows: 5,
           fields: [
