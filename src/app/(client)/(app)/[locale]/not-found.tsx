@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import { ContainerComponent } from '@/client/shared/ui/container'
 import { NotFoundComponent } from '@/client/shared/ui/not-found'
 
-// page
+// component
 const NotFound: NextPage = () => {
   // return
   return (

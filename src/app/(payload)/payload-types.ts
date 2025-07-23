@@ -620,6 +620,15 @@ export interface Category {
             blockType: 'heroBlock';
           }
         | {
+            rows: {
+              image: string | Image;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageScrollerBlock';
+          }
+        | {
             title: string;
             subtitle?: string | null;
             content: {
@@ -644,10 +653,334 @@ export interface Category {
             blockType: 'sectionBlock';
           }
         | {
-            includeProducts: 'bySlug';
+            title: string;
+            subtitle?: string | null;
+            rows?:
+              | {
+                  image: string | Image;
+                  title: string;
+                  description: string;
+                  url: string;
+                  id?: string | null;
+                }[]
+              | null;
+            action?: {
+              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
+              text?: string | null;
+              url?: string | null;
+              /**
+               * Copy and paste the icon svg code from: https://lucide.dev/icons
+               */
+              iconSvg?: string | null;
+              iconPosition?: ('left' | 'right') | null;
+              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
+              linkVariant: 'default' | 'underline';
+              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
+              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
+              asLink?: boolean | null;
+              openInNewTab?: boolean | null;
+            };
+            showAction?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'listBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            tabs?:
+              | {
+                  label: string;
+                  /**
+                   * Copy and paste the icon svg code from: https://lucide.dev/icons
+                   */
+                  icon: string;
+                  title: string;
+                  image: string | Image;
+                  rows?:
+                    | {
+                        /**
+                         * Copy and paste the icon svg code from: https://lucide.dev/icons
+                         */
+                        icon: string;
+                        description: string;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tabsBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            cardBlockType: 'cards' | 'list';
+            categories?:
+              | {
+                  category: string | Category;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'categoriesBlock';
+          }
+        | {
+            title: string;
+            subtitle?: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            formField: {
+              fieldType: 'textInput' | 'emailInput' | 'phoneInput' | 'textareaInput' | 'select' | 'checkbox' | 'radio';
+              fieldLabel?: string | null;
+              fieldPlaceholder?: string | null;
+              fieldIsRequired?: boolean | null;
+              fieldInfoMessage?: string | null;
+              fieldErrorMessage?: string | null;
+              fieldOptions?:
+                | {
+                    fieldOptionLabel: string;
+                    fieldOptionValue: string;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            formAction?: {
+              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
+              text?: string | null;
+              url?: string | null;
+              /**
+               * Copy and paste the icon svg code from: https://lucide.dev/icons
+               */
+              iconSvg?: string | null;
+              iconPosition?: ('left' | 'right') | null;
+              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
+              linkVariant: 'default' | 'underline';
+              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
+              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
+              asLink?: boolean | null;
+              openInNewTab?: boolean | null;
+            };
+            showSubmitButton?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'feedbackBlock';
+          }
+        | {
+            includeProducts: 'byCategorySlug';
             id?: string | null;
             blockName?: string | null;
             blockType: 'productsBlock';
+          }
+      )[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Image;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: string;
+  _products_products_order?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  isBestChoice?: boolean | null;
+  isValueForMoney?: boolean | null;
+  hasDiscount?: boolean | null;
+  hasDetails?: boolean | null;
+  image: string | Image;
+  shortName: string;
+  fullName: string;
+  estimatedPrice: number;
+  discountPercent?: number | null;
+  categories: string | Category;
+  productLink: string;
+  rank: {
+    value: number;
+    label: string;
+  };
+  details?:
+    | {
+        title: string;
+        rows?:
+          | {
+              /**
+               * Copy and paste the icon svg code from: https://lucide.dev/icons
+               */
+              iconSvg: string;
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  blocks?:
+    | (
+        | {
+            template: string | Template;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'templateBlock';
+          }
+        | {
+            image: string | Image;
+            title: string;
+            subtitle?: string | null;
+            action: {
+              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
+              text?: string | null;
+              url?: string | null;
+              /**
+               * Copy and paste the icon svg code from: https://lucide.dev/icons
+               */
+              iconSvg?: string | null;
+              iconPosition?: ('left' | 'right') | null;
+              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
+              linkVariant: 'default' | 'underline';
+              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
+              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
+              asLink?: boolean | null;
+              openInNewTab?: boolean | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heroBlock';
+          }
+        | {
+            rows: {
+              image: string | Image;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageScrollerBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            contentAlignment: 'left' | 'center' | 'right';
+            textAlignment: 'left' | 'center' | 'right';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'sectionBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            rows?:
+              | {
+                  image: string | Image;
+                  title: string;
+                  description: string;
+                  url: string;
+                  id?: string | null;
+                }[]
+              | null;
+            action?: {
+              actionType: 'link' | 'linkIcon' | 'linkIconOnly' | 'button' | 'buttonIcon' | 'buttonIconOnly';
+              text?: string | null;
+              url?: string | null;
+              /**
+               * Copy and paste the icon svg code from: https://lucide.dev/icons
+               */
+              iconSvg?: string | null;
+              iconPosition?: ('left' | 'right') | null;
+              linkColor: 'foreground' | 'primary' | 'secondary' | 'success' | 'warning';
+              linkVariant: 'default' | 'underline';
+              buttonColor: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
+              buttonVariant: 'light' | 'solid' | 'ghost' | 'faded' | 'flat' | 'shadow' | 'bordered';
+              asLink?: boolean | null;
+              openInNewTab?: boolean | null;
+            };
+            showAction?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'listBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            tabs?:
+              | {
+                  label: string;
+                  /**
+                   * Copy and paste the icon svg code from: https://lucide.dev/icons
+                   */
+                  icon: string;
+                  title: string;
+                  image: string | Image;
+                  rows?:
+                    | {
+                        /**
+                         * Copy and paste the icon svg code from: https://lucide.dev/icons
+                         */
+                        icon: string;
+                        description: string;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tabsBlock';
+          }
+        | {
+            title: string;
+            subtitle?: string | null;
+            cardBlockType: 'cards' | 'list';
+            categories?:
+              | {
+                  category: string | Category;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'categoriesBlock';
           }
         | {
             title: string;
@@ -703,58 +1036,6 @@ export interface Category {
             blockType: 'feedbackBlock';
           }
       )[]
-    | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Image;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "products".
- */
-export interface Product {
-  id: string;
-  _products_products_order?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  isBestChoice?: boolean | null;
-  isValueForMoney?: boolean | null;
-  hasDiscount?: boolean | null;
-  hasDetails?: boolean | null;
-  image: string | Image;
-  shortName: string;
-  fullName: string;
-  estimatedPrice: number;
-  discountPercent?: number | null;
-  categories: string | Category;
-  productLink: string;
-  rank: {
-    value: number;
-    label: string;
-  };
-  details?:
-    | {
-        title: string;
-        rows?:
-          | {
-              /**
-               * Copy and paste the icon svg code from: https://lucide.dev/icons
-               */
-              iconSvg: string;
-              label: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
     | null;
   meta?: {
     title?: string | null;
@@ -1104,6 +1385,18 @@ export interface CategoriesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        imageScrollerBlock?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         sectionBlock?:
           | T
           | {
@@ -1115,10 +1408,75 @@ export interface CategoriesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        productsBlock?:
+        listBlock?:
           | T
           | {
-              includeProducts?: T;
+              title?: T;
+              subtitle?: T;
+              rows?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    description?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              action?:
+                | T
+                | {
+                    actionType?: T;
+                    text?: T;
+                    url?: T;
+                    iconSvg?: T;
+                    iconPosition?: T;
+                    linkColor?: T;
+                    linkVariant?: T;
+                    buttonColor?: T;
+                    buttonVariant?: T;
+                    asLink?: T;
+                    openInNewTab?: T;
+                  };
+              showAction?: T;
+              id?: T;
+              blockName?: T;
+            };
+        tabsBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              tabs?:
+                | T
+                | {
+                    label?: T;
+                    icon?: T;
+                    title?: T;
+                    image?: T;
+                    rows?:
+                      | T
+                      | {
+                          icon?: T;
+                          description?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        categoriesBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              cardBlockType?: T;
+              categories?:
+                | T
+                | {
+                    category?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -1160,6 +1518,13 @@ export interface CategoriesSelect<T extends boolean = true> {
                     openInNewTab?: T;
                   };
               showSubmitButton?: T;
+              id?: T;
+              blockName?: T;
+            };
+        productsBlock?:
+          | T
+          | {
+              includeProducts?: T;
               id?: T;
               blockName?: T;
             };
@@ -1212,6 +1577,177 @@ export interface ProductsSelect<T extends boolean = true> {
               id?: T;
             };
         id?: T;
+      };
+  blocks?:
+    | T
+    | {
+        templateBlock?:
+          | T
+          | {
+              template?: T;
+              id?: T;
+              blockName?: T;
+            };
+        heroBlock?:
+          | T
+          | {
+              image?: T;
+              title?: T;
+              subtitle?: T;
+              action?:
+                | T
+                | {
+                    actionType?: T;
+                    text?: T;
+                    url?: T;
+                    iconSvg?: T;
+                    iconPosition?: T;
+                    linkColor?: T;
+                    linkVariant?: T;
+                    buttonColor?: T;
+                    buttonVariant?: T;
+                    asLink?: T;
+                    openInNewTab?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        imageScrollerBlock?:
+          | T
+          | {
+              rows?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        sectionBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              content?: T;
+              contentAlignment?: T;
+              textAlignment?: T;
+              id?: T;
+              blockName?: T;
+            };
+        listBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              rows?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    description?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              action?:
+                | T
+                | {
+                    actionType?: T;
+                    text?: T;
+                    url?: T;
+                    iconSvg?: T;
+                    iconPosition?: T;
+                    linkColor?: T;
+                    linkVariant?: T;
+                    buttonColor?: T;
+                    buttonVariant?: T;
+                    asLink?: T;
+                    openInNewTab?: T;
+                  };
+              showAction?: T;
+              id?: T;
+              blockName?: T;
+            };
+        tabsBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              tabs?:
+                | T
+                | {
+                    label?: T;
+                    icon?: T;
+                    title?: T;
+                    image?: T;
+                    rows?:
+                      | T
+                      | {
+                          icon?: T;
+                          description?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        categoriesBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              cardBlockType?: T;
+              categories?:
+                | T
+                | {
+                    category?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        feedbackBlock?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              formField?:
+                | T
+                | {
+                    fieldType?: T;
+                    fieldLabel?: T;
+                    fieldPlaceholder?: T;
+                    fieldIsRequired?: T;
+                    fieldInfoMessage?: T;
+                    fieldErrorMessage?: T;
+                    fieldOptions?:
+                      | T
+                      | {
+                          fieldOptionLabel?: T;
+                          fieldOptionValue?: T;
+                          id?: T;
+                        };
+                  };
+              formAction?:
+                | T
+                | {
+                    actionType?: T;
+                    text?: T;
+                    url?: T;
+                    iconSvg?: T;
+                    iconPosition?: T;
+                    linkColor?: T;
+                    linkVariant?: T;
+                    buttonColor?: T;
+                    buttonVariant?: T;
+                    asLink?: T;
+                    openInNewTab?: T;
+                  };
+              showSubmitButton?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T

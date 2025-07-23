@@ -1,6 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
-import { FeedbackBlock, HeroBlock, ProductsBlock, SectionBlock } from '../features/page'
+import {
+  CategoriesBlock,
+  FeedbackBlock,
+  HeroBlock,
+  ImageScrollerBlock,
+  ListBlock,
+  ProductsBlock,
+  SectionBlock,
+  TabsBlock,
+} from '../features/page'
 import { TemplateBlock } from '../features/template/template-block'
 import { seoFields } from '../shared/fields/seo'
 import { slugField } from '../shared/fields/slug/slug-field'
@@ -78,14 +87,24 @@ export const Categories: CollectionConfig = {
           label: 'Page',
           fields: [
             {
-              name: 'blocks',
               type: 'blocks',
+              name: 'blocks',
               label: 'Blocks',
               labels: {
                 singular: 'Block',
                 plural: 'Blocks',
               },
-              blocks: [TemplateBlock, HeroBlock, SectionBlock, ProductsBlock, FeedbackBlock],
+              blocks: [
+                TemplateBlock,
+                HeroBlock,
+                ImageScrollerBlock,
+                SectionBlock,
+                ListBlock,
+                TabsBlock,
+                CategoriesBlock,
+                FeedbackBlock,
+                ProductsBlock,
+              ],
               minRows: 1,
               maxRows: 10,
             },

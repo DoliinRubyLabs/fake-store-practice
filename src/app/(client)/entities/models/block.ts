@@ -1,4 +1,6 @@
-import { IActionField, IFormField, IImage, IMeta, IProduct, TAlignment, TRichText } from './common.model'
+import { ICategory } from './category.model'
+import { IActionField, IFormField, IImage, TAlignment, TRichText } from './common.model'
+import { IProduct } from './product.model'
 
 // hero block
 export interface IHeroBlock {
@@ -157,20 +159,4 @@ export interface IProductsBlock {
   products?: {
     docs: IProduct[]
   }
-}
-
-// category
-export interface ICategory {
-  id: string
-  updatedAt: string
-  createdAt: string
-  slug: string
-  name: string
-  image: IImage
-  description?: string | null
-  products: {
-    docs: IProduct[]
-  }
-  blocks: IFeedbackBlock[] | IProductsBlock[]
-  meta: IMeta
 }
