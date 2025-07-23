@@ -26,6 +26,9 @@ export const SectionBlock: Block = {
       name: 'content',
       label: 'Content',
       required: true,
+      admin: {
+        className: 'rich-text-container',
+      },
     },
     {
       type: 'row',
