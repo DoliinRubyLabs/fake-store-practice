@@ -1,7 +1,7 @@
 import { type FC, type ReactNode } from 'react'
 
-import { FooterComponent } from '@/client/features/footer'
-import { HeaderComponent } from '@/client/features/header'
+import { FooterComponent } from '@/app/(client)/widgets/footer'
+import { HeaderComponent } from '@/app/(client)/widgets/header'
 
 // interface
 interface IProps {
