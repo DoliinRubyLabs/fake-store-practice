@@ -1,13 +1,18 @@
 ---
 alwaysApply: true
-description: 
+description: Project structure
 ---
+
+## Architecture Guide
+
+*You can add this rule to the Cursor AI code editor (.cursor/rules/structure.mdc) which will help you follow the rules better.*
+
 
 ## Overview
 
-- **Layers** - standardized levels of abstraction
-- **Slices** - feature-based divisions within layers  
-- **Segments** - technical purpose divisions within slices
+* **Layers** - standardized levels of abstraction
+* **Slices** - feature-based divisions within layers
+* **Segments** - technical purpose divisions within slices
 
 ```
 ┌─────────────┬────────────┬────────────┐
@@ -22,7 +27,8 @@ description:
 └─────────────┴────────────┴────────────┘
 ```
 
-### Complete Project Structure
+
+## Complete Project Structure
 
 ```
 src/app/
@@ -103,7 +109,7 @@ src/app/
     │   ├── store-name.store.ts
     │   ├── ...
     │   └── index.ts
-    ├── interfaces/                                  # Segment
+    ├── interfaces/                                 # Segment
     │   ├── interface-name.interface.ts
     │   ├── ...
     │   └── index.ts
@@ -115,6 +121,7 @@ src/app/
         ├── ...
         └── index.ts
 ```
+
 
 ## Import Rules
 
@@ -133,4 +140,3 @@ Layers can only import from lower layers:
 // shared -> entities, features, widgets, modules, (app)
 // entities -> features, widgets, modules, (app)
 ```
-

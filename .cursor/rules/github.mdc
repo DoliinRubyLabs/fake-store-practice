@@ -243,6 +243,7 @@ Examples:
 | `staging` | Staging | <https://staging.domain.com> | ✅ | Final testing before production |
 | `develop` | Development | <https://develop.domain.com> | ✅ | Feature integration and testing |
 
+
 ## Workflow Diagram
 
 ```
