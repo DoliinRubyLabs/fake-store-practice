@@ -3,11 +3,6 @@ alwaysApply: true
 description: Project structure
 ---
 
-## Architecture Guide
-
-*You can add this rule to the Cursor AI code editor (.cursor/rules/structure.mdc) which will help you follow the rules better.*
-
-
 ## Overview
 
 * **Layers** - standardized levels of abstraction
@@ -62,6 +57,7 @@ src/app/
 ├── widgets/                                        # Layer - Self-sufficient parts of functionality or interface
 │   ├── widget-name/                                # Slice
 │   │   ├── elements/                               # Segment (Optional) - Custom elements    
+│   │   │   ├── element-name/
 │   │   │   │   ├── element-name.component.tsx
 │   │   │   │   └── index.ts  
 │   │   │   ├── ... 
