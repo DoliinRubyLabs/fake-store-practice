@@ -50,4 +50,4 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 USER nextjs
 
-CMD HOSTNAME="0.0.0.0" node server.js
+CMD HOSTNAME="0.0.0.0" node --no-warnings server.js
