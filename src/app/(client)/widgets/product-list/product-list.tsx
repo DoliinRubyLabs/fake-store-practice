@@ -2,9 +2,9 @@ import React, { FC, PropsWithChildren } from 'react'
 
 import { Listbox, ListboxItem } from '@heroui/listbox'
 
+import { Product } from '@/app/(payload)/payload-types'
 import { Link } from '@/pkg/libraries/locale'
 
-import { Product } from '../../(app)/[locale]/products/page'
 import ProductItem from '../product-item/product-item'
 
 export const ListboxWrapper: FC<PropsWithChildren> = ({ children }) => (

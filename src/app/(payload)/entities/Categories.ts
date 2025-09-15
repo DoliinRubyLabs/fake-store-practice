@@ -52,7 +52,7 @@ export const Categories: CollectionConfig = {
               type: 'upload',
               name: 'image',
               label: 'Image',
-              required: true,
+              required: false,
               relationTo: 'images',
             },
             {

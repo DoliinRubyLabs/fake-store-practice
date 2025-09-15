@@ -16,7 +16,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_pages_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__pages_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__pages_v_published_locale" AS ENUM('en', 'de', 'ar');
-  CREATE TYPE "public"."include_products" AS ENUM('bySlug');
+  CREATE TYPE "public"."include_products" AS ENUM('byCategorySlug');
   CREATE TYPE "public"."enum_categories_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__categories_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__categories_v_published_locale" AS ENUM('en', 'de', 'ar');
@@ -618,7 +618,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"include_products" "include_products" DEFAULT 'bySlug',
+  	"include_products" "include_products" DEFAULT 'byCategorySlug',
   	"block_name" varchar
   );
   
@@ -835,7 +835,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"include_products" "include_products" DEFAULT 'bySlug',
+  	"include_products" "include_products" DEFAULT 'byCategorySlug',
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -1061,19 +1061,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_products_products_order" varchar,
   	"slug" varchar,
   	"slug_lock" boolean DEFAULT true,
-  	"is_best_choice" boolean DEFAULT false,
-  	"is_value_for_money" boolean DEFAULT false,
-  	"has_discount" boolean DEFAULT false,
-  	"has_details" boolean DEFAULT false,
-  	"image_id" uuid,
+  	"image" varchar,
   	"short_name" varchar,
   	"full_name" varchar,
   	"estimated_price" numeric,
-  	"discount_percent" numeric,
   	"categories_id" uuid,
+  	"description" varchar,
   	"product_link" varchar,
-  	"rank_value" numeric DEFAULT 9.5,
-  	"rank_label" varchar DEFAULT 'Exceptional',
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"_status" "enum_products_status" DEFAULT 'draft'
@@ -1298,19 +1292,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version__products_products_order" varchar,
   	"version_slug" varchar,
   	"version_slug_lock" boolean DEFAULT true,
-  	"version_is_best_choice" boolean DEFAULT false,
-  	"version_is_value_for_money" boolean DEFAULT false,
-  	"version_has_discount" boolean DEFAULT false,
-  	"version_has_details" boolean DEFAULT false,
-  	"version_image_id" uuid,
+  	"version_image" varchar,
   	"version_short_name" varchar,
   	"version_full_name" varchar,
   	"version_estimated_price" numeric,
-  	"version_discount_percent" numeric,
   	"version_categories_id" uuid,
+  	"version_description" varchar,
   	"version_product_link" varchar,
-  	"version_rank_value" numeric DEFAULT 9.5,
-  	"version_rank_label" varchar DEFAULT 'Exceptional',
   	"version_updated_at" timestamp(3) with time zone,
   	"version_created_at" timestamp(3) with time zone,
   	"version__status" "enum__products_v_version_status" DEFAULT 'draft',
@@ -2087,7 +2075,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "products_blocks_categories_block" ADD CONSTRAINT "products_blocks_categories_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products_blocks_feedback_block_form_field_field_options" ADD CONSTRAINT "products_blocks_feedback_block_form_field_field_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."products_blocks_feedback_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products_blocks_feedback_block" ADD CONSTRAINT "products_blocks_feedback_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "products" ADD CONSTRAINT "products_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "products" ADD CONSTRAINT "products_categories_id_categories_id_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "products_locales" ADD CONSTRAINT "products_locales_meta_image_id_images_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "products_locales" ADD CONSTRAINT "products_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
@@ -2114,7 +2101,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "_products_v_blocks_feedback_block_form_field_field_options" ADD CONSTRAINT "_products_v_blocks_feedback_block_form_field_field_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_products_v_blocks_feedback_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_products_v_blocks_feedback_block" ADD CONSTRAINT "_products_v_blocks_feedback_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_products_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_products_v" ADD CONSTRAINT "_products_v_parent_id_products_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."products"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "_products_v" ADD CONSTRAINT "_products_v_version_image_id_images_id_fk" FOREIGN KEY ("version_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_products_v" ADD CONSTRAINT "_products_v_version_categories_id_categories_id_fk" FOREIGN KEY ("version_categories_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_products_v_locales" ADD CONSTRAINT "_products_v_locales_version_meta_image_id_images_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_products_v_locales" ADD CONSTRAINT "_products_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_products_v"("id") ON DELETE cascade ON UPDATE no action;
@@ -2447,7 +2433,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "products_blocks_feedback_block_path_idx" ON "products_blocks_feedback_block" USING btree ("_path");
   CREATE INDEX "products__products_products_order_idx" ON "products" USING btree ("_products_products_order");
   CREATE UNIQUE INDEX "products_slug_idx" ON "products" USING btree ("slug");
-  CREATE INDEX "products_image_idx" ON "products" USING btree ("image_id");
   CREATE INDEX "products_categories_idx" ON "products" USING btree ("categories_id");
   CREATE INDEX "products_updated_at_idx" ON "products" USING btree ("updated_at");
   CREATE INDEX "products_created_at_idx" ON "products" USING btree ("created_at");
@@ -2503,7 +2488,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_products_v_parent_idx" ON "_products_v" USING btree ("parent_id");
   CREATE INDEX "_products_v_version_version__products_products_order_idx" ON "_products_v" USING btree ("version__products_products_order");
   CREATE INDEX "_products_v_version_version_slug_idx" ON "_products_v" USING btree ("version_slug");
-  CREATE INDEX "_products_v_version_version_image_idx" ON "_products_v" USING btree ("version_image_id");
   CREATE INDEX "_products_v_version_version_categories_idx" ON "_products_v" USING btree ("version_categories_id");
   CREATE INDEX "_products_v_version_version_updated_at_idx" ON "_products_v" USING btree ("version_updated_at");
   CREATE INDEX "_products_v_version_version_created_at_idx" ON "_products_v" USING btree ("version_created_at");

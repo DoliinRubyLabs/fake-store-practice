@@ -580,7 +580,7 @@ export interface Category {
   slug?: string | null;
   slugLock?: boolean | null;
   name: string;
-  image: string | Image;
+  image?: (string | null) | Image;
   description?: string | null;
   products?: {
     docs?: (string | Product)[];
@@ -810,31 +810,23 @@ export interface Product {
   _products_products_order?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  isBestChoice?: boolean | null;
-  isValueForMoney?: boolean | null;
-  hasDiscount?: boolean | null;
-  hasDetails?: boolean | null;
-  image: string | Image;
+  image: string;
   shortName: string;
   fullName: string;
   estimatedPrice: number;
-  discountPercent?: number | null;
   categories: string | Category;
-  productLink: string;
-  rank: {
-    value: number;
-    label: string;
-  };
+  description?: string | null;
+  productLink?: string | null;
   details?:
     | {
-        title: string;
+        title?: string | null;
         rows?:
           | {
               /**
                * Copy and paste the icon svg code from: https://lucide.dev/icons
                */
-              iconSvg: string;
-              label: string;
+              iconSvg?: string | null;
+              label?: string | null;
               id?: string | null;
             }[]
           | null;
@@ -1548,23 +1540,13 @@ export interface ProductsSelect<T extends boolean = true> {
   _products_products_order?: T;
   slug?: T;
   slugLock?: T;
-  isBestChoice?: T;
-  isValueForMoney?: T;
-  hasDiscount?: T;
-  hasDetails?: T;
   image?: T;
   shortName?: T;
   fullName?: T;
   estimatedPrice?: T;
-  discountPercent?: T;
   categories?: T;
+  description?: T;
   productLink?: T;
-  rank?:
-    | T
-    | {
-        value?: T;
-        label?: T;
-      };
   details?:
     | T
     | {
@@ -2079,14 +2061,14 @@ export interface Layout {
           }
       )[]
     | null;
-  branding: {
+  branding?: {
     logoImage?: (string | null) | Image;
     /**
      * Copy and paste the icon svg code
      */
     logoIconSvg?: string | null;
     logoAsIconSvg?: boolean | null;
-    favicon: string | Image;
+    favicon?: (string | null) | Image;
     socialMediaLinks?:
       | {
           socialPlatform:

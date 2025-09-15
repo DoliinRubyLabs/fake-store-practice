@@ -1,5 +1,5 @@
 {
-  "id": "4e2d813a-f603-4ff3-8899-f4d3cd4fe638",
+  "id": "ec1d59b3-b98e-4724-9eab-907a7b2d120c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -6625,7 +6625,7 @@
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
-          "default": "'bySlug'"
+          "default": "'byCategorySlug'"
         },
         "block_name": {
           "name": "block_name",
@@ -9057,7 +9057,7 @@
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
-          "default": "'bySlug'"
+          "default": "'byCategorySlug'"
         },
         "_uuid": {
           "name": "_uuid",
@@ -11723,37 +11723,9 @@
           "notNull": false,
           "default": true
         },
-        "is_best_choice": {
-          "name": "is_best_choice",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "is_value_for_money": {
-          "name": "is_value_for_money",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "has_discount": {
-          "name": "has_discount",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "has_details": {
-          "name": "has_details",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "image_id": {
-          "name": "image_id",
-          "type": "uuid",
+        "image": {
+          "name": "image",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -11775,15 +11747,15 @@
           "primaryKey": false,
           "notNull": false
         },
-        "discount_percent": {
-          "name": "discount_percent",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
         "categories_id": {
           "name": "categories_id",
           "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -11792,20 +11764,6 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
-        },
-        "rank_value": {
-          "name": "rank_value",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 9.5
-        },
-        "rank_label": {
-          "name": "rank_label",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Exceptional'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -11857,21 +11815,6 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "products_image_idx": {
-          "name": "products_image_idx",
-          "columns": [
-            {
-              "expression": "image_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
           "concurrently": false,
           "method": "btree",
           "with": {}
@@ -11938,19 +11881,6 @@
         }
       },
       "foreignKeys": {
-        "products_image_id_images_id_fk": {
-          "name": "products_image_id_images_id_fk",
-          "tableFrom": "products",
-          "tableTo": "images",
-          "columnsFrom": [
-            "image_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
         "products_categories_id_categories_id_fk": {
           "name": "products_categories_id_categories_id_fk",
           "tableFrom": "products",
@@ -14348,37 +14278,9 @@
           "notNull": false,
           "default": true
         },
-        "version_is_best_choice": {
-          "name": "version_is_best_choice",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "version_is_value_for_money": {
-          "name": "version_is_value_for_money",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "version_has_discount": {
-          "name": "version_has_discount",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "version_has_details": {
-          "name": "version_has_details",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "version_image_id": {
-          "name": "version_image_id",
-          "type": "uuid",
+        "version_image": {
+          "name": "version_image",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -14400,15 +14302,15 @@
           "primaryKey": false,
           "notNull": false
         },
-        "version_discount_percent": {
-          "name": "version_discount_percent",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
         "version_categories_id": {
           "name": "version_categories_id",
           "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_description": {
+          "name": "version_description",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -14417,20 +14319,6 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
-        },
-        "version_rank_value": {
-          "name": "version_rank_value",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 9.5
-        },
-        "version_rank_label": {
-          "name": "version_rank_label",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Exceptional'"
         },
         "version_updated_at": {
           "name": "version_updated_at",
@@ -14528,21 +14416,6 @@
           "columns": [
             {
               "expression": "version_slug",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_products_v_version_version_image_idx": {
-          "name": "_products_v_version_version_image_idx",
-          "columns": [
-            {
-              "expression": "version_image_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -14711,19 +14584,6 @@
           "tableTo": "products",
           "columnsFrom": [
             "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "_products_v_version_image_id_images_id_fk": {
-          "name": "_products_v_version_image_id_images_id_fk",
-          "tableFrom": "_products_v",
-          "tableTo": "images",
-          "columnsFrom": [
-            "version_image_id"
           ],
           "columnsTo": [
             "id"
@@ -22284,7 +22144,7 @@
       "name": "include_products",
       "schema": "public",
       "values": [
-        "bySlug"
+        "byCategorySlug"
       ]
     },
     "public.enum_categories_status": {

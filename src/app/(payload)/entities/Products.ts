@@ -46,51 +46,16 @@ export const Products: CollectionConfig = {
   fields: [
     ...slugField('shortName'),
     {
-      type: 'group',
-      label: 'Options',
-      admin: {
-        position: 'sidebar',
-        className: 'group-last-container',
-      },
-      fields: [
-        {
-          type: 'checkbox',
-          name: 'isBestChoice',
-          label: 'Is Best Choice',
-          defaultValue: false,
-        },
-        {
-          type: 'checkbox',
-          name: 'isValueForMoney',
-          label: 'Is Value for Money',
-          defaultValue: false,
-        },
-        {
-          type: 'checkbox',
-          name: 'hasDiscount',
-          label: 'Has Discount',
-          defaultValue: false,
-        },
-        {
-          type: 'checkbox',
-          name: 'hasDetails',
-          label: 'Has Details',
-          defaultValue: false,
-        },
-      ],
-    },
-    {
       type: 'tabs',
       tabs: [
         {
           label: 'Product',
           fields: [
             {
-              type: 'upload',
+              type: 'text',
               name: 'image',
-              label: 'Image',
+              label: 'Image URL',
               required: true,
-              relationTo: 'images',
             },
             {
               type: 'row',
@@ -104,6 +69,7 @@ export const Products: CollectionConfig = {
                     width: '20%',
                   },
                 },
+
                 {
                   type: 'text',
                   name: 'fullName',
@@ -126,19 +92,6 @@ export const Products: CollectionConfig = {
                   },
                 },
                 {
-                  type: 'number',
-                  name: 'discountPercent',
-                  label: 'Discount Percent',
-                  required: true,
-                  min: 1,
-                  max: 100,
-                  admin: {
-                    condition: (_, siblingData) => Boolean(siblingData?.hasDiscount),
-                    step: 1,
-                    width: '20%',
-                  },
-                },
-                {
                   type: 'relationship',
                   name: 'categories',
                   relationTo: 'categories',
@@ -150,41 +103,15 @@ export const Products: CollectionConfig = {
             },
             {
               type: 'text',
-              name: 'productLink',
-              label: 'Product Link',
-              required: true,
+              name: 'description',
+              label: 'Description',
+              required: false,
             },
             {
-              type: 'group',
-              name: 'rank',
-              label: 'Rank',
-              fields: [
-                {
-                  type: 'row',
-                  fields: [
-                    {
-                      type: 'number',
-                      name: 'value',
-                      label: 'Value',
-                      required: true,
-                      min: 0,
-                      max: 10,
-                      defaultValue: 9.5,
-                      admin: {
-                        step: 0.1,
-                        placeholder: 'E.g. 9.5',
-                      },
-                    },
-                    {
-                      type: 'text',
-                      name: 'label',
-                      label: 'Label',
-                      required: true,
-                      defaultValue: 'Exceptional',
-                    },
-                  ],
-                },
-              ],
+              type: 'text',
+              name: 'productLink',
+              label: 'Product Link',
+              required: false,
             },
             {
               type: 'array',
@@ -198,7 +125,7 @@ export const Products: CollectionConfig = {
                   type: 'text',
                   name: 'title',
                   label: 'Title',
-                  required: true,
+                  required: false,
                 },
                 {
                   type: 'array',
@@ -215,7 +142,7 @@ export const Products: CollectionConfig = {
                           type: 'text',
                           name: 'iconSvg',
                           label: 'Icon SVG',
-                          required: true,
+                          required: false,
                           admin: {
                             width: '50%',
                             description: 'Copy and paste the icon svg code from: https://lucide.dev/icons',
@@ -225,7 +152,7 @@ export const Products: CollectionConfig = {
                           type: 'text',
                           name: 'label',
                           label: 'Label',
-                          required: true,
+                          required: false,
                         },
                       ],
                     },

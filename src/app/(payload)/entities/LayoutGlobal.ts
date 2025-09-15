@@ -53,7 +53,7 @@ export const LayoutGlobal: GlobalConfig = {
                       name: 'logoImage',
                       label: 'Logo',
                       relationTo: 'images',
-                      required: true,
+                      required: false,
                       admin: {
                         condition: (_, siblingData) => !siblingData.logoAsIconSvg,
                       },
@@ -79,7 +79,7 @@ export const LayoutGlobal: GlobalConfig = {
                   type: 'upload',
                   name: 'favicon',
                   relationTo: 'images',
-                  required: true,
+                  required: false,
                   label: 'Favicon',
                 },
               ],
