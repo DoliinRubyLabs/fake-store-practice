@@ -1,13 +1,14 @@
-import type { Payload } from 'payload'
+import type { SanitizedConfig } from 'payload'
+import payload from 'payload'
 
-export const seed = async (payload: Payload) => {
+export const script = async (config: SanitizedConfig) => {
+  await payload.init({ config })
   console.log('Seeding products...')
 
   const res = await fetch('https://fakestoreapi.com/products')
   const products = await res.json()
 
   for (const product of products) {
-    // 1. Ensure category exists
     const categoryResult = await payload.find({
       collection: 'categories',
       where: { name: { equals: product.category } },
@@ -25,7 +26,6 @@ export const seed = async (payload: Payload) => {
       categoryId = categoryResult.docs[0].id
     }
 
-    // 2. Create product
     await payload.create({
       collection: 'products',
       data: {

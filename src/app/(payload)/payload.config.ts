@@ -59,6 +59,12 @@ export default buildConfig({
   }),
   sharp,
   plugins,
+  bin: [
+    {
+      scriptPath: path.resolve(dirname, 'scripts/seed.ts'),
+      key: 'seed',
+    },
+  ],
   localization: locales,
   debug: envServer.NODE_ENV !== 'production',
 })

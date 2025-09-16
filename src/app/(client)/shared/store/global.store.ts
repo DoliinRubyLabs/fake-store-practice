@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-import { Product } from '../../(app)/[locale]/products/page'
+import { Product } from '@/app/(payload)/payload-types'
 
 // interface
 interface IState {
